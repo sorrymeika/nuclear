@@ -4,14 +4,14 @@
 
 1. 启动项目后在界面左侧的控件栏拖拽控件到中间装修区域，并在右侧配置控件相关属性。
 2. 属性配置使用模版语言，如:`我是{user.name},年龄{user.age}`，`{expression}`中的数据来自`controller`并且为`null`时不会抛异常。
-3. UI数据通过`mobx.observable`进行状态管理和同步
+3. UI数据通过`mobx.observable`进行状态管理和同步。
+4. UI层只是一份`json`数据。
 
 ## 优点
-1. 一个核心框架库＋多个业务库。业务库之间不依赖，可单独发布
-2. 发布后到业务库共用一份核心库的js/css/image/iconfont，减少下载资源的大小
-3. 业务库编码时调用核心库方法时有智能提示并能用cmd+click快速定位到方法位置
-4. 多个业务库，却又是单页应用。保证用户体验的统一和代码风格的统一
-5. 无需发布核心库到私有npm上，更新方便
+1. 可视化拖拽生成UI，高效率易维护。
+2. 一个核心框架库＋多个业务库。业务库之间不依赖，可单独发布。
+3. 发布后到业务库共用一份核心库的js/css/image/iconfont，减少下载资源的大小。
+4. 多个业务库，却又是单页应用。保证用户体验的统一和代码风格的统一。
 
 # 实现方式
 
@@ -26,12 +26,19 @@
 
 ## 开发
 
-1. 将`nuclear`放到当前项目的父文件夹下(与当前项目同级)
+1. 将`snowball`放到`nuclear`同级文件夹下
 2. 运行命令
 ```sh
-ln -s ../../nuclear/ ./node_modules
+ln -s ../../snowball/src ./node_modules
 ```
-3. `import nuclear from "nuclear"`
+3. `import snowball from "snowball"`
+4. 运行命令
+```sh
+# 启动nuclear
+npm start
+# 构建
+npm run build
+```
 
 ## 打包
 ```
@@ -50,16 +57,15 @@ ln -s ../../nuclear/ ./node_modules
 
 # API
 
-## app.registerProjects(projects: { [projectName]: url }) 方法
+## projects.js
 
-* 注册子项目
+* 子项目
 
 ```js
-import { registerProjects } from 'core/app';
-
-registerProjects({
-    'geass': 'http://localhost:5581/static/js/bundle.js'
-})
+export default {
+    // 子项目的路由+子项目的`bundle.js`或`asset-manifest.json`链接
+    'subproject': 'http://localhost:5581/static/js/bundle.js'
+}
 ```
 
 ## app.navigate(url: string) 方法

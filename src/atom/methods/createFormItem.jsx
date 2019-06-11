@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "antd";
 import { observer } from "mobx-react";
 
-import getProps from "../methods/getProps";
+import getProps from "./getProps";
 import { JsonComponentContext } from "../component";
 import { FormContext } from "../form/Form";
 

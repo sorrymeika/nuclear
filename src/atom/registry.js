@@ -5,7 +5,7 @@ type PropConfig = {
     useExpression: boolean
 }
 
-interface IWeaponRegistry {
+interface IAtomRegistry {
     name: string;
     propsConfig: {
         [propName]: PropConfig
@@ -17,11 +17,11 @@ interface IWeaponRegistry {
 
 const stores = {};
 
-export function registerWeapon(weaponRegistry: IWeaponRegistry) {
-    if (stores[weaponRegistry.name]) {
-        throw new Error(`${weaponRegistry.name}已被注册！`);
+export function registerAtom(atomRegistry: IAtomRegistry) {
+    if (stores[atomRegistry.name]) {
+        throw new Error(`${atomRegistry.name}已被注册！`);
     }
-    stores[weaponRegistry.name] = weaponRegistry;
+    stores[atomRegistry.name] = atomRegistry;
 }
 
 export function createFacade(name, props) {

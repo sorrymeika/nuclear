@@ -1,5 +1,5 @@
 import compileExpression from "./compileExpression";
-import util from "snowball";
+import * as util from "../utils";
 
 export default function getValue(context, valueExp, properties?) {
     if (valueExp === 'true') return true;
@@ -16,7 +16,7 @@ export default function getValue(context, valueExp, properties?) {
         context = Object.assign(Object.create(context), properties);
     }
 
-    context.$ = window.$;
+    context.$ = util.$;
     context.util = util;
 
     let method = methods[valueExp];

@@ -3,9 +3,9 @@ import { loadProject } from "./resource";
 import { IRouter } from "../types";
 
 class Route {
-    constructor(name, container) {
+    constructor(name, componentFactory) {
         this.name = name;
-        this.container = container;
+        this.componentFactory = componentFactory;
 
         const paths = name.split('/').map((item) => {
             return !item
@@ -21,8 +21,7 @@ class Route {
     match(path, search) {
         var match = path.match(this.regex);
         if (match) {
-            var result = {
-                route: this,
+            const location = {
                 match: this.regex,
                 url: path + search,
                 path: path,
@@ -31,19 +30,22 @@ class Route {
                 params: {}
             };
 
-            var i = 1;
-            var len = match.length;
+            let i = 1;
+            const len = match.length;
             if (this.map) {
                 for (; i < len; i++) {
-                    result.params[this.map[i - 1]] = match[i];
+                    location.params[this.map[i - 1]] = match[i];
                 }
             } else {
                 for (; i < len; i++) {
-                    result.params[i - 1] = match[i];
+                    location.params[i - 1] = match[i];
                 }
             }
 
-            return result;
+            return {
+                route: this,
+                location
+            };
         }
         return null;
     }

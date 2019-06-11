@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { $ } from '../../utils';
+import { $, isFunction } from '../../utils';
 import { EventEmitter } from '../../core/event';
 
 import { IPage, Location, IApplication } from '../types';
@@ -9,7 +9,7 @@ import { IPage, Location, IApplication } from '../types';
 export const PageContext = React.createContext();
 
 export default class Page extends EventEmitter implements IPage {
-    constructor(location: Location, application: IApplication, viewFactory, mapStoreToProps) {
+    constructor(componentFactory, location: Location, application: IApplication, mapStoreToProps) {
         super();
 
         this.location = location;
@@ -18,7 +18,9 @@ export default class Page extends EventEmitter implements IPage {
         this.el = this.$el[0];
         this.messageChannel = new EventEmitter();
         this._mapStoreToProps = mapStoreToProps;
-        this._viewFactory = viewFactory;
+        this._componentFactory = isFunction(componentFactory.render)
+            ? React.createFactory(componentFactory)
+            : componentFactory;
 
         this.on('destroy', () => {
             Promise.resolve().then(() => {
@@ -63,9 +65,9 @@ export default class Page extends EventEmitter implements IPage {
 
     render(store) {
         ReactDOM.render(
-            <PageContext value={store}>
-                {this._viewFactory()}
-            </PageContext>,
+            <PageContext.Provider value={store}>
+                {this._componentFactory()}
+            </PageContext.Provider>,
             this.el
         );
     }

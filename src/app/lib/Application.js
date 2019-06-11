@@ -69,7 +69,7 @@ export default class Application implements IApplication {
      * 匹配路由并跳转至关联页面
      */
     async _navigate(url, options = {}, props?) {
-        const location = await this.router.match(url);
+        const { location, route } = await this.router.match(url);
         if (!location) return false;
 
         const prevPage = this.currentPage;
@@ -89,7 +89,7 @@ export default class Application implements IApplication {
         this.now = Date.now();
 
         const pageManager = this.pageManager;
-        const newPage = await pageManager.createPage(location);
+        const newPage = await pageManager.createPage(route, location);
         if (!newPage) {
             onNavigateFailure && onNavigateFailure();
             return false;

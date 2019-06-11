@@ -1,7 +1,14 @@
+import { isThenable } from '../../utils';
 import { IPageManager, IApplication, Location } from '../types';
 import Page from './Page';
 
-function createPage(location: Location, application: IApplication) {
+async function createPage(route, location: Location, application: IApplication) {
+    let componentFactory = route.componentFactory;
+
+    if (isThenable(componentFactory)) {
+        componentFactory = route.componentFactory = await componentFactory;
+    }
+    return new Page(componentFactory.default || componentFactory, location, application);
 }
 
 export default class PageManager implements IPageManager {
@@ -13,8 +20,8 @@ export default class PageManager implements IPageManager {
         this.application = application;
     }
 
-    createPage(location): Page {
-        return createPage(location, this.application);
+    createPage(route, location): Page {
+        return createPage(route, location, this.application);
     }
 
     /**

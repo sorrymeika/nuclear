@@ -18,15 +18,15 @@ export default Form.create({
         });
     },
     mapPropsToFields(props) {
-        const { childrenJson, handler, weaponProps, inheritedProps } = props;
+        const { childrenJson, handler, configuredProps, transitiveProps } = props;
         const fileds = findFields(childrenJson);
 
-        if (weaponProps.name) {
+        if (configuredProps.name) {
         }
 
         return fileds.reduce((result, filed) => {
             result[filed.name] = Form.createFormField({
-                value: getValue(handler, filed.value, inheritedProps)
+                value: getValue(handler, filed.value, transitiveProps)
             });
             return result;
         }, {});

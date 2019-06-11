@@ -12,11 +12,11 @@ const formItemLayout = {
 };
 
 export default function createFormItem(Input) {
-    return observer(({ propsConfig, weaponProps, inheritedProps }) => (
+    return observer(({ propsConfig, configuredProps, transitiveProps }) => (
         <JsonComponentContext.Consumer>
             {
                 (handler) => {
-                    const props = getProps(handler, propsConfig, weaponProps, inheritedProps);
+                    const props = getProps(handler, propsConfig, configuredProps, transitiveProps);
                     const { field, labelLineBreak, labelVisibility, label, rules, visible, ...inputProps } = props;
 
                     if (!visible) return null;

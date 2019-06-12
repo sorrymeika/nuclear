@@ -18,11 +18,8 @@ export default Form.create({
         });
     },
     mapPropsToFields(props) {
-        const { childrenJson, handler, configuredProps, transitiveProps } = props;
+        const { childrenJson, handler, transitiveProps } = props;
         const fileds = findFields(childrenJson);
-
-        if (configuredProps.name) {
-        }
 
         return fileds.reduce((result, filed) => {
             result[filed.name] = Form.createFormField({
@@ -32,6 +29,11 @@ export default Form.create({
         }, {});
     },
 })(props => {
+    const { configuredProps } = props;
+    if (configuredProps.name) {
+        props.handler[configuredProps.name] = props.form;
+    }
+
     return (
         <FormContext.Provider value={props.form}>
             <Form>

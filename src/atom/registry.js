@@ -6,7 +6,9 @@ type PropConfig = {
 }
 
 interface IAtomRegistry {
+    type: string;
     name: string;
+    group: string;
     propsConfig: {
         [propName]: PropConfig
     };
@@ -18,24 +20,24 @@ interface IAtomRegistry {
 const stores = {};
 
 export function registerAtom(atomRegistry: IAtomRegistry) {
-    if (stores[atomRegistry.name]) {
-        throw new Error(`${atomRegistry.name}已被注册！`);
+    if (stores[atomRegistry.type]) {
+        throw new Error(`${atomRegistry.type}已被注册！`);
     }
-    stores[atomRegistry.name] = atomRegistry;
+    stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createFacade(name, props) {
-    const { facadeFactory, propsConfig } = stores[name];
+export function createFacade(type, props) {
+    const { facadeFactory, propsConfig } = stores[type];
     return facadeFactory({
         propsConfig,
         ...props
     });
 }
 
-export function createDecorator(name, props) {
-    return stores[name].decoratorFactory(props);
+export function createDecorator(type, props) {
+    return stores[type].decoratorFactory(props);
 }
 
-export function createSettings(name, props) {
-    return stores[name].settingFactory(props);
+export function createSettings(type, props) {
+    return stores[type].settingFactory(props);
 }

@@ -115,6 +115,9 @@ export default class Drag extends Component {
             sourceType: this.current.sourceType
         };
         this.eventEmitter.trigger(dropEvent);
+        if (this.dndState.status === 'dragout') {
+            this.current.previewElement && this.current.previewElement.parentNode.removeChild(this.current.previewElement);
+        }
         this.current = null;
 
         // 因为是捕获阶段监听的mouseup,所以要等待冒泡结束再触发事件

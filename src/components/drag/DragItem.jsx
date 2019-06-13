@@ -27,7 +27,7 @@ export default class DragItem extends Component<{
         };
 
         context.addDragItem(this);
-        this.disposeDropEvent = context.subscribe('drop', this.onDrop);
+        this.disposeDragEndEvent = context.subscribe('dragend', this.onDragEnd);
     }
 
     onMouseDown = (e) => {
@@ -73,7 +73,7 @@ export default class DragItem extends Component<{
         });
     }
 
-    onDrop = (e) => {
+    onDragEnd = (e) => {
         if (e.source === this) {
             this.setState({
                 dragging: false
@@ -86,7 +86,7 @@ export default class DragItem extends Component<{
     }
 
     componentWillUnmount() {
-        this.disposeDropEvent();
+        this.disposeDragEndEvent();
         this.context.removeDragItem(this);
     }
 

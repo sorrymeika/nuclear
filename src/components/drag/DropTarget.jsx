@@ -20,7 +20,7 @@ export default class DropTarget extends Component<{
         this.items = [];
         this.disposers = [
             context.subscribe('dragstart', this.reset),
-            context.subscribe('drop', this.reset),
+            context.subscribe('dragend', this.reset),
         ];
     }
 

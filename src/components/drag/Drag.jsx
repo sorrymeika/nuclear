@@ -107,25 +107,29 @@ export default class Drag extends Component {
         this.mover.innerHTML = '';
 
         document.body.classList.remove('nuclear-dnd-disable-select');
+        if (this.dndState.status === 'dragout') {
+            this.current.previewElement && this.current.previewElement.parentNode.removeChild(this.current.previewElement);
+        }
 
         const dropEvent = {
-            type: 'drop',
+            type: 'dragend',
             nativeEvent: e,
             source: this.current.source,
             sourceType: this.current.sourceType
         };
         this.eventEmitter.trigger(dropEvent);
-        if (this.dndState.status === 'dragout') {
-            this.current.previewElement && this.current.previewElement.parentNode.removeChild(this.current.previewElement);
-        }
         this.current = null;
 
-        // 因为是捕获阶段监听的mouseup,所以要等待冒泡结束再触发事件
-        setTimeout(() => {
-            dropEvent.status = this.dndState.status;
-            dropEvent.target = this.dndState.target;
-            this.props.onDrop && this.props.onDrop(dropEvent);
-        }, 0);
+        if (this.moveLongEnough && this.dndState.status !== 'start') {
+            // 因为是捕获阶段监听的mouseup,所以要等待冒泡结束再触发事件
+            setTimeout(() => {
+                this.props.onDrop && this.props.onDrop({
+                    ...dropEvent,
+                    ...this.dndState,
+                    type: 'drop'
+                });
+            }, 0);
+        }
     }
 
     subscribe = (type, fn) => {

@@ -67,12 +67,14 @@ export default class Drag extends Component {
         };
         this.dndState.status = 'start';
 
-        this.eventEmitter.trigger({
+        const dragEvent = {
             type: 'dragstart',
             nativeEvent: e,
             source,
             current: this.current
-        });
+        };
+        this.eventEmitter.trigger(dragEvent);
+        this.props.onDragStart && this.props.onDragStart(dragEvent);
     }
 
     onMouseMove = (e) => {
@@ -108,14 +110,11 @@ export default class Drag extends Component {
 
         const dropEvent = {
             type: 'drop',
-            status: this.dndState.status,
             nativeEvent: e,
             source: this.current.source,
             sourceType: this.current.sourceType
         };
-
         this.eventEmitter.trigger(dropEvent);
-
         this.current = null;
 
         // 因为是捕获阶段监听的mouseup,所以要等待冒泡结束再触发事件

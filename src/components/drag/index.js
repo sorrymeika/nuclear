@@ -6,3 +6,8 @@ addStylesheet('nuclear-drag',
     '.nuclear-dnd-preview-del { opacity: .3 }' +
     '.nuclear-drag-item-dragging { display: none !important; }'
 );
+
+export { default as Drag } from './Drag';
+export { default as DragSource } from './DragSource';
+export { default as DragItem } from './DragItem';
+export { default as DropTarget } from './DropTarget';

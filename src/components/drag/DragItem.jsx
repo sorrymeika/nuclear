@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { DropTargetContext } from './DropTarget';
 
 
-export class DragItem extends Component<{
+export default class DragItem extends Component<{
     onBeforeDragStart?: () => any,
     onDragStart?: () => any,
     // 前后是否可插入元素
@@ -12,6 +12,8 @@ export class DragItem extends Component<{
     dragable: boolean,
     // 是否可插入子DragItem
     appendable: boolean,
+    // 分组，当前组件只能插入到同组的DropTarget中
+    groups?: string[],
     // 定位: absolute|relative|static
     position: string
 }> {
@@ -25,7 +27,6 @@ export class DragItem extends Component<{
         };
 
         context.addDragItem(this);
-
         this.disposeDropEvent = context.subscribe('drop', this.onDrop);
     }
 
@@ -44,7 +45,7 @@ export class DragItem extends Component<{
         const { insertable = true } = this.props;
         const options = {
             source: this,
-            sourceType: 'item',
+            sourceType: 'move',
             insertable
         };
         const node = ReactDOM.findDOMNode(this);

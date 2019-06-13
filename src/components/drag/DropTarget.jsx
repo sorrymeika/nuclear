@@ -5,14 +5,14 @@ import { DragContext } from './Drag';
 
 export const DropTargetContext = React.createContext();
 
-export class DropTarget extends Component<{
+export default class DropTarget extends Component<{
     group?: string,
     onDragOut?: (e: { target: HTMLElement, source: any }) => any,
     onDrop?: (e: any) => any,
     onDragChange?: (e: any) => any,
     onDragMove?: (e: any) => any
 }> {
-    static contextTypes = DragContext;
+    static contextType = DragContext;
 
     constructor(props, context) {
         super(props, context);
@@ -30,7 +30,6 @@ export class DropTarget extends Component<{
 
     reset = (e) => {
         this.mouseMoveTimes = 0;
-        this.targetPlace = null;
     }
 
     onMouseMove = (e) => {
@@ -193,8 +192,8 @@ export class DropTarget extends Component<{
                     targetPlace.node.appendChild(previewElement);
                 }
                 this.context.setDndState({
-                    status: 'insert',
-                    target: this.targetPlace.target
+                    status: targetPlace.type,
+                    target: targetPlace.target
                 });
             }
         }
@@ -228,11 +227,12 @@ export class DropTarget extends Component<{
             const previewElement = targetPlace.previewElement;
             previewElement.parentNode && previewElement.parentNode.removeChild(previewElement);
 
-            this.context.setDndState({
-                status: 'drop',
+            this.props.onDrop && this.props.onDrop({
+                type: 'drop',
+                nativeEvent: e,
                 target: targetPlace.target
             });
-            this.props.onDrop && this.props.onDrop(e);
+            this.targetPlace = null;
         }
     }
 
@@ -265,7 +265,7 @@ export class DropTarget extends Component<{
     }
 
     render() {
-        const { className, children } = this.props;
+        const { className, style, children } = this.props;
 
         return (
             <DropTargetContext.Provider value={{
@@ -275,6 +275,7 @@ export class DropTarget extends Component<{
             }}>
                 <div
                     className={className}
+                    style={style}
                     onMouseMove={this.onMouseMove}
                     onMouseLeave={this.onDragOut}
                     onMouseUp={this.onMouseUp}

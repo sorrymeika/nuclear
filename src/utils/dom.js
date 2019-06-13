@@ -1,4 +1,4 @@
-import '../libs/zepto';
+import '../thirdpart/zepto';
 import { isNo } from './is';
 import style from './style';
 

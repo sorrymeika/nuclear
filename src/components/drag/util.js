@@ -1,5 +1,3 @@
-import ReactDOM from 'react-dom';
-
 export function containsNode(node, childNode) {
     if (childNode === node) return false;
 

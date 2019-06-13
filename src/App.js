@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
+import { Drag, DragSource, DropTarget } from './components/drag';
 
 const AppContext = React.createContext();
 
 function App() {
+
     return (
         <AppContext.Provider value={{ test: 1, name: 'asdf' }}>
-            <div className="App" app-drag="container">
+            <div className="App">
                 asdfasf
                 <AppContext.Consumer>
                     {
@@ -33,6 +35,16 @@ function App() {
                     }
                 </AppContext.Consumer>
             </div>
+            <Drag
+                onDrop={(e) => {
+                    console.log(e);
+                }}
+            >
+                <div>
+                    <DragSource>asdfasf</DragSource>
+                </div>
+                <DropTarget style={{ height: 100, background: '#ddd' }}></DropTarget>
+            </Drag>
         </AppContext.Provider>
     );
 }

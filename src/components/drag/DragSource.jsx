@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragContext } from './Drag';
 
-export class DragSource extends Component<{
+export default class DragSource extends Component<{
     // 拖动时跟随鼠标移动的控件，默认DragSource自身的clone
     mover?: Component | Function,
     // 插入的DOMElement
     previewElement?: HTMLElement | boolean,
     onDragStart?: () => any
 }> {
-    static contextTypes = DragContext;
+    static contextType = DragContext;
 
     onMouseDown = (e) => {
         e.stopPropagation();
@@ -22,7 +22,7 @@ export class DragSource extends Component<{
             source: this,
             sourceType: 'new'
         };
-        const mover = this.context._mover;
+        const mover = this.context.mover;
         const onDragStart = (e, insert) => {
             insert.__dragSource = this;
             this.props.onDragStart && this.props.onDragStart(e, insert);

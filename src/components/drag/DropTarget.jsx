@@ -121,10 +121,10 @@ export default class DropTarget extends Component<{
             let nearest;
 
             const canInsertBeforeOrInsertAfter = (dragItem) => {
-                return dragItem.destination.props.insertable !== false;
+                return dragItem.target.props.insertable !== false;
             };
             const canAppendTo = (dragItem) => {
-                return !!dragItem.destination.props.appendable;
+                return !!dragItem.target.props.appendable;
             };
 
             if (itemAtMousePoint && !itemAtMousePoint.children.length && canInsertBeforeOrInsertAfter(itemAtMousePoint)) {
@@ -160,7 +160,7 @@ export default class DropTarget extends Component<{
                 targetPlace = {
                     type: insertType,
                     node: nearest.node,
-                    target: nearest.destination
+                    target: nearest.target
                 };
             } else {
                 targetPlace = {

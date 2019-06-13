@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Drag, DragSource, DropTarget } from './components/drag';
+import { Drag, DragSource, DropTarget, DragItem } from './components/drag';
 
 const AppContext = React.createContext();
 
 function App() {
-
     return (
         <AppContext.Provider value={{ test: 1, name: 'asdf' }}>
             <div className="App">
@@ -43,7 +42,9 @@ function App() {
                 <div>
                     <DragSource>asdfasf</DragSource>
                 </div>
-                <DropTarget style={{ height: 100, background: '#ddd' }}></DropTarget>
+                <DropTarget style={{ height: 100, background: '#ddd' }}>
+                    <DragItem>12345</DragItem>
+                </DropTarget>
             </Drag>
         </AppContext.Provider>
     );

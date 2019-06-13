@@ -17,7 +17,7 @@ export default class DragItem extends Component<{
     // 定位: absolute|relative|static
     position: string
 }> {
-    static contextTypes = DropTargetContext;
+    static contextType = DropTargetContext;
 
     constructor(props, context) {
         super(props, context);
@@ -63,6 +63,7 @@ export default class DragItem extends Component<{
         this.placeholder = placeholder;
         placeholder.style.pointerEvents = 'none';
         node.parentNode.insertBefore(placeholder, node);
+        options.previewElement = placeholder;
 
         this.context.doDragStart(e, options);
         this.props.onDragStart && this.props.onDragStart(e);

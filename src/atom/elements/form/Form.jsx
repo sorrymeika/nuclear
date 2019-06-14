@@ -1,18 +1,38 @@
 import React from "react";
 import { Form } from "antd";
-import getValue from "../../methods/getValue";
-import { set } from "../../utils";
+import getValue from "../../../methods/getValue";
+import { set } from "../../../utils";
 
 export const FormContext = React.createContext();
 
-function findFields() {
-    return [];
+function findFields(childrenJson) {
+    const fields = [];
+
+    if (childrenJson) {
+        const stack = childrenJson.reverse();
+        let current = stack.pop();
+        while (current) {
+            const { type, specificConfig, children, configuredProps } = current;
+            if (specificConfig) {
+                if (specificConfig.isFormItem) {
+                    fields.push(configuredProps);
+                } else if (type === 'table' || type === 'list') {
+                    continue;
+                }
+            }
+            if (children && children.length) {
+                stack.push(...children);
+            }
+            current = stack.pop();
+        }
+    }
+
+    return fields;
 }
 
 export default Form.create({
     onFieldsChange(props, changedFields) {
         const { handler } = props;
-
         Object.keys(changedFields).forEach((name) => {
             set(handler, name, changedFields[name].value);
         });

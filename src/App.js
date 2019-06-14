@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Drag, DragSource, DropTarget, DragItem } from './components/drag';
 
 const AppContext = React.createContext();

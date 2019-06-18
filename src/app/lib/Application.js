@@ -119,8 +119,6 @@ export default class Application implements IApplication {
 
         await pageManager.replacePage(prevPage, newPage, props);
 
-        newPage.resume();
-
         return true;
     }
 }

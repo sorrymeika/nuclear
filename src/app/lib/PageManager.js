@@ -8,7 +8,15 @@ async function createPage(route, location: Location, application: IApplication) 
     if (isThenable(componentFactory)) {
         componentFactory = route.componentFactory = await componentFactory;
     }
-    return new Page(componentFactory.default || componentFactory, location, application);
+    if (componentFactory.default) {
+        componentFactory = componentFactory.default;
+    }
+
+    if (componentFactory.__is_page_factory__) {
+        return componentFactory(location, application);
+    }
+
+    return new Page(componentFactory, location, application);
 }
 
 export default class PageManager implements IPageManager {

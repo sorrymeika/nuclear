@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
-import { createFacade } from "./registry";
+import { createAtom } from "./registry";
 
 export const JsonComponentContext = React.createContext();
 
-export function jsonToComponent(json, handler, paths, transitiveProps) {
+function jsonToComponent(json, handler, paths, transitiveProps) {
     const { type, children, configuredProps } = json;
 
     const childrenComponents = jsonArrayToComponents(children, handler, [...paths, type], transitiveProps);
 
-    return createFacade(type, {
+    return createAtom(type, {
         configuredProps,
         transitiveProps,
         children: childrenComponents
     });
 }
 
-export function jsonArrayToComponents(jsonArray, handler, paths, transitiveProps) {
+function jsonArrayToComponents(jsonArray, handler, paths, transitiveProps) {
     const results = [];
     const length = jsonArray.length;
     let i = -1;
@@ -30,6 +30,12 @@ export function jsonArrayToComponents(jsonArray, handler, paths, transitiveProps
     }
 
     return results;
+}
+
+export function renderComponent(json, handler, paths, transitiveProps) {
+    return Array.isArray(json)
+        ? jsonArrayToComponents(json, handler, paths, transitiveProps)
+        : jsonToComponent(json, handler, paths, transitiveProps);
 }
 
 /**

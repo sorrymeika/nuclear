@@ -1,5 +1,5 @@
 import compileExpression from "./compileExpression";
-import * as util from "../utils";
+import * as util from "../../utils";
 
 export default function getValue(context, valueExp, properties?) {
     if (valueExp === 'true') return true;

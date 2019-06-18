@@ -9,8 +9,8 @@ registerAtom({
     type: 'input',
     name: 'Input',
     group: 'Form',
-    facadeFactory: inputFactory,
-    decoratorFactory: inputFactory,
+    atomFactory: inputFactory,
+    decorationFactory: inputFactory,
     settingFactory: React.createFactory(InputSettings),
     specificConfig: {
         isFormItem: true

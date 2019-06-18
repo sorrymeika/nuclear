@@ -87,7 +87,7 @@ export default class Router implements IRouter {
 
     constructor(projects, routes) {
         this.registerProjects(projects);
-        this.registerrouters(routes);
+        this.registerRoutes(routes);
     }
 
     registerRoutes(routes) {

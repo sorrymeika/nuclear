@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './sass/common.scss';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createApplication } from './app';
+import Window from './atom/decorator/Window';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+createApplication({
+    projects: {},
+    routes: {
+        '/': Window
+    }
+}, document.getElementById('root'), () => {
+    console.log('app start!');
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,6 +1,6 @@
 
 
-import ActivityManager from './ActivityManager';
+import PageManager from './PageManager';
 import Router from './Router';
 import Navigation from './Navigation';
 import Application from './Application';
@@ -34,7 +34,7 @@ export function createApplication({
 
     application = new Application(
         (application) => new Navigation(application),
-        (application) => new ActivityManager(application, options),
+        (application) => new PageManager(application, options),
         new Router(projects, routes),
         root,
         options

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "antd";
-import getValue from "../../../methods/getValue";
+import getValue from "../../methods/getValue";
 import { set } from "../../../utils";
 
 export const FormContext = React.createContext();

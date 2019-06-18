@@ -1,4 +1,3 @@
-import preloader from '../../preloader';
 import { isString, loadJs } from '../../utils';
 
 export async function loadProject(projectUrl) {
@@ -7,10 +6,7 @@ export async function loadProject(projectUrl) {
     var mainCSS;
 
     if (/asset-manifest\.json$/.test(projectUrl)) {
-        var manifest = preloader.getManifest(projectUrl);
-        if (!manifest) {
-            manifest = await loadJSON(projectUrl);
-        }
+        var manifest = await loadJSON(projectUrl);
         mainJS = manifest['main.js'];
         mainCSS = manifest['main.css'];
         mainUrl = projectUrl.slice(0, projectUrl.lastIndexOf('/') + 1);

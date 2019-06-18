@@ -12,8 +12,8 @@ interface IAtomRegistry {
     propsConfig?: {
         [propName]: PropConfig
     };
-    facadeFactory: Factory;
-    decoratorFactory: Factory;
+    atomFactory: Factory;
+    decorationFactory: Factory;
     settingsFactory: Factory;
     specificConfig: any;
 }
@@ -27,16 +27,16 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
     stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createFacade(type, props) {
-    const { facadeFactory, propsConfig = {} } = stores[type];
-    return facadeFactory({
+export function createAtom(type, props) {
+    const { atomFactory, propsConfig = {} } = stores[type];
+    return atomFactory({
         propsConfig,
         ...props
     });
 }
 
-export function createDecorator(type, props) {
-    return stores[type].decoratorFactory(props);
+export function createDecoration(type, props) {
+    return stores[type].decorationFactory(props);
 }
 
 export function createSettings(type, props) {

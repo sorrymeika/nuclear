@@ -1,12 +1,12 @@
 import './sass/common.scss';
 import * as serviceWorker from './serviceWorker';
 import { createApplication } from './app';
-import Window from './atom/decorator/Window';
+import WindowController from './atom/window/ui/WindowController';
 
 createApplication({
     projects: {},
     routes: {
-        '/': Window
+        '/': WindowController
     }
 }, document.getElementById('root'), () => {
     console.log('app start!');

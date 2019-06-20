@@ -1,5 +1,5 @@
 
-import { createDecoration } from "./registry";
+import { createDecoration } from "../../registry";
 
 export function jsonToDecoration(json, handler, paths, transitiveProps) {
     const { type, children, configuredProps } = json;

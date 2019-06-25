@@ -1,13 +1,13 @@
 import React from "react";
-import { registerAtom } from "../registry";
+import { registerAtom } from "../../registry";
 import Form from "./Form";
 import FormSettings from "./FormSettings";
 
 const formFactory = React.createFactory(Form);
 
 registerAtom({
-    type: 'input',
-    name: 'Input',
+    type: 'form',
+    name: 'Form',
     group: 'Form',
     atomFactory: formFactory,
     decorationFactory: formFactory,

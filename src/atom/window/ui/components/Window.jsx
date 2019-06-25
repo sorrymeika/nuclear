@@ -1,8 +1,9 @@
 
 import React, { Component } from "react";
 import { Drag } from "../../../../components/drag";
+import AtomBox from "./AtomBox";
 
-export default class Window extends Component {
+class Window extends Component {
     constructor(props) {
         super(props);
 
@@ -22,11 +23,17 @@ export default class Window extends Component {
     }
 
     render() {
+        const { atomGroups } = this.props;
+
         return (
             <Drag
                 className="nuclear-window dock flex ai_s"
                 onDrop={this.onDrop}
-            >asf</Drag>
+            >
+                <AtomBox atomGroups={atomGroups}></AtomBox>
+            </Drag>
         );
     }
 }
+
+export default Window;

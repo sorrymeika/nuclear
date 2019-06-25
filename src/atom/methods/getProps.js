@@ -1,4 +1,4 @@
-import getValue from "../../methods/getValue";
+import getValue from "./getValue";
 
 const defaultConfig = { type: 'any', useExpression: true };
 

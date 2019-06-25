@@ -1,5 +1,5 @@
 import React from "react";
-import { registerAtom } from "../registry";
+import { registerAtom } from "../../registry";
 import Input from "./Input";
 import InputSettings from "./InputSettings";
 

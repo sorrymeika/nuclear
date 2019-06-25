@@ -24,14 +24,14 @@ const KEYWORDS = {
     'document': true
 };
 
+// var regExpRE = "\/(?:(?:\\{2})+|\\\/|[^\/\r\n])+\/[img]*(?=[\)|\.|,])"
+// var RE_STRING = "'(?:(?:\\\\{2})+|\\\\'|[^'])*'|\"(?:(?:\\\\{2})+|\\\\\"|[^\"])*\"";
+export const RE_STRING = "'(?:(?:\\\\{2})+|\\\\'|[^'])*'";
+
 var RE_MATCH_EXPRESSION = codeRegExp("{...}", 'g');
 var RE_EXPRESSION = /'(?:(?:\\{2})+|\\'|[^'])*'|"(?:(?:\\{2})+|\\"|[^"])*"|\/(?:(?:\\{2})+|\\\/|[^/])*\/[img]*|function\s*\((.*?)\)|\bvar\s+('(?:(?:\\{2})+|\\'|[^'])*'|[^;]+);|(?:\{|,)\s*[\w$]+\s*:\s*|([\w$]+)\(|([\w$]+(?:\.[\w$]+|\[[\w$']+\])*)(\()?/g;
 var RE_VARS = /([\w$]+)\s*(?:=(?:'(?:\\'|[^'])*'|[^;,]+))?/g;
 var RE_VALUE = /^(-?\d+(\.\d+)?|true|false|undefined|null|'(?:\\'|[^'])*')$/;
-
-// var regExpRE = "\/(?:(?:\\{2})+|\\\/|[^\/\r\n])+\/[img]*(?=[\)|\.|,])"
-// var RE_STRING = "'(?:(?:\\\\{2})+|\\\\'|[^'])*'|\"(?:(?:\\\\{2})+|\\\\\"|[^\"])*\"";
-export const RE_STRING = "'(?:(?:\\\\{2})+|\\\\'|[^'])*'";
 
 export function testRegExp(regExp, val) {
     return (regExp.lastIndex != 0 && (regExp.lastIndex = 0)) || regExp.test(val);

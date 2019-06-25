@@ -1,10 +1,11 @@
 
 import React from 'react';
 import { Drag, DragSource, DropTarget, DragItem } from './components/drag';
+import MobxTest from './components/test/MobxTest';
 
 const AppContext = React.createContext();
 
-function App() {
+function AppTest() {
     return (
         <AppContext.Provider value={{ test: 1, name: 'asdf' }}>
             <div className="App">
@@ -46,8 +47,9 @@ function App() {
                     <DragItem>12345</DragItem>
                 </DropTarget>
             </Drag>
+            <MobxTest></MobxTest>
         </AppContext.Provider>
     );
 }
 
-export default App;
+export default AppTest;

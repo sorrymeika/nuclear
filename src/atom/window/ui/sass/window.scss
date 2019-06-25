@@ -1,1 +1,7 @@
 .nuclear-quick-search { position: fixed; width: 300px; z-index: 5000; margin-left: 165px; margin-top: 36px; }
+
+.nuclear-window-atom-box{ width: 165px; border-right: 1px solid #ddd; }
+.nuclear-window-atom-box h2 { font-size: 16px; padding: 5px 8px; border-bottom: 1px solid #ddd; background: #fafafa; }
+.nuclear-window-atom-box-group-item { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+.nuclear-window-atom-box-item { border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
+.nuclear-dnd-preview .nuclear-window-atom-box-item { margin: 0; }

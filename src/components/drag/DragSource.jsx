@@ -9,9 +9,13 @@ export default class DragSource extends Component<{
     mover?: Component | Function,
     // 插入的DOMElement
     previewElement?: HTMLElement | boolean,
-    onDragStart?: () => any
+    data?: any
 }> {
     static contextType = DragContext;
+
+    get data() {
+        return this.props.data;
+    }
 
     onMouseDown = (e) => {
         e.stopPropagation();
@@ -23,10 +27,6 @@ export default class DragSource extends Component<{
             sourceType: 'new'
         };
         const mover = this.context.mover;
-        const onDragStart = (e, insert) => {
-            insert.__dragSource = this;
-            this.props.onDragStart && this.props.onDragStart(e, insert);
-        };
 
         mover.style.width = '';
         mover.style.height = '';
@@ -40,10 +40,10 @@ export default class DragSource extends Component<{
 
             options.offsetX = rect.x - e.pageX + 5;
             options.offsetY = rect.y - e.pageY + 5;
-            this.context.doDragStart(e, options, onDragStart);
+            this.context.doDragStart(e, options);
         } else {
             ReactDOM.render(<Mover></Mover>, mover, () => {
-                this.context.doDragStart(e, options, onDragStart);
+                this.context.doDragStart(e, options);
             });
         }
     }

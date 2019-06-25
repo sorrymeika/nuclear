@@ -42,3 +42,15 @@ export function createDecoration(type, props) {
 export function createSettings(type, props) {
     return stores[type].settingFactory(props);
 }
+
+export function _getAtoms() {
+    return Object.keys(stores)
+        .map((key) => {
+            const atom = stores[key];
+            return {
+                type: atom.type,
+                name: atom.name,
+                group: atom.group
+            };
+        });
+}

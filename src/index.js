@@ -1,6 +1,6 @@
 import './sass/common.scss';
 import * as serviceWorker from './serviceWorker';
-import { createApplication } from './app';
+import { createApplication } from 'snowball/app';
 import './atom';
 import WindowController from './atom/window/ui/WindowController';
 import AppTest from './AppTest';

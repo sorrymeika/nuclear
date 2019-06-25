@@ -1,8 +1,10 @@
 
 import React, { Component } from "react";
 import { Drag } from "../../../../components/drag";
-import AtomBox from "./AtomBox";
+import AtomBox from "../components/AtomBox";
+import { inject } from "mobx-react";
 
+@inject
 class Window extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +26,8 @@ class Window extends Component {
 
     render() {
         const { atomGroups } = this.props;
+
+        console.log(this.props);
 
         return (
             <Drag

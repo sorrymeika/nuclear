@@ -1,6 +1,6 @@
 import { observable, autorun } from "mobx";
 
-import { isNumber } from "../../../../utils";
+import { isNumber } from "snowball/utils";
 import { eachAtom } from "../../shared/atomUtils";
 
 import ProjectService from "../../domain/services/ProjectService";
@@ -45,6 +45,8 @@ class WindowService {
     @observable isUIDialogVisible = false;
     @observable isCSSDialogVisible = false;
     @observable isJSDialogVisible = false;
+
+    @observable atomGroups = [];
 
     constructor(storageService: StorageService, projectService: ProjectService, pageService: PageService, atomService: AtomService) {
         this.storageService = storageService;

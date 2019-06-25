@@ -1,4 +1,4 @@
-import { params } from "../../../../utils";
+import { params } from "snowball/utils";
 
 class PageService {
     async getPage(projectName, pageName) {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom';
 import { AutoComplete } from 'antd';
-import { $ } from "../../../../utils";
+import { $ } from "snowball/utils";
 
 export default function QuickSearch({ dataSource, onBlur, onSelect }) {
     const [value, setValue] = useState();

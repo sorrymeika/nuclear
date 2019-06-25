@@ -1,8 +1,8 @@
-import { controller, injectable } from "../../../app";
+import { controller, injectable } from "snowball/app";
 import ProjectService from "../domain/services/ProjectService";
 import PageService from "../domain/services/PageService";
 
-import Window from "./components/Window";
+import Window from "./containers/Window";
 
 import WindowService from "./services/WindowService";
 import FileQuickSearchService from "./services/FileQuickSearchService";
@@ -14,6 +14,10 @@ class WindowController {
     @injectable fileQuickSearchService;
     @injectable atomService;
 
+    @injectable get atomGroups() {
+        return this.windowService.atomGroups;
+    }
+
     constructor() {
         this.projectService = new ProjectService();
         this.pageService = new PageService();
@@ -21,6 +25,10 @@ class WindowController {
         this.windowService = new WindowService(new StorageService(), this.projectService, this.pageService, this.atomService);
 
         this.fileQuickSearchService = new FileQuickSearchService(this.windowService);
+    }
+
+    onInit() {
+        this.windowService.init();
     }
 }
 

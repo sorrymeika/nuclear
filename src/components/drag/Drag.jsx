@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { EventEmitter } from '../../core/event';
+import { EventEmitter } from 'snowball';
 
 export const DragContext = React.createContext();
 

@@ -1,4 +1,4 @@
-import { style as addStylesheet } from '../../utils';
+import { style as addStylesheet } from 'snowball/utils';
 
 addStylesheet('nuclear-drag',
     '.nuclear-dnd-disable-select{-webkit-user-select: none; -webkit-touch-callout: none; user-select: none;}' +

@@ -1,5 +1,5 @@
 import { _getAtoms } from "../../../registry";
-import { groupBy } from "../../../../utils";
+import { groupBy } from "snowball/utils";
 
 export default class AtomService {
     getAtomGroups() {

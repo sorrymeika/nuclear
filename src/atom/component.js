@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { observer } from "mobx-react";
+import { observer } from "snowball/app";
 import { createAtom } from "./registry";
 
 export const JsonComponentContext = React.createContext();

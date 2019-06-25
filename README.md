@@ -36,7 +36,7 @@ npm run build
 
 ## 打包
 ```
-业务项目打包后会剔除掉`react`,`react-dom`,`polyfill`,`nuclear`,`mobx`等框架和框架中的公共组件/公共样式
+业务项目打包后会剔除掉`react`,`react-dom`,`polyfill`,`nuclear`,`antd`等框架和框架中的公共组件/公共样式
 ```
 1. `nuclear`会将`React`等框架注册到 `window.nuclear` 上
 2. 使用 `nuclear-loader`, 该loader会将 `import React from "react"` 替换成 `const React = window.nuclear._React`
@@ -55,8 +55,8 @@ npm run build
 ```js
 import { Component } from 'React';
 import { controller, service } from 'nuclear';
-import { observer, inject } from 'mobx-react'
-import { observable, observer } from 'mobx'
+import { observer, inject } from 'snowball/app'
+import { observable, observer } from 'snowball'
 
 interface IUser {
     userId: number;

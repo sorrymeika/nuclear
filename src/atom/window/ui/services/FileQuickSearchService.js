@@ -1,8 +1,7 @@
-import { observable, computed } from "mobx";
+import { observable } from "snowball";
 import WindowService from "./WindowService";
 
 class FileQuickSearchService {
-    @computed
     get dataSource() {
         return this.windowService.projectList.concat(this.windowService.pageList)
             .map((item) => (item.name));

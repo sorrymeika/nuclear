@@ -1,5 +1,4 @@
 import component from "../../component";
-import { observable } from "mobx";
 
 @component([{
     type: 'form',
@@ -14,7 +13,6 @@ import { observable } from "mobx";
     }]
 }])
 class InputSettings {
-    @observable
     data = {};
 }
 

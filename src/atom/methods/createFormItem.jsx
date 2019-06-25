@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "antd";
-import { observer } from "mobx-react";
+import { observer } from "snowball/app";
 
 import getProps from "./getProps";
 import { JsonComponentContext } from "../component";

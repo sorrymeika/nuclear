@@ -1,4 +1,4 @@
-import { observable, autorun } from "mobx";
+import { observable, autorun } from "snowball";
 
 import { isNumber } from "snowball/utils";
 import { eachAtom } from "../../shared/atomUtils";

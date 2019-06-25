@@ -2,9 +2,7 @@
 import React, { Component } from "react";
 import { Drag } from "../../../../components/drag";
 import AtomBox from "../components/AtomBox";
-import { inject } from "mobx-react";
 
-@inject
 class Window extends Component {
     constructor(props) {
         super(props);

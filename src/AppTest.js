@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Drag, DragSource, DropTarget, DragItem } from './components/drag';
-import MobxTest from './components/test/MobxTest';
 
 const AppContext = React.createContext();
 
@@ -47,7 +46,6 @@ function AppTest() {
                     <DragItem>12345</DragItem>
                 </DropTarget>
             </Drag>
-            <MobxTest></MobxTest>
         </AppContext.Provider>
     );
 }

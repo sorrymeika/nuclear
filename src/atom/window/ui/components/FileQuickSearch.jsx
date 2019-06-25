@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer, inject } from "snowball/app";
 import FileQuickSearchService from "../services/FileQuickSearchService";
 import QuickSearch from "./QuickSearch";
 

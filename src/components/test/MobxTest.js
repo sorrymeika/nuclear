@@ -10,7 +10,6 @@ export default @observer class MobxTest extends Component {
 
     render() {
         console.log('test', this.test);
-        debugger;
         return (
             <div
                 onClick={() => {

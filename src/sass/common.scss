@@ -1,5 +1,7 @@
 @import "variables.scss";
 
+body{ font-size: 16px; }
+
 .ff_d { font-family: 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif; }
 
 .flex { @extend %flex; @extend %ai_c; }

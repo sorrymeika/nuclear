@@ -11,12 +11,14 @@ import AtomService from "./AtomService";
 class PageState {
     name: string;
     path: string;
+    projectName: string;
     @observable dialogs: any[];
     @observable atoms: any[];
 
-    constructor({ name, path, dialogs, atoms }) {
+    constructor({ name, projectName, path, dialogs, atoms }) {
         this.name = name;
         this.path = path;
+        this.projectName = projectName;
         this.dialogs = dialogs || [];
         this.atoms = atoms || [];
     }

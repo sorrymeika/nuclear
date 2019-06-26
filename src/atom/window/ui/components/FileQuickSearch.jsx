@@ -1,9 +1,9 @@
 import React from "react";
-import { observer, inject } from "snowball/app";
+import { inject } from "snowball/app";
 import FileQuickSearchService from "../services/FileQuickSearchService";
 import QuickSearch from "./QuickSearch";
 
-export default inject('fileQuickSearchService')(observer(({ fileQuickSearchService }: { fileQuickSearchService: FileQuickSearchService }) => {
+export default inject('fileQuickSearchService')(({ fileQuickSearchService }: { fileQuickSearchService: FileQuickSearchService }) => {
     if (!fileQuickSearchService.visible) {
         return null;
     }
@@ -15,4 +15,4 @@ export default inject('fileQuickSearchService')(observer(({ fileQuickSearchServi
             onSelect={(path) => fileQuickSearchService.changeProjectOrPage(path)}
         ></QuickSearch>
     );
-}));
+});

@@ -56,7 +56,7 @@ npm run build
 import { Component } from 'React';
 import { controller, service } from 'nuclear';
 import { observer, inject } from 'snowball/app'
-import { observable, observer } from 'snowball'
+import { observable } from 'snowball'
 
 interface IUser {
     userId: number;

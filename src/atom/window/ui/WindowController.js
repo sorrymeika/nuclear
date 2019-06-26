@@ -13,22 +13,26 @@ import AtomService from "./services/AtomService";
 class WindowController {
     @injectable fileQuickSearchService;
     @injectable atomService;
-
-    @injectable get atomGroups() {
-        return this.windowService.atomGroups;
-    }
+    @injectable windowService;
 
     constructor() {
         this.projectService = new ProjectService();
         this.pageService = new PageService();
         this.atomService = new AtomService();
         this.windowService = new WindowService(new StorageService(), this.projectService, this.pageService, this.atomService);
-
         this.fileQuickSearchService = new FileQuickSearchService(this.windowService);
     }
 
     onInit() {
         this.windowService.init();
+    }
+
+    @injectable get atomGroups() {
+        return this.windowService.atomGroups;
+    }
+
+    onDestroy() {
+        this.windowService.dispose();
     }
 }
 

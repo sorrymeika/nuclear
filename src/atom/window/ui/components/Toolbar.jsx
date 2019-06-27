@@ -15,13 +15,13 @@ export const Toolbar = ({
     const dialogs = currentPage ? currentPage.dialogs : null;
 
     return (
-        <div className="nc_window__toolbar">
+        <div className="nuclear-window-toolbar">
             <div className="flex" style={{ paddingLeft: 10, width: '100%', height: '100%', overflowX: 'auto' }}>
                 <div
-                    className={"nc_window__toolbar_tab" + (currentTabId == 'main' ? ' curr' : '')}
+                    className={"nuclear-window-toolbar-tab" + (currentTabId == 'main' ? ' curr' : '')}
                     onClick={() => onSwitchTab('main')}
                 >
-                    <h4>
+                    <div className="nuclear-window-toolbar-tab-name">
                         {
                             !currentPage
                                 ? '主窗口'
@@ -29,22 +29,22 @@ export const Toolbar = ({
                                     ? currentPage.project.replace('../', '') + '/'
                                     : '') + (currentPage.name || '主窗口'))
                         }
-                    </h4>
+                    </div>
                 </div>
                 {
                     !!dialogs && dialogs.map((dialog, i) => {
                         return (
                             <div
                                 key={dialog.name}
-                                className={"nc_window__toolbar_tab" + (currentTabId == dialog.id ? ' curr' : '')}
+                                className={"nuclear-window-toolbar-tab" + (currentTabId == dialog.id ? ' curr' : '')}
                                 style={{ zIndex: 2 + i }}
                                 onClick={() => onSwitchTab(dialog.id)}
-                            ><h4>{dialog.name}</h4></div>
+                            ><div className="nuclear-window-toolbar-tab-name">{dialog.name}</div></div>
                         );
                     })
                 }
                 <button
-                    className="nc_window__toolbar_add"
+                    className="nuclear-window-toolbar-add-button"
                     onClick={onAddDialog}
                 ></button>
                 <div className="flexitem"></div>
@@ -52,24 +52,24 @@ export const Toolbar = ({
                     currentTabId == 'main'
                         ? null
                         : <button
-                            className="nc_window__toolbar_edit"
+                            className="nuclear-window-toolbar-button"
                             onClick={onRemoveDialog}
                         >X</button>
                 }
                 <button
-                    className="nc_window__toolbar_edit"
+                    className="nuclear-window-toolbar-button"
                     onClick={onEditPage}
                 >...</button>
                 <button
-                    className="nc_window__toolbar_edit"
+                    className="nuclear-window-toolbar-button"
                     onClick={onEditUIJson}
                 >UI</button>
                 <button
-                    className="nc_window__toolbar_edit"
+                    className="nuclear-window-toolbar-button"
                     onClick={onEditCss}
                 >CSS</button>
                 <button
-                    className="nc_window__toolbar_edit"
+                    className="nuclear-window-toolbar-button"
                     onClick={onSavePage}
                 >保存</button>
             </div>

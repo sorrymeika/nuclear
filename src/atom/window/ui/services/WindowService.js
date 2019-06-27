@@ -59,6 +59,9 @@ class WindowService {
     }
 
     async init() {
+        const atomGroups = this.atomService.getAtomGroups();
+        this.atomGroups = atomGroups;
+
         const windowState = this.storageService.getCurrentWindowState();
         const projects = await this.projectService.getProjects();
         this.projectList = projects;

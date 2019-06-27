@@ -5,7 +5,7 @@ import { Toolbar } from './Toolbar';
 
 const Main = ({ currentTab, currentPage }) => {
     return (
-        <div className="flex_1 nc_window__content">
+        <div className="flex_1 nuclear-window-main">
             <Toolbar
                 currentTab={currentTab}
                 currentPage={currentPage}
@@ -18,9 +18,6 @@ const Main = ({ currentTab, currentPage }) => {
     );
 };
 
-const MainInjector = inject(({ windowService }) => ({
-    currentTab: windowService.currentTab,
-    currentPage: windowService.currentPage
-}))(Main);
+const MainInjector = inject('currentPage', 'currentTab')(Main);
 
 export { MainInjector as Main };

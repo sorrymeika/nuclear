@@ -1,10 +1,15 @@
 
 import React, { Component } from "react";
+import "../sass/window.scss";
 import { Drag } from "../../../../components/drag";
-import AtomBox from "../components/AtomBox";
+import { AtomBox } from "../components/AtomBox";
 import { Main } from "../components/Main";
 import FileQuickSearch from "../components/FileQuickSearch";
+import { inject } from "snowball/app";
 
+@inject(({ windowService }) => ({
+    atomGroups: windowService.atomGroups
+}))
 class Window extends Component {
     constructor(props) {
         super(props);
@@ -21,13 +26,14 @@ class Window extends Component {
     }
 
     onDrop = (e) => {
+        console.log(e);
     }
 
     render() {
         const { atomGroups } = this.props;
         return (
             <Drag
-                className="nuclear-window dock flex ai_s"
+                className="nuclear-window flex ai_s"
                 onDrop={this.onDrop}
             >
                 <FileQuickSearch></FileQuickSearch>

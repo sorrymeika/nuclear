@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-body{ font-size: 16px; }
+body { font-size: 16px; padding: 0; margin: 0; }
 
 .ff_d { font-family: 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif; }
 
@@ -15,8 +15,8 @@ body{ font-size: 16px; }
 .jc_e { @extend %jc_e; }
 .jc_sb { @extend %jc_sb; }
 .jc_sa { @extend %jc_sa; }
-.ai_s { @extend %ai_s; }
 .ai_c { @extend %ai_c; }
+.ai_s { @extend %ai_s; }
 .ai_b { @extend %ai_b; }
 .ai_fs { @extend %ai_fs; }
 .ai_fe { @extend %ai_fe; }

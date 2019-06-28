@@ -60,15 +60,15 @@ export default function component(componentJson) {
             }
 
             componentDidMount() {
-                this.handler.initialize && this.handler.initialize(this.props);
+                this.handler.onInit && this.handler.onInit(this.props);
             }
 
             componentDidUpdate(prevProps) {
-                this.handler.updated && this.handler.updated(prevProps);
+                this.handler.onUpdated && this.handler.onUpdated(prevProps);
             }
 
             componentWillUnmount() {
-                this.handler.destroy && this.handler.destroy();
+                this.handler.onDestroy && this.handler.onDestroy();
             }
 
             render() {

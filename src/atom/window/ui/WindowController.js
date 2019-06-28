@@ -14,6 +14,7 @@ class WindowController {
     @injectable fileQuickSearchService;
     @injectable atomService;
     @injectable windowService: WindowService;
+    @injectable decorationHandler;
 
     constructor() {
         this.projectService = new ProjectService();
@@ -21,6 +22,7 @@ class WindowController {
         this.atomService = new AtomService();
         this.windowService = new WindowService(new StorageService(), this.projectService, this.pageService, this.atomService);
         this.fileQuickSearchService = new FileQuickSearchService(this.windowService);
+        this.decorationHandler = {};
     }
 
     @injectable get atomGroups() {

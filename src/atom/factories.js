@@ -1,4 +1,4 @@
-import { Factory } from "react";
+import React, { Factory } from "react";
 
 type PropConfig = {
     type: string,
@@ -28,6 +28,12 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
 }
 
 export function createAtom(type, props) {
+    if (!stores[type]) {
+        console.error(`请先注册${type}！`);
+        return React.createElement(type, {
+            key: props.key
+        });
+    }
     const { atomFactory, propsConfig = {} } = stores[type];
     return atomFactory({
         propsConfig,

@@ -2,12 +2,12 @@ import component from "../../component";
 
 @component([{
     type: 'form',
-    configuredProps: {
+    props: {
         name: 'settingsForm'
     },
     children: [{
         type: 'input',
-        configuredProps: {
+        props: {
             field: 'data.name'
         }
     }]

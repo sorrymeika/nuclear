@@ -1,6 +1,8 @@
 import React from 'react';
+import { inject } from 'snowball/app';
+import WindowService from '../services/WindowService';
 
-export const Toolbar = ({
+const Toolbar = ({
     currentPage,
     currentTab,
     onSwitchTab,
@@ -76,3 +78,13 @@ export const Toolbar = ({
         </div>
     );
 };
+
+type ToolbarInjectorProps = {
+    windowService: WindowService
+}
+
+const ToolbarInjector = inject(({ windowService }: ToolbarInjectorProps) => ({
+    onEditPage: windowService.editPage
+}))(Toolbar);
+
+export { ToolbarInjector as Toolbar };

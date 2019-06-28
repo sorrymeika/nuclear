@@ -31,16 +31,16 @@ function encodeRules(rules) {
 }
 
 export default function createFormItem(Input) {
-    return observer(({ propsConfig = {}, configuredProps, transitiveProps }) => (
+    return observer(({ propsConfig = {}, props, transitiveProps }) => (
         <JsonComponentContext.Consumer>
             {
                 (handler) => {
-                    const { field, ...confProps } = configuredProps;
+                    const { field, ...confProps } = props;
                     if (Array.isArray(confProps.rules)) {
                         confProps.rules = encodeRules(confProps.rules);
                     }
-                    const props = getProps(handler, propsConfig, confProps, transitiveProps);
-                    const { labelLineBreak, labelVisibility, label, rules, visible, ...inputProps } = props;
+                    const itemProps = getProps(handler, propsConfig, confProps, transitiveProps);
+                    const { labelLineBreak, labelVisibility, label, rules, visible, ...inputProps } = itemProps;
 
                     if (!visible) return null;
 

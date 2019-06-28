@@ -28,8 +28,6 @@
 
 .ant-message { z-index: 6000; }
 
-.nc_window__settings { width: 260px; border-left: 1px solid #ddd; }
-
 .nc_window__weapon { min-height: 26px; min-width: 30px; }
 .nc_window__weapon_current { border: 1px solid #333 !important; }
 .nc_window__weapon_form { background: #fff; min-height: 60px; margin: 10px 0px; padding-bottom: 15px; border: 1px dashed #ccc; }
@@ -85,7 +83,7 @@
 .nuclear-window-atom-box-item { border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
 .nuclear-dnd-preview .nuclear-window-atom-box-item { margin: 0; }
 
-.nuclear-window-toolbar { position: absolute; padding-right: 10px; height: 35px; right: 0; left: 0; top: 0; background: #ddd; overflow: hidden; z-index: 1000; }
+.nuclear-window-toolbar { position: absolute; height: 35px; right: 0; left: 0; top: 0; background: #ddd; overflow: hidden; z-index: 1000; }
 .nuclear-window-toolbar:before { content: ''; position: absolute; height: 1px; background: #aaa; right: 0; left: 0; bottom: 0; z-index: 5000; }
 .nuclear-window-toolbar ~ .nuclear-root { padding-top: 40px; }
 .nuclear-window-toolbar-tab { position: relative; background: #ddd; height: 30px; line-height: 30px; margin: 5px 6px 0 6px; border-top: 1px solid #aaa; }
@@ -94,10 +92,19 @@
 .nuclear-window-toolbar-tab-name { font-weight: normal; position: relative; z-index: 10000; font-size: 14px; padding: 0 6px; }
 .nuclear-window-toolbar-tab.curr { background: #e6e7eb; position: relative; z-index: 10000 !important; }
 .nuclear-window-toolbar-tab.curr:before, .nuclear-window-toolbar-tab.curr:after { background: #e6e7eb; }
-.nuclear-window-toolbar-add-button { background: #ddd; border: 1px solid #aaa; height: 18px; width: 30px; margin: 5px 0 0 5px; border-radius: 4px; transform: skew(21deg,0deg); }
+.nuclear-window-toolbar-add-button { background: #ddd; border: 1px solid #aaa; height: 18px; width: 30px; margin: 5px 0 0 5px; line-height: 25px; border-radius: 4px; transform: skew(21deg,0deg); }
 .nuclear-window-toolbar-add-button:before { display: block; content: '+'; color: #666; margin-top: -7px; font-size: 20px; }
 .nuclear-window-toolbar-add-button:hover { background: #e1e1e1; }
 .nuclear-window-toolbar-button { color: #fff; background-color: #108ee9; font-size: 12px; margin-right: 8px; height: 19px; padding: 1px 6px; border: 0; }
 
 .nuclear-window-main{ background: #e6e7eb; position: relative; }
 .nuclear-window-main .nuclear-root { padding-bottom: 20px; }
+
+.nuclear-window-settings { width: 260px; border-left: 1px solid #ddd; padding: 6px 8px 0 8px; position: relative; }
+.nuclear-window-settings h3 { font-size: 16px; padding-bottom: 8px; }
+.nuclear-window-settings-con { height: calc(100% - 38px - 48px); }
+.nuclear-window-settings-ft { position: absolute; height: 48px; border-top: 1px solid #ddd; bottom: 0px; left: 0; right: 0; }
+.nuclear-window-settings-ft button { border: 0; border-right: 1px solid #ddd; border-radius: 0; height: 30px; }
+.nuclear-window-settings-ft button:last-child { border-right: 0; }
+.nuclear-window-settings-cancel { color: #666; }
+.nuclear-window-settings-ok { color: #108ee9; }

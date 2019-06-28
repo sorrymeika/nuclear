@@ -1,13 +1,13 @@
 import { controller, injectable } from "snowball/app";
 import ProjectService from "../domain/services/ProjectService";
 import PageService from "../domain/services/PageService";
+import AtomService from "../domain/services/AtomService";
 
 import Window from "./containers/Window";
 
 import WindowService from "./services/WindowService";
 import FileQuickSearchService from "./services/FileQuickSearchService";
 import StorageService from "./services/StorageService";
-import AtomService from "./services/AtomService";
 
 @controller(Window)
 class WindowController {
@@ -33,6 +33,10 @@ class WindowController {
 
     @injectable get currentPage() {
         return this.windowService.currentPage;
+    }
+
+    @injectable get currentAtom() {
+        return this.windowService.currentAtom;
     }
 
     onInit() {

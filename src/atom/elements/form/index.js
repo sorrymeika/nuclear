@@ -1,5 +1,5 @@
 import React from "react";
-import { registerAtom } from "../../registry";
+import { registerAtom } from "../../factories";
 import Form from "./Form";
 import FormSettings from "./FormSettings";
 

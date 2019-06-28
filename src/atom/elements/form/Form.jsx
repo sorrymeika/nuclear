@@ -12,10 +12,10 @@ function findFields(childrenJson) {
         const stack = childrenJson.reverse();
         let current = stack.pop();
         while (current) {
-            const { type, specificConfig, children, configuredProps } = current;
+            const { type, specificConfig, children, props } = current;
             if (specificConfig) {
                 if (specificConfig.isFormItem) {
-                    fields.push(configuredProps);
+                    fields.push(props);
                 } else if (type === 'table' || type === 'list') {
                     continue;
                 }
@@ -49,9 +49,9 @@ export default Form.create({
         }, {});
     },
 })(props => {
-    const { configuredProps } = props;
-    if (configuredProps.name) {
-        props.handler[configuredProps.name] = props.form;
+    const { props: configProps } = props;
+    if (configProps.name) {
+        props.handler[configProps.name] = props.form;
     }
 
     return (

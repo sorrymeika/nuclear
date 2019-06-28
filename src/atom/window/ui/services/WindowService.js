@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { observable, autorun } from "snowball";
 
 import { isNumber } from "snowball/utils";
@@ -5,18 +6,20 @@ import { eachAtom } from "../../shared/atomUtils";
 
 import ProjectService from "../../domain/services/ProjectService";
 import PageService from "../../domain/services/PageService";
+import AtomService from "../../domain/services/AtomService";
 import StorageService from "./StorageService";
-import AtomService from "./AtomService";
 
 class PageState {
     name: string;
     path: string;
     projectName: string;
+    route: string;
     @observable dialogs: any[];
     @observable atoms: any[];
 
-    constructor({ name, projectName, path, dialogs, atoms }) {
+    constructor({ name, route, projectName, path, dialogs, atoms }) {
         this.name = name;
+        this.route = route;
         this.path = path;
         this.projectName = projectName;
         this.dialogs = dialogs || [];
@@ -37,18 +40,19 @@ class TabState {
 class WindowService {
     @observable projectList;
     @observable pageList;
+    @observable atomGroups = [];
     @observable extentions = [];
+
     @observable currentProject;
     @observable currentPage: PageState;
     @observable currentTab: TabState;
+    @observable currentAtom;
 
     @observable isSettingsVisible = false;
     @observable isNewPageDialogVisible = false;
     @observable isUIDialogVisible = false;
     @observable isCSSDialogVisible = false;
     @observable isJSDialogVisible = false;
-
-    @observable atomGroups = [];
 
     constructor(storageService: StorageService, projectService: ProjectService, pageService: PageService, atomService: AtomService) {
         this.storageService = storageService;
@@ -59,7 +63,7 @@ class WindowService {
     }
 
     async init() {
-        const atomGroups = this.atomService.getAtomGroups();
+        const atomGroups = this.atomService.getGroups();
         this.atomGroups = atomGroups;
 
         const windowState = this.storageService.getCurrentWindowState();
@@ -76,15 +80,50 @@ class WindowService {
         this.currentTab = new TabState(windowState.currentTab || { id: 'main' });
 
         this.disposers.push(
-            autorun(() => this.syncIds())
+            autorun(() => this._syncIds())
         );
+    }
+
+    editPage = () => {
+        const { currentPage } = this;
+        if (currentPage) {
+            this.currentAtom = {
+                type: 'page',
+                props: {
+                    projectName: currentPage.projectName,
+                    name: currentPage.name,
+                    route: currentPage.route
+                }
+            };
+        } else {
+            this.currentAtom = {
+                type: 'page',
+                props: {}
+            };
+        }
+        this.isSettingsVisible = true;
+    };
+
+    addAtom(type, target) {
+        if (!this.currentPage) {
+            message.error('先选择或创建页面!');
+            return;
+        }
+        const { atoms } = this.currentPage;
+        const newId = this._newAtomId();
+
+        atoms.withMutations((atomCollection) => {
+            atomCollection.add({
+                id: newId
+            });
+        });
     }
 
     dispose() {
         this.disposers.forEach((dispose) => dispose());
     }
 
-    syncIds() {
+    _syncIds() {
         if (!this.currentPage) {
             return;
         }
@@ -107,11 +146,11 @@ class WindowService {
         this.dialogId = maxDialogId + 1;
     }
 
-    newAtomId() {
+    _newAtomId() {
         return ++this.atomId;
     }
 
-    newDialogId() {
+    _newDialogId() {
         return ++this.dialogId;
     }
 }

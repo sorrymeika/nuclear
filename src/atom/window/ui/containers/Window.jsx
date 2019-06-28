@@ -1,16 +1,16 @@
 
-import React, { Component } from "react";
 import "../sass/window.scss";
+import React, { Component } from "react";
+import { inject } from "snowball/app";
 import { Drag } from "../../../../components/drag";
 import { AtomBox } from "../components/AtomBox";
 import { Main } from "../components/Main";
 import FileQuickSearch from "../components/FileQuickSearch";
-import { inject } from "snowball/app";
+import WindowService from "../services/WindowService";
+import { SettingsRegion } from "../components/SettingsRegion";
 
-@inject(({ windowService }) => ({
-    atomGroups: windowService.atomGroups
-}))
-class Window extends Component {
+@inject('windowService')
+class Window extends Component<{ windowService: WindowService }> {
     constructor(props) {
         super(props);
 
@@ -26,7 +26,13 @@ class Window extends Component {
     }
 
     onDrop = (e) => {
-        console.log(e);
+        const { windowService } = this.props;
+        if (e.sourceType === 'new') {
+            if (e.status !== 'dragout') {
+                windowService.addAtom(e.status, e.source.props.data);
+            }
+        } else {
+        }
     }
 
     render() {
@@ -39,6 +45,7 @@ class Window extends Component {
                 <FileQuickSearch></FileQuickSearch>
                 <AtomBox atomGroups={atomGroups}></AtomBox>
                 <Main></Main>
+                <SettingsRegion></SettingsRegion>
             </Drag>
         );
     }

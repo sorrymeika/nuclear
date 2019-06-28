@@ -1,13 +1,13 @@
 
-import { createDecoration } from "../../registry";
+import { createDecoration } from "../../factories";
 
 export function jsonToDecoration(json, handler, paths, transitiveProps) {
-    const { type, children, configuredProps } = json;
+    const { type, children, props } = json;
 
     const childrenComponents = jsonArrayToDecorations(children, handler, [...paths, type], transitiveProps);
 
     return createDecoration(type, {
-        configuredProps,
+        props,
         transitiveProps,
         children: childrenComponents
     });

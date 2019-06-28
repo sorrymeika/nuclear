@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { observer } from "snowball/app";
-import { createAtom } from "./registry";
+import { createAtom } from "./factories";
 
 export const JsonComponentContext = React.createContext();
 
 function jsonToComponent(json, handler, paths, transitiveProps) {
-    const { type, children, configuredProps } = json;
+    const { type, key, children, props } = json;
 
-    const childrenComponents = jsonArrayToComponents(children, handler, [...paths, type], transitiveProps);
+    const childrenComponents = children
+        ? jsonArrayToComponents(children, handler, [...paths, type], transitiveProps)
+        : null;
 
     return createAtom(type, {
-        configuredProps,
+        key,
+        props,
+        handler,
         transitiveProps,
         children: childrenComponents
     });

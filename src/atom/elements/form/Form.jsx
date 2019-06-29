@@ -49,9 +49,9 @@ export default Form.create({
         }, {});
     },
 })(props => {
-    const { props: configProps } = props;
-    if (configProps.name) {
-        props.handler[configProps.name] = props.form;
+    const { name } = props;
+    if (name) {
+        props.context.handler[name] = props.form;
     }
 
     return (

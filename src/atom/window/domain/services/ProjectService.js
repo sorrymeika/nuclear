@@ -1,7 +1,7 @@
 
 class ProjectService {
     async getProjects() {
-        const resp = await fetch('/gen/getProjects');
+        const resp = await fetch('/api/page.getProjects');
         return await resp.json();
     }
 }

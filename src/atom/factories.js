@@ -1,4 +1,5 @@
 import React, { Factory } from "react";
+import getProps from "./methods/getProps";
 
 type PropConfig = {
     type: string,
@@ -12,8 +13,8 @@ interface IAtomRegistry {
     propsConfig?: {
         [propName]: PropConfig
     };
-    atomFactory: Factory;
-    decorationFactory: Factory;
+    atomComponent: Factory;
+    decorationComponent: Factory;
     settingsFactory: Factory;
     specificConfig: any;
 }
@@ -27,26 +28,38 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
     stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createAtom(type, props) {
+export function createAtom(type, { key, handler, transitiveProps, children, props }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
-            key: props.key
+            key
         });
     }
-    const { atomFactory, propsConfig = {} } = stores[type];
-    return atomFactory({
-        propsConfig,
-        ...props
+    const { atomComponent, propsConfig = {} } = stores[type];
+    const newProps = getProps(handler, propsConfig, props, transitiveProps);
+
+    if (!newProps.visible) {
+        return null;
+    }
+
+    return React.createElement(atomComponent, {
+        key,
+        context: {
+            handler,
+            propsConfig,
+            transitiveProps,
+        },
+        ...newProps,
+        children
     });
 }
 
 export function createDecoration(type, props) {
-    return stores[type].decorationFactory(props);
+    return React.createElement(stores[type].decorationComponent, props);
 }
 
 export function createSettings(type, props) {
-    return stores[type].settingFactory(props);
+    return stores[type].settingsComponent(props);
 }
 
 export function _getAtoms() {

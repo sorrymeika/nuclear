@@ -23,6 +23,8 @@ const registerController = (controllerClass, controllerName) => {
     controllerName = controllerName.toLowerCase();
     if (controllers[controllerName])
         throw new Error('不可重复注册' + controllerName + '!');
+
+    controllers[controllerName] = controllerClass;
 };
 
 export const Controller = (controllerName) => {

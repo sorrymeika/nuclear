@@ -7,7 +7,7 @@ class PageService {
     }
 
     async getPagesByProject(projectName) {
-        const resp = await fetch('/api/page.getPage?' + params({ projectName }));
+        const resp = await fetch('/api/page.getPages?' + params({ projectName }));
         return await resp.json();
     }
 }

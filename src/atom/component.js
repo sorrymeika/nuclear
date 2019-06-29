@@ -4,11 +4,11 @@ import { createAtom } from "./factories";
 
 export const JsonComponentContext = React.createContext();
 
-function jsonToComponent(json, handler, paths, transitiveProps) {
+function jsonToElement(json, handler, paths, transitiveProps) {
     const { type, key, children, props } = json;
 
     const childrenComponents = children
-        ? jsonArrayToComponents(children, handler, [...paths, type], transitiveProps)
+        ? jsonArrayToElements(children, handler, [...paths, type], transitiveProps)
         : null;
 
     return createAtom(type, {
@@ -20,13 +20,13 @@ function jsonToComponent(json, handler, paths, transitiveProps) {
     });
 }
 
-function jsonArrayToComponents(jsonArray, handler, paths, transitiveProps) {
+function jsonArrayToElements(jsonArray, handler, paths, transitiveProps) {
     const results = [];
     const length = jsonArray.length;
     let i = -1;
 
     while (++i < length) {
-        results.push(jsonToComponent({
+        results.push(jsonToElement({
             ...jsonArray[i],
             key: paths.join('-') + i,
             type: jsonArray[i].type.toLowerCase()
@@ -36,10 +36,10 @@ function jsonArrayToComponents(jsonArray, handler, paths, transitiveProps) {
     return results;
 }
 
-export function renderComponent(json, handler, paths, transitiveProps) {
+export function renderJson(json, handler, paths, transitiveProps) {
     return Array.isArray(json)
-        ? jsonArrayToComponents(json, handler, paths, transitiveProps)
-        : jsonToComponent(json, handler, paths, transitiveProps);
+        ? jsonArrayToElements(json, handler, paths, transitiveProps)
+        : jsonToElement(json, handler, paths, transitiveProps);
 }
 
 /**
@@ -49,8 +49,8 @@ export function renderComponent(json, handler, paths, transitiveProps) {
 export default function component(componentJson) {
     return function (Handler) {
         const _jsonToComponent = Array.isArray(componentJson)
-            ? jsonArrayToComponents
-            : jsonToComponent;
+            ? jsonArrayToElements
+            : jsonToElement;
 
         return @observer class JsonComponent extends Component {
             constructor(props) {

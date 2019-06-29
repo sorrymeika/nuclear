@@ -1,5 +1,3 @@
-
-
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
@@ -19,6 +17,7 @@ const fs = require('fs');
 if (!fs.existsSync('./node_modules/snowball')) {
     require('child_process').execSync('ln -s ../../snowball/src ./node_modules/snowball');
 }
+
 
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');

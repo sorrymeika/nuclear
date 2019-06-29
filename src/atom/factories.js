@@ -28,7 +28,7 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
     stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createAtom(type, { key, handler, transitiveProps, children, props }) {
+export function createAtom(type, { key, handler, transitiveProps, children, childrenJson, props }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
@@ -48,6 +48,7 @@ export function createAtom(type, { key, handler, transitiveProps, children, prop
             handler,
             propsConfig,
             transitiveProps,
+            childrenJson
         },
         ...newProps,
         children

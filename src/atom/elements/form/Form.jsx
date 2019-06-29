@@ -32,13 +32,13 @@ function findFields(childrenJson) {
 
 export default Form.create({
     onFieldsChange(props, changedFields) {
-        const { handler } = props;
+        const { handler } = props.context;
         Object.keys(changedFields).forEach((name) => {
             set(handler, name, changedFields[name].value);
         });
     },
     mapPropsToFields(props) {
-        const { childrenJson, handler, transitiveProps } = props;
+        const { childrenJson, handler, transitiveProps } = props.context;
         const fileds = findFields(childrenJson);
 
         return fileds.reduce((result, filed) => {

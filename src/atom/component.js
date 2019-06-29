@@ -16,6 +16,7 @@ function jsonToElement(json, handler, paths, transitiveProps) {
         props,
         handler,
         transitiveProps,
+        childrenJson: children,
         children: childrenComponents
     });
 }

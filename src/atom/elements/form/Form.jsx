@@ -9,7 +9,7 @@ function findFields(childrenJson) {
     const fields = [];
 
     if (childrenJson) {
-        const stack = childrenJson.reverse();
+        const stack = [...childrenJson];
         let current = stack.pop();
         while (current) {
             const { type, specificConfig, children, props } = current;

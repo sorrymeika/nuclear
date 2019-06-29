@@ -1,4 +1,4 @@
-import React, { Factory } from "react";
+import React, { Factory, Component } from "react";
 import getProps from "./methods/getProps";
 
 type PropConfig = {
@@ -13,9 +13,9 @@ interface IAtomRegistry {
     propsConfig?: {
         [propName]: PropConfig
     };
-    atomComponent: Factory;
-    decorationComponent: Factory;
-    settingsFactory: Factory;
+    atomComponent: Factory | Component;
+    decorationComponent: Factory | Component;
+    settingsComponent: Factory | Component;
     specificConfig: any;
 }
 
@@ -36,9 +36,9 @@ export function createAtom(type, { key, handler, transitiveProps, children, chil
         });
     }
     const { atomComponent, propsConfig = {} } = stores[type];
-    const newProps = getProps(handler, propsConfig, props, transitiveProps);
+    const { visible = true, ...newProps } = getProps(handler, propsConfig, props, transitiveProps);
 
-    if (!newProps.visible) {
+    if (!visible) {
         return null;
     }
 

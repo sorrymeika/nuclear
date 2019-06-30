@@ -74,6 +74,9 @@ const Json = [{
 
 @component(Json)
 class PageSettings {
+    onPageChange(name) {
+        console.log(name);
+    }
 }
 
 export { PageSettings };

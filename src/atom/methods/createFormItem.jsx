@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "antd";
-import { observer } from "snowball/app";
 
 import { FormContext } from "../elements/form/Form";
 
@@ -10,7 +9,7 @@ const formItemLayout = {
 };
 
 export default function createFormItem(Input) {
-    return observer(({ context, ...props }) => {
+    return ({ context, ...props }) => {
         const { field, labelLineBreak, labelVisibility, label, rules = [], ...inputProps } = props;
 
         return (
@@ -28,8 +27,8 @@ export default function createFormItem(Input) {
                                     field
                                         ? getFieldDecorator(field, {
                                             rules
-                                        })(<Input {...inputProps} />)
-                                        : <Input {...inputProps} />
+                                        })(<Input {...inputProps} context={context} />)
+                                        : <Input {...inputProps} context={context} />
                                 }
                             </Form.Item>
                         );
@@ -49,7 +48,7 @@ export default function createFormItem(Input) {
                 }
             </FormContext.Consumer>
         );
-    });
+    };
 }
 
 

@@ -1,14 +1,14 @@
 import { registerAtom } from "../../factories";
-import TextArea from "./TextArea";
-import TextAreaSettings from "./TextAreaSettings";
+import AutoComplete from "./AutoComplete";
+import AutoCompleteSettings from "./AutoCompleteSettings";
 
 registerAtom({
-    type: 'textarea',
-    name: 'TextArea',
+    type: 'autocomplete',
+    name: 'AutoComplete',
     group: 'Form',
-    atomComponent: TextArea,
-    decorationComponent: TextArea,
-    settingsComponent: TextAreaSettings,
+    atomComponent: AutoComplete,
+    decorationComponent: AutoComplete,
+    settingsComponent: AutoCompleteSettings,
     specificConfig: {
         isFormItem: true
     }

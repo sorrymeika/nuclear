@@ -9,6 +9,12 @@ registerAtom({
     atomComponent: Select,
     decorationComponent: Select,
     settingsComponent: SelectSettings,
+    propsConfig: {
+        field: {
+            type: 'string',
+            isHandlerProp: false
+        }
+    },
     specificConfig: {
         isFormItem: true
     }

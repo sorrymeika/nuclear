@@ -34,7 +34,9 @@ export default Form.create({
     onFieldsChange(props, changedFields) {
         const { handler } = props.context;
         Object.keys(changedFields).forEach((name) => {
-            set(handler, name, changedFields[name].value);
+            typeof handler.asModel === 'function'
+                ? handler.asModel().set(name, changedFields[name].value)
+                : set(handler, name, changedFields[name].value);
         });
     },
     mapPropsToFields(props) {

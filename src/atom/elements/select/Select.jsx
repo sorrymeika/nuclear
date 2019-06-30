@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Select } from "antd";
 import createFormItem from "../../methods/createFormItem";
-import { getDataSource } from '../../methods/getDataSource';
 
 export default createFormItem(class _Select extends Component {
     render() {
@@ -12,16 +11,10 @@ export default createFormItem(class _Select extends Component {
             value,
             disabled,
             placeholder,
-            dataSourceName,
+            dataSource = [],
             valueKey = 'value',
-            textKey = 'text',
-            context: {
-                handler,
-                transitiveProps
-            }
+            textKey = 'text'
         } = this.props;
-
-        const dataSource = getDataSource(dataSourceName, handler, transitiveProps);
 
         return (
             <Select

@@ -9,6 +9,12 @@ registerAtom({
     atomComponent: AutoComplete,
     decorationComponent: AutoComplete,
     settingsComponent: AutoCompleteSettings,
+    propsConfig: {
+        field: {
+            type: 'string',
+            isHandlerProp: false
+        }
+    },
     specificConfig: {
         isFormItem: true
     }

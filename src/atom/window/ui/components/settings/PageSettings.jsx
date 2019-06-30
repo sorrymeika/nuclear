@@ -13,7 +13,7 @@ const Json = [{
             placeholder: '选择目标项目',
             onChange: 'onProjectChange',
             rules: [{ required: true }],
-            dataSourceName: 'projects'
+            dataSource: 'projects'
         },
     }, {
         type: 'autocomplete',
@@ -74,6 +74,8 @@ const Json = [{
 
 @component(Json)
 class PageSettings {
+    projects = [];
+
     onPageChange(name) {
         console.log(name);
     }

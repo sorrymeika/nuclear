@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AutoComplete } from "antd";
 import createFormItem from "../../methods/createFormItem";
-import { getDataSource } from '../../methods/getDataSource';
 
 export default createFormItem(class _AutoComplete extends Component {
     render() {
@@ -10,11 +9,9 @@ export default createFormItem(class _AutoComplete extends Component {
             value,
             disabled,
             placeholder,
-            dataSourceName,
+            dataSource = [],
             onSearch
         } = this.props;
-
-        const dataSource = getDataSource(dataSourceName) || [];
 
         return (
             <AutoComplete

@@ -11,16 +11,14 @@ import StorageService from "./StorageService";
 
 class PageState {
     name: string;
-    path: string;
     projectName: string;
     route: string;
     @observable dialogs: any[];
     @observable atoms: any[];
 
-    constructor({ name, route, projectName, path, dialogs, atoms }) {
+    constructor({ name, route, projectName, dialogs, atoms }) {
         this.name = name;
         this.route = route;
-        this.path = path;
         this.projectName = projectName;
         this.dialogs = dialogs || [];
         this.atoms = atoms || [];
@@ -75,13 +73,25 @@ class WindowService {
         this.pageList = pages;
 
         if (windowState.currentPage) {
-            this.currentPage = new PageState(windowState.currentPage);
+            const { projectName, name: pageName } = windowState.currentPage;
+            await this.pullPage(projectName, pageName);
         }
         this.currentTab = new TabState(windowState.currentTab || { id: 'main' });
 
         this.disposers.push(
             autorun(() => this._syncIds())
         );
+    }
+
+    async pullPage(projectName, pageName) {
+        const { basicInfo, atoms } = await this.pageService.getPage(projectName, pageName);
+        const page = {
+            ...basicInfo,
+            projectName,
+            atoms: atoms.filter((item) => item.type !== 'dialog'),
+            dialogs: atoms.filter((item) => item.type === 'dialog'),
+        };
+        this.currentPage = new PageState(page);
     }
 
     editPage = () => {
@@ -91,7 +101,7 @@ class WindowService {
                 type: 'page',
                 props: {
                     projectName: currentPage.projectName,
-                    name: currentPage.name,
+                    pageName: currentPage.name,
                     route: currentPage.route
                 }
             };
@@ -103,6 +113,11 @@ class WindowService {
         }
         this.isSettingsVisible = true;
     };
+
+    async savePage({ projectName, pageName, route }) {
+        await this.pageService.savePage({ projectName, pageName, route });
+        await this.pullPage(projectName, pageName);
+    }
 
     addAtom(type, target) {
         if (!this.currentPage) {
@@ -117,6 +132,24 @@ class WindowService {
                 id: newId
             });
         });
+    }
+
+    confirmSettings = (props) => {
+        const { type } = this.currentAtom;
+        if (type === 'page') {
+            this.savePage(props);
+        } else {
+        }
+    }
+
+    saveDecorations = async () => {
+        if (!this.currentPage) {
+            message.error('先选择或创建页面!');
+            return;
+        }
+
+        const { projectName, name, atoms, dialogs } = this.currentPage;
+        await this.pageService.savePage({ projectName, pageName: name, atoms, dialogs });
     }
 
     dispose() {

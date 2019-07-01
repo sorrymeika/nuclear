@@ -30,14 +30,25 @@ function findFields(childrenJson) {
     return fields;
 }
 
+const setFields = (handler, changedFields, parentNames = []) => {
+    Object.keys(changedFields).forEach((name) => {
+        const subField = changedFields[name];
+        const currentNames = parentNames.concat(name);
+
+        if (subField.name === currentNames.join('.')) {
+            typeof handler.asModel === 'function'
+                ? handler.asModel().set(currentNames, subField.value)
+                : set(handler, currentNames, subField.value);
+        } else {
+            setFields(handler, subField, currentNames);
+        }
+    });
+};
+
 export default Form.create({
     onFieldsChange(props, changedFields) {
         const { handler } = props.context;
-        Object.keys(changedFields).forEach((name) => {
-            typeof handler.asModel === 'function'
-                ? handler.asModel().set(name, changedFields[name].value)
-                : set(handler, name, changedFields[name].value);
-        });
+        setFields(handler, changedFields);
     },
     mapPropsToFields(props) {
         const { childrenJson, handler, transitiveProps } = props.context;

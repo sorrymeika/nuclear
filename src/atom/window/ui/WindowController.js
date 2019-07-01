@@ -11,6 +11,8 @@ import StorageService from "./services/StorageService";
 
 @controller(Window)
 class WindowController {
+    @injectable projectService;
+    @injectable pageService;
     @injectable fileQuickSearchService;
     @injectable atomService;
     @injectable windowService: WindowService;

@@ -1,4 +1,6 @@
+import { observable } from "snowball";
 import component from "../../../../component";
+import { inject } from "snowball/app";
 
 const Json = [{
     type: 'form',
@@ -19,7 +21,7 @@ const Json = [{
         type: 'autocomplete',
         props: {
             label: '页面名',
-            field: 'name',
+            field: 'data.pageName',
             rules: [{ required: true }, { pattern: /^[A-Z]/, message: '页面请用帕斯卡命名' }],
             dataSourceName: 'pageNames',
             onChange: 'onPageChange'
@@ -28,7 +30,7 @@ const Json = [{
         type: 'textarea',
         props: {
             label: '路由',
-            field: 'route',
+            field: 'data.route',
             autosize: 'true'
         }
     }]
@@ -74,11 +76,47 @@ const Json = [{
 
 @component(Json)
 class PageSettings {
-    projects = [];
+    @observable data = {};
+    @observable projects = [];
+    @observable pageNames = [];
+    @observable currentProjectName;
+
+    constructor({ projectService, pageService }) {
+        this.projectService = projectService;
+        this.pageService = pageService;
+    }
+
+    async onInit() {
+        const projects = await this.projectService.getProjects();
+        this.projects = projects.map((proj) => ({
+            text: proj.name,
+            value: proj.name
+        }));
+
+        this.dispose = this.asModel().observe('data', (data) => {
+            this.props.onChange && this.props.onChange(data);
+        });
+    }
+
+    async onProjectChange(projectName) {
+        this.currentProjectName = projectName;
+
+        if (projectName) {
+            const res = await this.pageService.getPagesByProject(projectName);
+            this.pageNames = res.pages.map((page) => page.name);
+        } else {
+            this.pageNames = [];
+        }
+    }
 
     onPageChange(name) {
-        console.log(name);
+    }
+
+    onDestroy() {
+        this.dispose();
     }
 }
 
-export { PageSettings };
+const PageSettingsInjector = inject('projectService', 'pageService')(PageSettings);
+
+export { PageSettingsInjector as PageSettings };

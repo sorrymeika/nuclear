@@ -22,6 +22,9 @@ export default function getProps(context, propsConfig, props, otherProps) {
             } else {
                 res[name] = valueExp;
             }
+            if (typeof res[name] === 'function') {
+                res[name] = res[name].bind(context);
+            }
             return res;
         }, {});
 

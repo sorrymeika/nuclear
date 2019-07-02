@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "antd";
-import getValue from "../../methods/getValue";
-import { set } from "snowball/utils";
+import { util } from "snowball";
+import { _getSpecificConfig } from "../../factories";
 
 export const FormContext = React.createContext();
 
@@ -12,11 +12,12 @@ function findFields(childrenJson) {
         const stack = [...childrenJson];
         let current = stack.pop();
         while (current) {
-            const { type, specificConfig, children, props } = current;
+            const { type, children, props } = current;
+            const specificConfig = _getSpecificConfig(type);
             if (specificConfig) {
                 if (specificConfig.isFormItem) {
                     fields.push(props);
-                } else if (type === 'table' || type === 'list') {
+                } else if (type === 'table' || type === 'list' || specificConfig.isList) {
                     continue;
                 }
             }
@@ -38,7 +39,7 @@ const setFields = (handler, changedFields, parentNames = []) => {
         if (subField.name === currentNames.join('.')) {
             typeof handler.asModel === 'function'
                 ? handler.asModel().set(currentNames, subField.value)
-                : set(handler, currentNames, subField.value);
+                : util.set(handler, currentNames, subField.value);
         } else {
             setFields(handler, subField, currentNames);
         }
@@ -52,11 +53,11 @@ export default Form.create({
     },
     mapPropsToFields(props) {
         const { childrenJson, handler, transitiveProps } = props.context;
-        const fileds = findFields(childrenJson);
+        const fields = findFields(childrenJson);
 
-        return fileds.reduce((result, filed) => {
-            result[filed.name] = Form.createFormField({
-                value: getValue(handler, filed.value, transitiveProps)
+        return fields.reduce((result, field) => {
+            result[field.field] = Form.createFormField({
+                value: util.get(handler, field.field, transitiveProps)
             });
             return result;
         }, {});

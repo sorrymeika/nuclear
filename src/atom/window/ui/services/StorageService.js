@@ -7,6 +7,8 @@ export default class StorageService {
             : {};
     }
 
-    saveCurrentWindowState() {
+    saveCurrentWindowState(data) {
+        const windowState = this.getCurrentWindowState();
+        localStorage.setItem('NUCLEAR_WINDOW_STORAGE', JSON.stringify(Object.assign(windowState, data)));
     }
 }

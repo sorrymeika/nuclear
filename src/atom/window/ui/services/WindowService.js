@@ -69,8 +69,7 @@ class WindowService {
         this.projectList = projects;
 
         const currentProject = windowState.currentProject || projects[0];
-        const pages = await this.pageService.getPagesByProject(currentProject.name);
-        this.pageList = pages;
+        await this.pullPages(currentProject.name);
 
         if (windowState.currentPage) {
             const { projectName, name: pageName } = windowState.currentPage;
@@ -83,8 +82,13 @@ class WindowService {
         );
     }
 
+    async pullPages(projectName) {
+        const pages = await this.pageService.getPagesByProject(projectName);
+        this.pageList = pages;
+    }
+
     async pullPage(projectName, pageName) {
-        const { basicInfo, atoms } = await this.pageService.getPage(projectName, pageName);
+        const { basicInfo, atoms = [] } = await this.pageService.getPage(projectName, pageName);
         const page = {
             ...basicInfo,
             projectName,
@@ -92,6 +96,17 @@ class WindowService {
             dialogs: atoms.filter((item) => item.type === 'dialog'),
         };
         this.currentPage = new PageState(page);
+
+        this.storageService.saveCurrentWindowState({
+            currentProject: {
+                name: projectName
+            },
+            currentPage: {
+                projectName,
+                name: pageName
+            }
+        });
+        await this.pullPages(projectName);
     }
 
     editPage = () => {

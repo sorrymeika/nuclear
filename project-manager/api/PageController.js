@@ -88,34 +88,37 @@ class PageController {
         const { projectName, pageName, route } = request.query;
         const { pages, projectPath } = await this._getPagesByProjectName(projectName);
         let page = pages.find((pg) => pg.name == pageName);
-        const { pageJsonPath, pageIndexPath } = this._getPagePaths(projectPath, pageName);
+        const { pageJsonPath, projectIndexPath } = this._getPagePaths(projectPath, pageName);
         const body = await getBody(request);
 
         if (!page) {
             await this._checkPage(projectPath, pageName);
         }
 
-        if (route !== undefined) {
-            if (!page) {
-                pages.push({
-                    route,
-                    name: pageName
-                });
-            }
-
-            let importText = '';
-            let text = [];
-            pages.forEach((item) => {
-                importText += 'import ' + item.name + ' from "./' + item.name + '";\n';
-                if (item.route) {
-                    text.push(JSON.stringify(item.route) + ': ' + item.name);
-                }
+        if (!page) {
+            pages.push({
+                route,
+                name: pageName
             });
-
-            await writeFile(pageIndexPath, importText + 'export default {'
-                + text.join(', ')
-                + '}\n');
+        } else {
+            page.route = route || '';
         }
+
+        let importText = '';
+        let exportText = '';
+        let text = [];
+        pages.forEach((item) => {
+            importText += 'import ' + item.name + ' from "./' + item.name + '";\n';
+            if (item.route) {
+                text.push(JSON.stringify(item.route) + ': ' + item.name);
+            } else {
+                exportText += 'export {' + item.name + '};\n';
+            }
+        });
+
+        await writeFile(projectIndexPath, importText + exportText + 'export default {'
+            + text.join(',\n')
+            + '};\n');
 
         if (body) {
             await writeFile(pageJsonPath, "export default " + body);
@@ -206,7 +209,7 @@ class PageController {
                                 });
                             });
 
-                        js.replace(/import\s+(\w+?)(?:Controller)?\s+from\s+/g, (match, name) => {
+                        js.replace(/import\s+(\w+?)\s+from\s+/g, (match, name) => {
                             if (!pages.find((item) => item.name == name)) {
                                 pages.push({
                                     route: '',
@@ -243,8 +246,8 @@ class PageController {
                                 + `\n    constructor(props) {`
                                 + `\n    }`
                                 + `\n`
-                                + `\n    componentWillReceiveProps(nextProps) {`
-                                + `\n    }`
+                                + `\n    onInit() {`
+                                + `\n    }\n`
                                 + `}\n\nexport default ${pageName}Controller;`),
                             writeFile(pageIndexPath, `export { ${pageName}Controller as default } from './${pageName}Controller';`)
                         ])
@@ -261,8 +264,9 @@ class PageController {
         const pageControllerPath = path.join(pageDir, pageName + 'Controller.js');
         const pageStylePath = path.join(pageDir, pageName + 'Style.css');
         const pageIndexPath = path.join(pageDir, 'index.js');
+        const projectIndexPath = path.join(projectPath, 'src/gen/index.js');
 
-        return { pageDir, pageJsonPath, pageControllerPath, pageStylePath, pageIndexPath };
+        return { pageDir, pageJsonPath, pageControllerPath, pageStylePath, pageIndexPath, projectIndexPath };
     }
 }
 

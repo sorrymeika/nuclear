@@ -23,7 +23,7 @@ const Json = [{
             label: '页面名',
             field: 'data.pageName',
             rules: [{ required: true }, { pattern: /^[A-Z]/, message: '页面请用帕斯卡命名' }],
-            dataSourceName: 'pageNames',
+            dataSource: 'pageNames',
             onChange: 'onPageChange'
         }
     }, {
@@ -97,9 +97,10 @@ class PageSettings {
     @observable pageNames = [];
     @observable currentProjectName;
 
-    constructor({ projectService, pageService }) {
+    constructor({ projectService, pageService, defaultData }) {
         this.projectService = projectService;
         this.pageService = pageService;
+        this.data = defaultData || {};
     }
 
     async onInit() {
@@ -109,10 +110,9 @@ class PageSettings {
             value: proj.name
         }));
 
-        observable(this.data).compute((data) => {
+        this.asModel().observe('data', (data) => {
             this.props.onChange && this.props.onChange(data);
         });
-
         this.props.formRef.current = this.form;
     }
 

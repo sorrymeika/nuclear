@@ -63,6 +63,10 @@ export function createSettings(type, props) {
     return stores[type].settingsComponent(props);
 }
 
+export function _getSpecificConfig(type) {
+    return stores[type].specificConfig;
+}
+
 export function _getAtoms() {
     return Object.keys(stores)
         .map((key) => {

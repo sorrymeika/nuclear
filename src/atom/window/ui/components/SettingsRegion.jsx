@@ -29,6 +29,7 @@ class SettingsRegion extends Component {
                 <h3>{title}配置</h3>
                 <div className="of_s nuclear-window-settings-con">
                     <PageSettings
+                        defaultData={this.props.data}
                         onChange={this.handleDataChange}
                         formRef={this.formRef}
                     ></PageSettings>

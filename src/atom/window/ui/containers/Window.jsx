@@ -36,7 +36,8 @@ class Window extends Component<{ windowService: WindowService }> {
     }
 
     render() {
-        const { atomGroups } = this.props;
+        const { atomGroups, windowService } = this.props;
+        const { isSettingsVisible } = windowService;
         return (
             <Drag
                 className="nuclear-window flex ai_s"
@@ -45,7 +46,7 @@ class Window extends Component<{ windowService: WindowService }> {
                 <FileQuickSearch></FileQuickSearch>
                 <AtomBox atomGroups={atomGroups}></AtomBox>
                 <Main></Main>
-                <SettingsRegion></SettingsRegion>
+                {isSettingsVisible && <SettingsRegion></SettingsRegion>}
             </Drag>
         );
     }

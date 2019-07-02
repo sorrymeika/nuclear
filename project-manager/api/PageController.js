@@ -234,7 +234,9 @@ class PageController {
                     fs.mkdir(pageDir, () => {
                         Promise.all([
                             writeFile(pageStylePath, ``),
-                            writeFile(pageControllerPath, `import './${pageName}Style.css';`
+                            writeFile(pageControllerPath,
+                                `import { component } from 'nuclear';`
+                                + `\nimport './${pageName}Style.css';`
                                 + `\nimport ${pageName}Json from './${pageName}Json';`
                                 + `\n@component(${pageName}Json)`
                                 + `\nclass ${pageName}Controller {`

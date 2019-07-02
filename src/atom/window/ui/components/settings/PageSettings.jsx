@@ -1,6 +1,6 @@
 import { observable } from "snowball";
-import component from "../../../../component";
 import { inject } from "snowball/app";
+import component from "../../../../component";
 
 const Json = [{
     type: 'form',
@@ -41,36 +41,52 @@ const Json = [{
     },
     children: [{
         type: 'label',
-        value: 'cmd+o: 打开页面',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+o: 打开页面',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+k: 页面设置',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+k: 页面设置',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+u: 编辑UI JSON',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+u: 编辑UI JSON',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+i: 编辑CSS',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+i: 编辑CSS',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+j: 编辑JS',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+j: 编辑JS',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+e: 切换项目',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+e: 切换项目',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+p: 切换页面',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+p: 切换页面',
+            className: 'dp_b fs_m ml_m'
+        }
     }, {
         type: 'label',
-        value: 'cmd+s: 保存页面',
-        className: 'dp_b fs_m ml_m'
+        props: {
+            value: 'cmd+s: 保存页面',
+            className: 'dp_b fs_m ml_m'
+        }
     }]
 }];
 
@@ -93,9 +109,11 @@ class PageSettings {
             value: proj.name
         }));
 
-        this.dispose = this.asModel().observe('data', (data) => {
+        observable(this.data).compute((data) => {
             this.props.onChange && this.props.onChange(data);
         });
+
+        this.props.formRef.current = this.form;
     }
 
     async onProjectChange(projectName) {
@@ -113,7 +131,7 @@ class PageSettings {
     }
 
     onDestroy() {
-        this.dispose();
+        this.asModel().destroy();
     }
 }
 

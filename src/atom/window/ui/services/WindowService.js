@@ -140,6 +140,11 @@ class WindowService {
             this.savePage(props);
         } else {
         }
+        this.hideSettings();
+    }
+
+    hideSettings = () => {
+        this.isSettingsVisible = false;
     }
 
     saveDecorations = async () => {

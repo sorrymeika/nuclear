@@ -10,12 +10,15 @@ const formItemLayout = {
 
 export default function createFormItem(Input) {
     return ({ context, ...props }) => {
-        const { field, labelLineBreak, labelVisibility, label, rules = [], ...inputProps } = props;
 
         return (
             <FormContext.Consumer>
                 {
                     (form) => {
+                        const { field, labelLineBreak, labelVisibility, label, rules = [], ...inputProps } = props;
+                        if (!form) {
+                            return <Input {...inputProps} context={context} />;
+                        }
                         const required = rules.findIndex((rule) => rule.required) !== -1;
                         const isSingleLine = labelLineBreak !== true;
                         const isLabelShow = labelVisibility !== false && label;

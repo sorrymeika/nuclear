@@ -10,7 +10,7 @@ export default class Drag extends Component {
         this.eventEmitter = new EventEmitter();
 
         const mover = document.createElement('div');
-        mover.className = 'nuclear-dnd-mover';
+        mover.className = 'nc-dnd-mover';
         document.body.appendChild(mover);
 
         this.mover = mover;
@@ -50,11 +50,11 @@ export default class Drag extends Component {
         const preview = previewElement || this.mover.cloneNode(true);
 
         preview.style.display = previewElement === false ? 'none' : 'block';
-        preview.classList.remove('nuclear-dnd-mover');
-        preview.classList.add('nuclear-dnd-preview');
+        preview.classList.remove('nc-dnd-mover');
+        preview.classList.add('nc-dnd-preview');
         preview.style.webkitTransform = ``;
 
-        document.body.classList.add('nuclear-dnd-disable-select');
+        document.body.classList.add('nc-dnd-disable-select');
 
         this._isStart = true;
         this.moveLongEnough = false;
@@ -106,7 +106,7 @@ export default class Drag extends Component {
         this.mover.style.display = 'none';
         this.mover.innerHTML = '';
 
-        document.body.classList.remove('nuclear-dnd-disable-select');
+        document.body.classList.remove('nc-dnd-disable-select');
         if (this.dndState.status === 'dragout') {
             this.current.previewElement && this.current.previewElement.parentNode.removeChild(this.current.previewElement);
         }

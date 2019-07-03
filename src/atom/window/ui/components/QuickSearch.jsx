@@ -7,7 +7,7 @@ export default function QuickSearch({ dataSource, onBlur, onSelect }) {
     const [value, setValue] = useState();
 
     return (
-        <AutoComplete className="nuclear-window-quick-search"
+        <AutoComplete className="nc-window-quick-search"
             dataSource={dataSource}
             onChange={setValue}
             onBlur={onBlur}

@@ -17,13 +17,13 @@ const Toolbar = ({
     const dialogs = currentPage ? currentPage.dialogs : null;
 
     return (
-        <div className="nuclear-window-toolbar">
+        <div className="nc-window-toolbar">
             <div className="flex" style={{ paddingLeft: 10, width: '100%', height: '100%', overflowX: 'auto' }}>
                 <div
-                    className={"nuclear-window-toolbar-tab" + (currentTabId == 'main' ? ' curr' : '')}
+                    className={"nc-window-toolbar-tab" + (currentTabId == 'main' ? ' curr' : '')}
                     onClick={() => onSwitchTab('main')}
                 >
-                    <div className="nuclear-window-toolbar-tab-name">
+                    <div className="nc-window-toolbar-tab-name">
                         {
                             !currentPage
                                 ? '主窗口'
@@ -38,15 +38,15 @@ const Toolbar = ({
                         return (
                             <div
                                 key={dialog.name}
-                                className={"nuclear-window-toolbar-tab" + (currentTabId == dialog.id ? ' curr' : '')}
+                                className={"nc-window-toolbar-tab" + (currentTabId == dialog.id ? ' curr' : '')}
                                 style={{ zIndex: 2 + i }}
                                 onClick={() => onSwitchTab(dialog.id)}
-                            ><div className="nuclear-window-toolbar-tab-name">{dialog.name}</div></div>
+                            ><div className="nc-window-toolbar-tab-name">{dialog.name}</div></div>
                         );
                     })
                 }
                 <button
-                    className="nuclear-window-toolbar-add-button"
+                    className="nc-window-toolbar-add-button"
                     onClick={onAddDialog}
                 ></button>
                 <div className="flexitem"></div>
@@ -54,24 +54,24 @@ const Toolbar = ({
                     currentTabId == 'main'
                         ? null
                         : <button
-                            className="nuclear-window-toolbar-button"
+                            className="nc-window-toolbar-button"
                             onClick={onRemoveDialog}
                         >X</button>
                 }
                 <button
-                    className="nuclear-window-toolbar-button"
+                    className="nc-window-toolbar-button"
                     onClick={onEditPage}
                 >...</button>
                 <button
-                    className="nuclear-window-toolbar-button"
+                    className="nc-window-toolbar-button"
                     onClick={onEditUIJson}
                 >UI</button>
                 <button
-                    className="nuclear-window-toolbar-button"
+                    className="nc-window-toolbar-button"
                     onClick={onEditCss}
                 >CSS</button>
                 <button
-                    className="nuclear-window-toolbar-button"
+                    className="nc-window-toolbar-button"
                     onClick={onSavePage}
                 >保存</button>
             </div>

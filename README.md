@@ -38,8 +38,8 @@ npm run build
 ```
 业务项目打包后会剔除掉`react`,`react-dom`,`polyfill`,`nuclear`,`antd`等框架和框架中的公共组件/公共样式
 ```
-1. `nuclear`会将`React`等框架注册到 `window.nuclear` 上
-2. 使用 `nuclear-loader`, 该loader会将 `import React from "react"` 替换成 `const React = window.nuclear._React`
+1. `nuclear`会将`antd`等框架注册到 `window.Nuclear` 上
+2. 使用 `snowball-loader`, 该loader会将 `import React from "react"` 替换成 `const React = window.nuclear._React`
 
 ## 框架版本管理
 

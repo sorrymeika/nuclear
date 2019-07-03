@@ -1,110 +1,113 @@
-.nuclear-root, .nuclear-window {
+.nc-root, .nc-window {
     box-sizing: border-box;
     div, button { box-sizing: border-box; }
 }
-.nuclear-root .ant-col-6, .nuclear-root .ant-col-7 { max-width: 110px; }
-.nuclear-root .ant-form-item { display: flex; }
-.nuclear-root .ant-form-item-control-wrapper { flex: 1; }
-.nuclear-root .ant-form .ant-btn { margin-bottom: 10px; }
-.nuclear-root .ant-input-number { width: 100px; }
-.nuclear-root .ant-form-item ~ .ant-btn { margin-left: 10px }
-.nuclear-root .ant-calendar-picker-input { min-width: 150px; }
-.nuclear-root h1, .nuclear-root h2, .nuclear-root h3 { font-size: 22px; border-bottom: 1px solid #ddd; margin: 10px 0 10px 0; color: #108ee9; }
-.nuclear-root h2 { font-size: 16px; margin: 10px 10px 10px 10px; padding-bottom: 5px; }
-.nuclear-root h3 { font-size: 14px; border: 0; font-weight: normal; }
+.nc-root .ant-col-6, .nc-root .ant-col-7 { max-width: 110px; }
+.nc-root .ant-form-item { display: flex; }
+.nc-root .ant-form-item-control-wrapper { flex: 1; }
+.nc-root .ant-form .ant-btn { margin-bottom: 10px; }
+.nc-root .ant-input-number { width: 100px; }
+.nc-root .ant-form-item ~ .ant-btn { margin-left: 10px }
+.nc-root .ant-calendar-picker-input { min-width: 150px; }
+.nc-root h1, .nc-root h2, .nc-root h3 { font-size: 22px; border-bottom: 1px solid #ddd; margin: 10px 0 10px 0; color: #108ee9; }
+.nc-root h2 { font-size: 16px; margin: 10px 10px 10px 10px; padding-bottom: 5px; }
+.nc-root h3 { font-size: 14px; border: 0; font-weight: normal; }
 
-.nuclear-fieldset, .nuclear-card { background: #fff; margin-top: 20px; padding: 5px; padding-top: 20px; border: 1px solid #ddd; border-radius: 6px; position: relative; }
-.nuclear-fieldset-title { margin-left: 10px; color: #108ee9; line-height: 20px; font-size: 14px; padding: 4px 10px; margin-bottom: 10px; background: #fff; position: absolute; top: -15px; }
-.nuclear-fieldset .ant-form { padding: 10px 10px 6px 10px; margin-bottom: 10px; }
+.nc-fieldset, .nc-card { background: #fff; margin-top: 20px; padding: 5px; padding-top: 20px; border: 1px solid #ddd; border-radius: 6px; position: relative; }
+.nc-fieldset-title { margin-left: 10px; color: #108ee9; line-height: 20px; font-size: 14px; padding: 4px 10px; margin-bottom: 10px; background: #fff; position: absolute; top: -15px; }
+.nc-fieldset .ant-form { padding: 10px 10px 6px 10px; margin-bottom: 10px; }
 
-.nuclear-formitem > .nuclear-formitem { width: 100%; }
-.nuclear-card { padding: 10px; margin-top: 10px; }
-.nuclear-card h2 { font-weight: normal; margin: 0 0 15px 0; padding-bottom: 5px; font-size: 14px; padding-left: 10px; }
+.nc-formitem > .nc-formitem { width: 100%; }
+.nc-card { padding: 10px; margin-top: 10px; }
+.nc-card h2 { font-weight: normal; margin: 0 0 15px 0; padding-bottom: 5px; font-size: 14px; padding-left: 10px; }
 
-.nuclear-flex > div, .nuclear-flex > .ant-table-wrapper, .nuclear-flex > .nuclear-list { flex: 1; }
-.nuclear-flex > .fx_2 { flex: 2; }
-.nuclear-flex > .fx_3 { flex: 3; }
-.nuclear-flex > .fx_4 { flex: 4; }
+.nc-flex > div, .nc-flex > .ant-table-wrapper, .nc-flex > .nc-list { flex: 1; }
+.nc-flex > .fx_2 { flex: 2; }
+.nc-flex > .fx_3 { flex: 3; }
+.nc-flex > .fx_4 { flex: 4; }
 
 .ant-message { z-index: 6000; }
 
-.nc_window__weapon { min-height: 26px; min-width: 30px; }
-.nc_window__weapon_current { border: 1px solid #333 !important; }
-.nc_window__weapon_form { background: #fff; min-height: 60px; margin: 10px 0px; padding-bottom: 15px; border: 1px dashed #ccc; }
-.nc_window__weapon_flex { background: #f5f5f5; border: 1px dashed #ddd; min-height: 60px; padding-bottom: 15px; margin: 10px 0px; }
-.nc_window__weapon_div, .nc_window__weapon_tabpane { background: #f1f1fa; border: 1px dashed #ccc; min-height: 60px; padding-bottom: 15px; margin: 10px 0px; }
-.nc_window__weapon_tabpane { background: #fff; border: 1px dotted #ccc; }
-.nc_window__weapon_list { background: #f1fafe; min-height: 60px; margin-bottom: 10px; padding-bottom: 15px; border: 1px solid #ddd; }
-.nc_window__weapon_render { margin-bottom: 10px; }
-
-.nc_window__weapon_table { background: #fbf6ff; min-height: 60px; margin-bottom: 10px; border: 1px solid #ddd; padding: 0; padding-bottom: 15px; }
-.nc_window__weapon_table table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; border-radius: 4px 4px 0 0; overflow: hidden; }
-.nc_window__weapon_table th { background: #f7f7f7; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
-.nc_window__weapon_table td { border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
-.nc_window__weapon_table td:last-child, .nc_window__weapon_table th:last-child { border-right: 0; }
-.nc_window__weapon_table th, .nc_window__weapon_table td { height: 40px; }
-.nc_window__weapon_column, .nc_window__weapon_table_item { height: 100%; padding: 8px 16px; background: #fff; min-height: 60px; padding-bottom: 15px; }
-.nc_window__weapon_column { min-height: 40px; background: #f7f7f7; font-size: 14px; }
-
-.nc_window__weapon_radiolist .ant-radio-group:after, .nc_window__weapon_radiogroup .ant-radio-group:after,.nc_window__weapon_checkboxlist .ant-checkbox-group:after { content: 'RadioList'; font-size: 12px; padding: 3px 5px; background: #fff; border: 1px solid #ddd; border-radius: 4px; }
-.nc_window__weapon_checkboxlist .ant-checkbox-group:after { content: 'CheckboxList'; }
-.nc_window__weapon_radiogroup .ant-radio-group:after { content: 'RadioGroup'; }
-
-.nc_window__weapon_a { border: 1px dotted #1890ff; display: inline-block; }
-.nc_window__weapon_h2, .nc_window__weapon_h1, .nc_window__weapon_h3 { min-height: 40px; }
-.nc_window__weapon_divider { display: inline; }
-.nc_window__weapon_label { border-bottom: 1px solid #ddd; margin-left: 5px; margin-bottom: 5px; }
-.nc_window__weapon_fieldset { border-radius: 6px; border: 1px solid #ddd; background: #fff; margin-bottom: 10px; }
-.nc_window__weapon_fieldset .nuclear-fieldset { border: 0px; }
-.nc_window__weapon_button, .nc_window__weapon_checkbox, .nc_window__weapon_input { display: inline-block; }
-.ant-form .nc_window__weapon_checkbox, .ant-form .nc_window__weapon_input { display: block; }
-.nc_window__weapon_render { border-left: 1px solid #ddd; padding: 10px; background: #f1f1f1; text-align: center; }
-
-.nc_window__weapon.flex { display: block; }
-.nuclear-flex>.nc_window__weapon_div, .nuclear-flex>.nc_window__weapon_list, .nuclear-flex>.nc_window__weapon_table { flex: 1; width:0px}
-.nuclear-flex>.nc_window__weapon_button { flex: none; width: auto; }
-.nc_window__weapon_button + .nc_window__weapon_button { margin-left: 8px; }
-
-.nuclear-dialog-content { width: 100%; margin: 0; background: #fff; border: 0; min-height: 100px; padding-bottom: 60px; }
-.nuclear-dialog-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px !important; text-align: right; width: 100%; margin: 0; background: #fff; border: 0px; border-top: 1px solid #ddd; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
-// 装修时样式调整
-.nc_window__weapon.nuclear-dialog-content { padding-bottom: 0px; }
-.nc_window__weapon.nuclear-dialog-footer { position: static; }
-.nc_window__weapon.nuclear-dialog-content > .nuclear-dialog-content { border: 0; padding-bottom: 0px; }
-.nc_window__weapon.nuclear-dialog-footer > .nuclear-dialog-footer { position: static; border: 0; padding: 0px !important; }
 
 /* 装修窗口 */
-.nuclear-window { width: 100vw; height: 100vh; }
-.nuclear-window-quick-search { position: fixed; width: 300px; z-index: 5000; margin-left: 165px; margin-top: 36px; }
+.nc-window { width: 100vw; height: 100vh; }
+.nc-window-quick-search { position: fixed; width: 300px; z-index: 5000; margin-left: 165px; margin-top: 36px; }
 
-.nuclear-window-atom-box { width: 165px; border-right: 1px solid #ddd; }
-.nuclear-window-atom-box-hd { font-size: 16px; padding: 5px 8px; border-bottom: 1px solid #ddd; background: #fafafa; }
-.nuclear-window-atom-box-group-item { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
-.nuclear-window-atom-box-item { border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
-.nuclear-dnd-preview .nuclear-window-atom-box-item { margin: 0; }
+.nc-window-atom-box { width: 165px; border-right: 1px solid #ddd; }
+.nc-window-atom-box-hd { font-size: 16px; padding: 5px 8px; border-bottom: 1px solid #ddd; background: #fafafa; }
+.nc-window-atom-box-group-item { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+.nc-window-atom-box-item { border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
+.nc-dnd-preview .nc-window-atom-box-item { margin: 0; }
 
-.nuclear-window-toolbar { position: absolute; height: 35px; right: 0; left: 0; top: 0; background: #ddd; overflow: hidden; z-index: 1000; }
-.nuclear-window-toolbar:before { content: ''; position: absolute; height: 1px; background: #aaa; right: 0; left: 0; bottom: 0; z-index: 5000; }
-.nuclear-window-toolbar ~ .nuclear-root { padding-top: 40px; }
-.nuclear-window-toolbar-tab { position: relative; background: #ddd; height: 30px; line-height: 30px; margin: 5px 6px 0 6px; border-top: 1px solid #aaa; }
-.nuclear-window-toolbar-tab:before, .nuclear-window-toolbar-tab:after { background: #ddd; content: ''; display: block; height: 30px; width: 15px; border-left: 1px solid #aaa; transform: skew(-21deg,0deg); position: absolute; left: -6px; top: 0; }
-.nuclear-window-toolbar-tab:after { transform: skew(21deg,0deg); left: unset; right: -6px; border: 0; border-right: 1px solid #aaa; }
-.nuclear-window-toolbar-tab-name { font-weight: normal; position: relative; z-index: 10000; font-size: 14px; padding: 0 6px; }
-.nuclear-window-toolbar-tab.curr { background: #e6e7eb; position: relative; z-index: 10000 !important; }
-.nuclear-window-toolbar-tab.curr:before, .nuclear-window-toolbar-tab.curr:after { background: #e6e7eb; }
-.nuclear-window-toolbar-add-button { background: #ddd; border: 1px solid #aaa; height: 18px; width: 30px; margin: 5px 0 0 5px; line-height: 25px; border-radius: 4px; transform: skew(21deg,0deg); }
-.nuclear-window-toolbar-add-button:before { display: block; content: '+'; color: #666; margin-top: -7px; font-size: 20px; }
-.nuclear-window-toolbar-add-button:hover { background: #e1e1e1; }
-.nuclear-window-toolbar-button { color: #fff; background-color: #108ee9; font-size: 12px; margin-right: 8px; height: 19px; padding: 1px 6px; border: 0; }
+.nc-window-toolbar { position: absolute; height: 35px; right: 0; left: 0; top: 0; background: #ddd; overflow: hidden; z-index: 1000; }
+.nc-window-toolbar:before { content: ''; position: absolute; height: 1px; background: #aaa; right: 0; left: 0; bottom: 0; z-index: 5000; }
+.nc-window-toolbar ~ .nc-root { padding-top: 40px; }
+.nc-window-toolbar-tab { position: relative; background: #ddd; height: 30px; line-height: 30px; margin: 5px 6px 0 6px; border-top: 1px solid #aaa; }
+.nc-window-toolbar-tab:before, .nc-window-toolbar-tab:after { background: #ddd; content: ''; display: block; height: 30px; width: 15px; border-left: 1px solid #aaa; transform: skew(-21deg,0deg); position: absolute; left: -6px; top: 0; }
+.nc-window-toolbar-tab:after { transform: skew(21deg,0deg); left: unset; right: -6px; border: 0; border-right: 1px solid #aaa; }
+.nc-window-toolbar-tab-name { font-weight: normal; position: relative; z-index: 10000; font-size: 14px; padding: 0 6px; }
+.nc-window-toolbar-tab.curr { background: #e6e7eb; position: relative; z-index: 10000 !important; }
+.nc-window-toolbar-tab.curr:before, .nc-window-toolbar-tab.curr:after { background: #e6e7eb; }
+.nc-window-toolbar-add-button { background: #ddd; border: 1px solid #aaa; height: 18px; width: 30px; margin: 5px 0 0 5px; line-height: 25px; border-radius: 4px; transform: skew(21deg,0deg); }
+.nc-window-toolbar-add-button:before { display: block; content: '+'; color: #666; margin-top: -7px; font-size: 20px; }
+.nc-window-toolbar-add-button:hover { background: #e1e1e1; }
+.nc-window-toolbar-button { color: #fff; background-color: #108ee9; font-size: 12px; margin-right: 8px; height: 19px; padding: 1px 6px; border: 0; }
 
-.nuclear-window-main{ background: #e6e7eb; position: relative; }
-.nuclear-window-main .nuclear-root { padding-bottom: 20px; }
+.nc-window-main{ background: #e6e7eb; position: relative; }
+.nc-window-main .nc-root { padding-bottom: 20px; }
 
-.nuclear-window-settings { width: 260px; border-left: 1px solid #ddd; padding: 6px 8px 0 8px; position: relative; }
-.nuclear-window-settings h3 { font-size: 16px; padding-bottom: 8px; }
-.nuclear-window-settings-con { height: calc(100% - 38px - 48px); }
-.nuclear-window-settings-ft { position: absolute; height: 48px; border-top: 1px solid #ddd; bottom: 0px; left: 0; right: 0; }
-.nuclear-window-settings-ft button { border: 0; border-right: 1px solid #ddd; border-radius: 0; height: 30px; }
-.nuclear-window-settings-ft button:last-child { border-right: 0; }
-.nuclear-window-settings-cancel { color: #666; }
-.nuclear-window-settings-ok { color: #108ee9; }
+.nc-window-atom { min-height: 26px; min-width: 30px; }
+.nc-window-atom-current { border: 1px solid #333 !important; }
+
+.nc-window-atom-form { background: #fff; min-height: 60px; margin: 10px 0px; padding-bottom: 15px; border: 1px dashed #ccc; }
+.nc-window-atom-flex { background: #f5f5f5; border: 1px dashed #ddd; min-height: 60px; padding-bottom: 15px; margin: 10px 0px; }
+.nc-window-atom-div, .nc-window-atom-tabpane { background: #f1f1fa; border: 1px dashed #ccc; min-height: 60px; padding-bottom: 15px; margin: 10px 0px; }
+.nc-window-atom-tabpane { background: #fff; border: 1px dotted #ccc; }
+.nc-window-atom-list { background: #f1fafe; min-height: 60px; margin-bottom: 10px; padding-bottom: 15px; border: 1px solid #ddd; }
+.nc-window-atom-render { margin-bottom: 10px; }
+
+.nc-window-atom-table { background: #fbf6ff; min-height: 60px; margin-bottom: 10px; border: 1px solid #ddd; padding: 0; padding-bottom: 15px; }
+.nc-window-atom-table table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; border-radius: 4px 4px 0 0; overflow: hidden; }
+.nc-window-atom-table th { background: #f7f7f7; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+.nc-window-atom-table td { border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+.nc-window-atom-table td:last-child, .nc-window-atom-table th:last-child { border-right: 0; }
+.nc-window-atom-table th, .nc-window-atom-table td { height: 40px; }
+.nc-window-atom-column, .nc-window-atom-table_item { height: 100%; padding: 8px 16px; background: #fff; min-height: 60px; padding-bottom: 15px; }
+.nc-window-atom-column { min-height: 40px; background: #f7f7f7; font-size: 14px; }
+
+.nc-window-atom-radiolist .ant-radio-group:after, .nc-window-atom-radiogroup .ant-radio-group:after,.nc-window-atom-checkboxlist .ant-checkbox-group:after { content: 'RadioList'; font-size: 12px; padding: 3px 5px; background: #fff; border: 1px solid #ddd; border-radius: 4px; }
+.nc-window-atom-checkboxlist .ant-checkbox-group:after { content: 'CheckboxList'; }
+.nc-window-atom-radiogroup .ant-radio-group:after { content: 'RadioGroup'; }
+
+.nc-window-atom-a { border: 1px dotted #1890ff; display: inline-block; }
+.nc-window-atom-h2, .nc-window-atom-h1, .nc-window-atom-h3 { min-height: 40px; }
+.nc-window-atom-divider { display: inline; }
+.nc-window-atom-label { border-bottom: 1px solid #ddd; margin-left: 5px; margin-bottom: 5px; }
+.nc-window-atom-fieldset { border-radius: 6px; border: 1px solid #ddd; background: #fff; margin-bottom: 10px; }
+.nc-window-atom-fieldset .nc-fieldset { border: 0px; }
+.nc-window-atom-button, .nc-window-atom-checkbox, .nc-window-atom-input { display: inline-block; }
+.ant-form .nc-window-atom-checkbox, .ant-form .nc-window-atom-input { display: block; }
+.nc-window-atom-render { border-left: 1px solid #ddd; padding: 10px; background: #f1f1f1; text-align: center; }
+
+.nc-window-atom.flex { display: block; }
+.nc-flex>.nc-window-atom-div, .nc-flex>.nc-window-atom-list, .nc-flex>.nc-window-atom-table { flex: 1; width:0px}
+.nc-flex>.nc-window-atom-button { flex: none; width: auto; }
+.nc-window-atom-button + .nc-window-atom-button { margin-left: 8px; }
+
+.nc-dialog-content { width: 100%; margin: 0; background: #fff; border: 0; min-height: 100px; padding-bottom: 60px; }
+.nc-dialog-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px !important; text-align: right; width: 100%; margin: 0; background: #fff; border: 0px; border-top: 1px solid #ddd; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+// 装修时样式调整
+.nc-window-atom.nc-dialog-content { padding-bottom: 0px; }
+.nc-window-atom.nc-dialog-footer { position: static; }
+.nc-window-atom.nc-dialog-content > .nc-dialog-content { border: 0; padding-bottom: 0px; }
+.nc-window-atom.nc-dialog-footer > .nc-dialog-footer { position: static; border: 0; padding: 0px !important; }
+
+// 页面和组件设置
+.nc-window-settings { width: 260px; border-left: 1px solid #ddd; padding: 6px 8px 0 8px; position: relative; }
+.nc-window-settings h3 { font-size: 16px; padding-bottom: 8px; }
+.nc-window-settings-con { height: calc(100% - 38px - 48px); overflow-x: hidden; overflow-y: auto; }
+.nc-window-settings-ft { position: absolute; height: 48px; border-top: 1px solid #ddd; bottom: 0px; left: 0; right: 0; }
+.nc-window-settings-ft button { border: 0; border-right: 1px solid #ddd; border-radius: 0; height: 30px; }
+.nc-window-settings-ft button:last-child { border-right: 0; }
+.nc-window-settings-cancel { color: #666; }
+.nc-window-settings-ok { color: #108ee9; }

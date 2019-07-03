@@ -110,6 +110,10 @@ class PageSettings {
             value: proj.name
         }));
 
+        if (this.data.projectName) {
+            this.onProjectChange(this.data.projectName);
+        }
+
         this.asModel().observe('data', (data) => {
             this.props.onChange && this.props.onChange(data);
         });

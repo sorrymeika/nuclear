@@ -134,19 +134,33 @@ class WindowService {
         await this.pullPage(projectName, pageName);
     }
 
-    addAtom(type, target) {
+    addAtom(additionType, data) {
         if (!this.currentPage) {
             message.error('先选择或创建页面!');
             return;
         }
         const { atoms } = this.currentPage;
         const newId = this._newAtomId();
+        const newAtom = {
+            id: newId,
+            type: data.type
+        };
 
-        atoms.withMutations((atomCollection) => {
-            atomCollection.add({
-                id: newId
-            });
+        this.currentTab.atoms = atoms.withMutations((atomCollection) => {
+            atomCollection.add(newAtom);
         });
+        this.selectAtom(newAtom);
+        console.log(this.currentTab.atoms);
+    }
+
+    selectAtom = (options) => {
+        const { id, type, props } = options;
+        this.currentAtom = {
+            id,
+            type,
+            props
+        };
+        this.isSettingsVisible = true;
     }
 
     confirmSettings = (props) => {

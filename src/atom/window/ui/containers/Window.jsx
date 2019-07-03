@@ -40,7 +40,7 @@ class Window extends Component<{ windowService: WindowService }> {
         const { isSettingsVisible } = windowService;
         return (
             <Drag
-                className="nuclear-window flex ai_s"
+                className="nc-window flex ai_s"
                 onDrop={this.onDrop}
             >
                 <FileQuickSearch></FileQuickSearch>

@@ -7,13 +7,13 @@ import { renderDecoration } from '../../shared/decorationUtils';
 const Main = ({ currentTab, currentPage, decorationHandler }) => {
     const currentAtoms = (currentTab && currentTab.atoms) || [];
     return (
-        <div className="flex_1 nuclear-window-main">
+        <div className="flex_1 nc-window-main">
             <Toolbar
                 currentTab={currentTab}
                 currentPage={currentPage}
             ></Toolbar>
             <DropTarget
-                className="of_s h_1x nuclear-root dock"
+                className="of_s h_1x nc-root dock"
             >
                 {renderDecoration(currentAtoms, decorationHandler, ['root'], {})}
             </DropTarget>

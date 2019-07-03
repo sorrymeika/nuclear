@@ -95,7 +95,7 @@ export default class DragItem extends Component<{
 
         return (
             <div
-                className={(this.state.dragging ? 'nuclear-drag-item-dragging ' : '') + className}
+                className={(this.state.dragging ? 'nc-drag-item-dragging ' : '') + className}
                 style={style}
                 onMouseDown={this.onMouseDown}
             >{children}</div>

@@ -7,9 +7,9 @@ export default class FieldSet extends Component {
 
         return (
             <div
-                className={"nuclear-fieldset " + className}
+                className={"nc-fieldset " + className}
             >
-                <div className="nuclear-fieldset-title">{title}</div>
+                <div className="nc-fieldset-title">{title}</div>
                 {children}
             </div>
         );

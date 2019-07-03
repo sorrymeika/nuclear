@@ -172,7 +172,7 @@ export default class DropTarget extends Component<{
         }
 
         targetPlace.previewElement = previewElement;
-        previewElement.classList.remove('nuclear-dnd-preview-del');
+        previewElement.classList.remove('nc-dnd-preview-del');
 
         if (!this.targetPlace || (this.targetPlace.node != targetPlace.node || this.targetPlace.type != targetPlace.type || this.targetPlace.previewElement != previewElement)) {
             if (!this.props.onDragChange || (this.props.onDragChange({
@@ -204,7 +204,7 @@ export default class DropTarget extends Component<{
     onDragOut = () => {
         if (this.targetPlace) {
             const previewElement = this.targetPlace.previewElement;
-            previewElement.classList.add('nuclear-dnd-preview-del');
+            previewElement.classList.add('nc-dnd-preview-del');
 
             let current = this.context.getCurrent();
 
@@ -293,7 +293,7 @@ function componentsToTrees(components, container) {
         const destNode = ReactDOM.findDOMNode(item);
         let draggingNode = destNode;
         while (draggingNode && draggingNode != container && draggingNode != document.body) {
-            if (draggingNode.classList.contains('nuclear-drag-item-dragging')) return;
+            if (draggingNode.classList.contains('nc-drag-item-dragging')) return;
             draggingNode = draggingNode.parentNode;
         }
 

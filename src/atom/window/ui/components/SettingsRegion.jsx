@@ -37,7 +37,7 @@ class SettingsRegion extends Component {
 
     render() {
         const { title, currentAtom } = this.props;
-        console.log(currentAtom);
+        // console.log(currentAtom);
         return (
             <div className="h_1x nc-window-settings">
                 <h3>{title}配置</h3>
@@ -47,6 +47,7 @@ class SettingsRegion extends Component {
                             ? renderSettings(currentAtom.type, {
                                 defaultData: currentAtom.props,
                                 onChange: this.handleDataChange,
+                                isInForm: currentAtom.isInForm,
                                 formRef: this.formRef
                             })
                             : null

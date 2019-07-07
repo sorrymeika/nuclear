@@ -16,7 +16,7 @@ function findFields(childrenJson) {
             const specificConfig = _getSpecificConfig(type);
             if (specificConfig) {
                 if (specificConfig.isFormItem) {
-                    fields.push(props);
+                    if (props) fields.push(props);
                 } else if (type === 'table' || type === 'list' || specificConfig.isList) {
                     continue;
                 }

@@ -26,10 +26,11 @@ class Window extends Component<{ windowService: WindowService }> {
     }
 
     onDrop = (e) => {
+        console.log(e);
         const { windowService } = this.props;
         if (e.sourceType === 'new') {
             if (e.status !== 'dragout') {
-                windowService.addAtom(e.status, e.source.props.data);
+                windowService.addAtom(e.status, e.source.props.data, e.target.props.data);
             }
         } else {
         }

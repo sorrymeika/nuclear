@@ -2,7 +2,7 @@ import React from 'react';
 import { inject } from 'snowball/app';
 import { DropTarget } from '../../../../components/drag';
 import { Toolbar } from './Toolbar';
-import { renderDecoration } from '../../shared/decorationUtils';
+import { renderDecoration } from '../../../shared/decorationUtils';
 
 const Main = ({ currentTab, currentPage, decorationHandler, windowService }) => {
     const currentAtoms = (currentTab && currentTab.atoms) || [];

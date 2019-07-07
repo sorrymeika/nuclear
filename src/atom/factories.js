@@ -1,5 +1,6 @@
 import React, { Factory, Component } from "react";
 import getProps from "./methods/getProps";
+import { computeIsInForm } from "./shared/atomUtils";
 
 type PropConfig = {
     type: string,
@@ -109,14 +110,4 @@ export function _getAtoms() {
                 group: atom.group
             };
         });
-}
-
-function computeIsInForm(paths) {
-    const tableIndex = Math.max(paths.lastIndexOf('list'), paths.lastIndexOf('table'));
-    const formIndex = paths.lastIndexOf('form');
-
-    if (formIndex !== -1 && tableIndex < formIndex) {
-        return true;
-    }
-    return false;
 }

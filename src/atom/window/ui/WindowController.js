@@ -9,6 +9,10 @@ import WindowService from "./services/WindowService";
 import FileQuickSearchService from "./services/FileQuickSearchService";
 import StorageService from "./services/StorageService";
 
+class DecorationHandler {
+
+}
+
 @controller(Window)
 class WindowController {
     @injectable projectService;
@@ -24,7 +28,7 @@ class WindowController {
         this.atomService = new AtomService();
         this.windowService = new WindowService(new StorageService(), this.projectService, this.pageService, this.atomService);
         this.fileQuickSearchService = new FileQuickSearchService(this.windowService);
-        this.decorationHandler = {};
+        this.decorationHandler = new DecorationHandler();
     }
 
     @injectable get atomGroups() {

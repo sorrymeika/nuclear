@@ -20,3 +20,5 @@ registerAtom({
         isFormItem: true
     }
 });
+
+export { inputCommonJson } from "./InputSettings";

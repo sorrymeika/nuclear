@@ -2,7 +2,7 @@ import { message } from "antd";
 import { observable, autorun } from "snowball";
 
 import { isNumber } from "snowball/utils";
-import { eachAtom } from "../../shared/atomUtils";
+import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../shared/atomUtils";
 
 import ProjectService from "../../domain/services/ProjectService";
 import PageService from "../../domain/services/PageService";
@@ -31,7 +31,7 @@ class TabState {
 
     constructor({ id, atoms }) {
         this.id = id || 'main';
-        this.atoms = atoms;
+        this.atoms = atoms || [];
     }
 }
 
@@ -71,11 +71,11 @@ class WindowService {
         const currentProject = windowState.currentProject || projects[0];
         await this.pullPages(currentProject.name);
 
+        this.currentTab = new TabState(windowState.currentTab || { id: 'main' });
         if (windowState.currentPage) {
             const { projectName, name: pageName } = windowState.currentPage;
             await this.pullPage(projectName, pageName);
         }
-        this.currentTab = new TabState(windowState.currentTab || { id: 'main' });
 
         this.disposers.push(
             autorun(() => this._syncIds())
@@ -96,6 +96,9 @@ class WindowService {
             dialogs: atoms.filter((item) => item.type === 'dialog'),
         };
         this.currentPage = new PageState(page);
+        this.currentTab = new TabState({ id: 'main', atoms: page.atoms });
+
+        this.currentTab.atoms = [{ "id": 2, "type": "form", "children": [{ "id": 3, "type": "input" }] }];
 
         this.storageService.saveCurrentWindowState({
             currentProject: {
@@ -134,40 +137,70 @@ class WindowService {
         await this.pullPage(projectName, pageName);
     }
 
-    addAtom(additionType, data) {
+    addAtom(additionType, sourceData, targetData) {
         if (!this.currentPage) {
             message.error('先选择或创建页面!');
             return;
         }
-        const { atoms } = this.currentPage;
+        const { atoms } = this.currentTab;
         const newId = this._newAtomId();
         const newAtom = {
             id: newId,
-            type: data.type
+            type: sourceData.type
         };
 
-        this.currentTab.atoms = atoms.withMutations((atomCollection) => {
-            atomCollection.add(newAtom);
-        });
+        if (!targetData) {
+            atoms.withMutations((atomCollection) => {
+                atomCollection.add(newAtom);
+            });
+        } else {
+            const targetAtom = findAtom(atoms, targetData.id);
+            if (targetAtom) {
+                targetAtom.withMutations((targetAtomModel) => {
+                    targetAtomModel.collection('children')
+                        .add(newAtom);
+                });
+            }
+            console.log('targetAtom', targetAtom, Object.keys(targetAtom));
+        }
         this.selectAtom(newAtom);
-        console.log(this.currentTab.atoms);
+
+        console.log('after addAtom:', this.currentTab.atoms, JSON.stringify(this.currentTab.atoms));
     }
 
     selectAtom = (options) => {
         const { id, type, props } = options;
+
         this.currentAtom = {
             id,
             type,
+            isInForm: computeIsInForm(getPaths(this.currentTab.atoms, id)),
             props
         };
         this.isSettingsVisible = true;
     }
 
-    confirmSettings = (props) => {
-        const { type } = this.currentAtom;
+    confirmSettings = (newProps) => {
+        const { id, type } = this.currentAtom;
         if (type === 'page') {
-            this.savePage(props);
+            this.savePage(newProps);
         } else {
+            const { id: tabId, atoms } = this.currentTab;
+            const currentAtoms = tabId === 'main'
+                ? this.currentPage.atoms
+                : this.currentPage.dialogs.find((dialog) => dialog.id == tabId);
+
+            const currentAtom = findAtom(atoms, id);
+            currentAtom.withMutations((atomModel) => {
+                atomModel.set({
+                    props: newProps
+                });
+            });
+            this.currentAtom.withMutations((atom) => atom.set({
+                props: newProps
+            }));
+
+            console.log(currentAtoms, this.currentAtom, newProps);
         }
         this.hideSettings();
     }

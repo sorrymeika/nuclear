@@ -28,7 +28,6 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 const HtmlPreRenderWebpackPlugin = require('snowball/webpack-extentions/html-prerender-webpack-plugin');
 
-
 const postcssNormalize = require('postcss-normalize');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -58,8 +57,8 @@ module.exports = function (webpackEnv) {
   const publicPath = isEnvProduction
     ? paths.servedPath
     : isEnvDevelopment && '/';
-    // Some apps do not use client-side routing with pushState.
-    // For these, "homepage" can be set to "." to enable relative asset paths.
+  // Some apps do not use client-side routing with pushState.
+  // For these, "homepage" can be set to "." to enable relative asset paths.
   const shouldUseRelativeAssetPaths = publicPath === './';
 
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
@@ -68,7 +67,7 @@ module.exports = function (webpackEnv) {
   const publicUrl = isEnvProduction
     ? publicPath.slice(0, -1)
     : isEnvDevelopment && '';
-    // Get environment variables to inject into our app.
+  // Get environment variables to inject into our app.
   const env = getClientEnvironment(publicUrl);
 
   // common function to get style loaders
@@ -141,9 +140,9 @@ module.exports = function (webpackEnv) {
       // to bring better experience for Create React App users. You can replace
       // the line below with these two lines if you prefer the stock client:
       // require.resolve('webpack-dev-server/client') + '?/',
-      // require.resolve('webpack/hot/dev-server'),
-      isEnvDevelopment &&
-            require.resolve('react-dev-utils/webpackHotDevClient'),
+      // isEnvDevelopment && require.resolve('webpack/hot/dev-server'),
+      isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'),
+
       require.resolve('./polyfills'),
       // Finally, this is your app's code:
       require.resolve('snowball'),
@@ -178,7 +177,7 @@ module.exports = function (webpackEnv) {
             .relative(paths.appSrc, info.absoluteResourcePath)
             .replace(/\\/g, '/')
         : isEnvDevelopment &&
-                (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+        (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     optimization: {
       minimize: isEnvProduction,
@@ -545,8 +544,8 @@ module.exports = function (webpackEnv) {
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
-            shouldInlineRuntimeChunk &&
-            new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+      shouldInlineRuntimeChunk &&
+      new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -574,14 +573,14 @@ module.exports = function (webpackEnv) {
       // makes the discovery automatic so you don't have to restart.
       // See https://github.com/facebook/create-react-app/issues/186
       isEnvDevelopment &&
-            new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+      new WatchMissingNodeModulesPlugin(paths.appNodeModules),
       isEnvProduction &&
-            new MiniCssExtractPlugin({
-              // Options similar to the same options in webpackOptions.output
-              // both options are optional
-              filename: 'static/css/[name].[contenthash:8].css',
-              chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-            }),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
       // having to parse `index.html`.
@@ -608,47 +607,47 @@ module.exports = function (webpackEnv) {
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       isEnvProduction &&
-            new WorkboxWebpackPlugin.GenerateSW({
-              clientsClaim: true,
-              exclude: [/\.map$/, /asset-manifest\.json$/],
-              importWorkboxFrom: 'cdn',
-              navigateFallback: publicUrl + '/index.html',
-              navigateFallbackBlacklist: [
-                // Exclude URLs starting with /_, as they're likely an API call
-                new RegExp('^/_'),
-                // Exclude URLs containing a dot, as they're likely a resource in
-                // public/ and not a SPA route
-                new RegExp('/[^/]+\\.[^/]+$'),
-              ],
-            }),
+      new WorkboxWebpackPlugin.GenerateSW({
+        clientsClaim: true,
+        exclude: [/\.map$/, /asset-manifest\.json$/],
+        importWorkboxFrom: 'cdn',
+        navigateFallback: publicUrl + '/index.html',
+        navigateFallbackBlacklist: [
+          // Exclude URLs starting with /_, as they're likely an API call
+          new RegExp('^/_'),
+          // Exclude URLs containing a dot, as they're likely a resource in
+          // public/ and not a SPA route
+          new RegExp('/[^/]+\\.[^/]+$'),
+        ],
+      }),
       // TypeScript type checking
       useTypeScript &&
-            new ForkTsCheckerWebpackPlugin({
-              typescript: resolve.sync('typescript', {
-                basedir: paths.appNodeModules,
-              }),
-              async: isEnvDevelopment,
-              useTypescriptIncrementalApi: true,
-              checkSyntacticErrors: true,
-              resolveModuleNameModule: process.versions.pnp
-                ? `${__dirname}/pnpTs.js`
-                : undefined,
-              resolveTypeReferenceDirectiveModule: process.versions.pnp
-                ? `${__dirname}/pnpTs.js`
-                : undefined,
-              tsconfig: paths.appTsConfig,
-              reportFiles: [
-                '**',
-                '!**/__tests__/**',
-                '!**/?(*.)(spec|test).*',
-                '!**/src/setupProxy.*',
-                '!**/src/setupTests.*',
-              ],
-              watch: paths.appSrc,
-              silent: true,
-              // The formatter is invoked directly in WebpackDevServerUtils during development
-              formatter: isEnvProduction ? typescriptFormatter : undefined,
-            }),
+      new ForkTsCheckerWebpackPlugin({
+        typescript: resolve.sync('typescript', {
+          basedir: paths.appNodeModules,
+        }),
+        async: isEnvDevelopment,
+        useTypescriptIncrementalApi: true,
+        checkSyntacticErrors: true,
+        resolveModuleNameModule: process.versions.pnp
+          ? `${__dirname}/pnpTs.js`
+          : undefined,
+        resolveTypeReferenceDirectiveModule: process.versions.pnp
+          ? `${__dirname}/pnpTs.js`
+          : undefined,
+        tsconfig: paths.appTsConfig,
+        reportFiles: [
+          '**',
+          '!**/__tests__/**',
+          '!**/?(*.)(spec|test).*',
+          '!**/src/setupProxy.*',
+          '!**/src/setupTests.*',
+        ],
+        watch: paths.appSrc,
+        silent: true,
+        // The formatter is invoked directly in WebpackDevServerUtils during development
+        formatter: isEnvProduction ? typescriptFormatter : undefined,
+      }),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

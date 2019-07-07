@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
-import { PageSettings } from './settings/PageSettings';
+import { PageSettings } from './PageSettings';
 import { inject } from 'snowball/app';
+import { createSettings } from '../../../factories';
+
+const createPageSettings = (props) => {
+    return <PageSettings {...props}></PageSettings>;
+};
+
+const renderSettings = (type, props) => {
+    if (type == 'page') {
+        return createPageSettings(props);
+    } else {
+        return createSettings(type, props);
+    }
+};
 
 class SettingsRegion extends Component {
     constructor(props) {
@@ -23,16 +36,21 @@ class SettingsRegion extends Component {
     }
 
     render() {
-        const { title } = this.props;
+        const { title, currentAtom } = this.props;
+        console.log(currentAtom);
         return (
             <div className="h_1x nc-window-settings">
                 <h3>{title}配置</h3>
                 <div className="nc-window-settings-con">
-                    <PageSettings
-                        defaultData={this.props.data}
-                        onChange={this.handleDataChange}
-                        formRef={this.formRef}
-                    ></PageSettings>
+                    {
+                        currentAtom
+                            ? renderSettings(currentAtom.type, {
+                                defaultData: currentAtom.props,
+                                onChange: this.handleDataChange,
+                                formRef: this.formRef
+                            })
+                            : null
+                    }
                 </div>
                 <div className="nc-window-settings-ft flex">
                     <button
@@ -50,7 +68,7 @@ class SettingsRegion extends Component {
 }
 
 const SettingsRegionInjector = inject(({ windowService }) => ({
-    data: windowService.currentAtom && windowService.currentAtom.props,
+    currentAtom: windowService.currentAtom,
     onCancel: windowService.hideSettings,
     onOk: windowService.confirmSettings
 }))(SettingsRegion);

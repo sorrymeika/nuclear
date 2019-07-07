@@ -39,7 +39,7 @@ const setFields = (handler, changedFields, parentNames = []) => {
         if (subField.name === currentNames.join('.')) {
             typeof handler.asModel === 'function'
                 ? handler.asModel().set(currentNames, subField.value)
-                : util.set(handler, currentNames, subField.value);
+                : util.set(handler, subField.name, subField.value);
         } else {
             setFields(handler, subField, currentNames);
         }

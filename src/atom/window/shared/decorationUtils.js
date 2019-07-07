@@ -12,6 +12,7 @@ export function jsonToDecoration(json, handler, paths, transitiveProps) {
         id,
         key,
         props,
+        paths,
         handler,
         transitiveProps,
         childrenJson: children,

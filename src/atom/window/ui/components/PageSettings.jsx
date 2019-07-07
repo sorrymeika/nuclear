@@ -1,6 +1,6 @@
 import { observable } from "snowball";
 import { inject } from "snowball/app";
-import component from "../../../../component";
+import component from "../../../component";
 
 const Json = [{
     type: 'form',

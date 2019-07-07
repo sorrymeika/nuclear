@@ -28,7 +28,7 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
     stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createAtom(type, { key, handler, transitiveProps, children, childrenJson, props }) {
+export function createAtom(type, { key, handler, paths, transitiveProps, children, childrenJson, props }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
@@ -48,6 +48,8 @@ export function createAtom(type, { key, handler, transitiveProps, children, chil
             type,
             props,
             handler,
+            paths,
+            isInForm: computeIsInForm(paths),
             propsConfig,
             transitiveProps,
             childrenJson
@@ -57,7 +59,7 @@ export function createAtom(type, { key, handler, transitiveProps, children, chil
     });
 }
 
-export function createDecoration(type, { id, key, handler, transitiveProps, children, childrenJson, props }) {
+export function createDecoration(type, { id, key, handler, paths, transitiveProps, children, childrenJson, props }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
@@ -78,6 +80,8 @@ export function createDecoration(type, { id, key, handler, transitiveProps, chil
             props,
             visible,
             handler,
+            paths,
+            isInForm: computeIsInForm(paths),
             propsConfig,
             transitiveProps,
             childrenJson
@@ -88,7 +92,7 @@ export function createDecoration(type, { id, key, handler, transitiveProps, chil
 }
 
 export function createSettings(type, props) {
-    return stores[type].settingsComponent(props);
+    return React.createElement(stores[type].settingsComponent, props);
 }
 
 export function _getSpecificConfig(type) {
@@ -105,4 +109,14 @@ export function _getAtoms() {
                 group: atom.group
             };
         });
+}
+
+function computeIsInForm(paths) {
+    const tableIndex = Math.max(paths.lastIndexOf('list'), paths.lastIndexOf('table'));
+    const formIndex = paths.lastIndexOf('form');
+
+    if (formIndex !== -1 && tableIndex < formIndex) {
+        return true;
+    }
+    return false;
 }

@@ -13,9 +13,9 @@ class DecorationItem extends Component {
     render() {
         const { children, context, windowService, containerProps } = this.props;
         const newProps = excludeProps(this.props, ['windowService', 'children', 'containerProps']);
-        const className = (windowService.currentAtom && windowService.currentAtom.id == context.id
-            ? 'nc-window-atom nc-window-atom-current '
-            : 'nc-window-atom ') + ((containerProps && containerProps.className) || '');
+        const className = 'nc-window-atom nc-window-atom-' + context.type + ' ' + (windowService.currentAtom && windowService.currentAtom.id == context.id
+            ? 'nc-window-atom-current '
+            : '') + ((containerProps && containerProps.className) || '');
 
         return (
             <DragItem

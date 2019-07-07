@@ -49,7 +49,7 @@ export default class Drag extends Component {
 
         const preview = previewElement || this.mover.cloneNode(true);
 
-        preview.style.display = previewElement === false ? 'none' : 'block';
+        preview.style.display = previewElement === false ? 'none' : '';
         preview.classList.remove('nc-dnd-mover');
         preview.classList.add('nc-dnd-preview');
         preview.style.webkitTransform = ``;

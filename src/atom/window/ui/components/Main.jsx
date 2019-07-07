@@ -4,7 +4,7 @@ import { DropTarget } from '../../../../components/drag';
 import { Toolbar } from './Toolbar';
 import { renderDecoration } from '../../shared/decorationUtils';
 
-const Main = ({ currentTab, currentPage, decorationHandler }) => {
+const Main = ({ currentTab, currentPage, decorationHandler, windowService }) => {
     const currentAtoms = (currentTab && currentTab.atoms) || [];
     return (
         <div className="flex_1 nc-window-main">
@@ -21,6 +21,6 @@ const Main = ({ currentTab, currentPage, decorationHandler }) => {
     );
 };
 
-const MainInjector = inject('currentPage', 'currentTab', 'decorationHandler')(Main);
+const MainInjector = inject('currentPage', 'currentTab', 'decorationHandler', 'windowService')(Main);
 
 export { MainInjector as Main };

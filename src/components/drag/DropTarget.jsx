@@ -134,9 +134,9 @@ export default class DropTarget extends Component<{
 
                 eachBranchesItem(comparers, (option) => {
                     if (option.position !== 'fixed' && option.position !== 'absolute') {
-                        if (!nearest) {
+                        if (!nearest && canInsertBeforeOrInsertAfter(option)) {
                             nearest = option;
-                        } else if (option.distance < nearest.distance) {
+                        } else if (nearest && option.distance < nearest.distance) {
                             if (canInsertBeforeOrInsertAfter(option)) {
                                 nearest = option;
                             }

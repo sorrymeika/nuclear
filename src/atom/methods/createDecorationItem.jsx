@@ -11,15 +11,15 @@ class DecorationItem extends Component {
     }
 
     render() {
-        const { factory, context, windowService, containerProps } = this.props;
-        const newProps = excludeProps(this.props, ['windowService', 'factory', 'containerProps']);
-        const className = 'nc-window-atom nc-window-atom-' + context.type + ' ' + (windowService.currentAtom && windowService.currentAtom.id == context.id
+        const { factory, context, windowService, dragProps } = this.props;
+        const newProps = excludeProps(this.props, ['windowService', 'factory', 'dragProps']);
+        const className = 'nc-window-atom nc-window-atom-' + context.type + (context.subType ? '-' + context.subType : '') + ' ' + (windowService.currentAtom && windowService.currentAtom.id == context.id
             ? 'nc-window-atom-current '
-            : '') + ((containerProps && containerProps.className) || '');
+            : '') + ((dragProps && dragProps.className) || '');
 
         return (
             <DragItem
-                {...containerProps}
+                {...dragProps}
                 data={context}
                 className={className}
                 onClick={this.handleClick}
@@ -30,13 +30,13 @@ class DecorationItem extends Component {
 
 export { DecorationItem };
 
-export const createDecorationItem = (componentClass, containerProps) => {
+export const createDecorationItem = (componentClass, dragProps) => {
     const factory = React.createFactory(componentClass);
     return (props) => {
         return (
             <DecorationItem
                 {...props}
-                containerProps={containerProps}
+                dragProps={dragProps}
                 factory={factory}
             />
         );

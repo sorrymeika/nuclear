@@ -18,6 +18,7 @@ interface IAtomRegistry {
     decorationComponent: Factory | Component;
     settingsComponent: Factory | Component;
     specificConfig: any;
+    childrenKeys: string[];
 }
 
 const stores = {};
@@ -94,6 +95,11 @@ export function createDecoration(type, { id, key, handler, paths, transitiveProp
 
 export function createSettings(type, props) {
     return React.createElement(stores[type].settingsComponent, props);
+}
+
+export function _getChildren(json) {
+    const getChildren = stores[json.type].getChildren || ((json) => json.children);
+    return getChildren(json);
 }
 
 export function _getSpecificConfig(type) {

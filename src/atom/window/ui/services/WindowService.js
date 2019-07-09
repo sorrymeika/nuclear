@@ -98,7 +98,9 @@ class WindowService {
         this.currentPage = new PageState(page);
         this.currentTab = new TabState({ id: 'main', atoms: page.atoms });
 
-        this.currentTab.atoms = [{ "id": 2, "type": "form", "children": [{ "id": 3, "type": "input" }] }];
+        this.currentTab.atoms = [];
+
+        // { "id": 2, "type": "form", "children": [{ "id": 3, "type": "input" }] }
 
         this.storageService.saveCurrentWindowState({
             currentProject: {
@@ -161,11 +163,11 @@ class WindowService {
                         .add(newAtom);
                 });
             }
-            console.log('targetAtom', targetAtom, Object.keys(targetAtom));
+            console.log('targetAtom', targetAtom, targetAtom && Object.keys(targetAtom));
         }
         this.selectAtom(newAtom);
 
-        console.log('after addAtom:', this.currentTab.atoms, JSON.stringify(this.currentTab.atoms));
+        console.log('additionType:', additionType, targetData, 'after addAtom:', this.currentTab.atoms, JSON.stringify(this.currentTab.atoms));
     }
 
     selectAtom = (options) => {

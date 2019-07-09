@@ -37,6 +37,7 @@ export function jsonArrayToDecorations(jsonArray, handler, paths, transitiveProp
 }
 
 export function renderDecoration(json, handler, paths, transitiveProps) {
+    if (!json) return null;
     return Array.isArray(json)
         ? jsonArrayToDecorations(json, handler, paths, transitiveProps)
         : jsonToDecoration(json, handler, paths, transitiveProps);

@@ -91,13 +91,14 @@ export default class DragItem extends Component<{
     }
 
     render() {
-        const { className, style, children } = this.props;
+        const { className, style, children, dragable = true } = this.props;
 
         return (
             <div
                 className={(this.state.dragging ? 'nc-drag-item-dragging ' : '') + className}
                 style={style}
                 onMouseDown={this.onMouseDown}
+                onClick={!dragable ? this.props.onClick : undefined}
             >{children}</div>
         );
     }

@@ -1,9 +1,12 @@
+import { _getChildren } from "../factories";
+
 export function eachAtom(atoms, fn, parent = null, paths = []) {
     for (let i = 0; i < atoms.length; i++) {
         const atom = atoms[i];
         if (fn(atom, i, atoms, parent, paths) !== false) {
-            if (atom.children) {
-                if (eachAtom(atom.children, fn, atom, [...paths, atom.type]) === false) {
+            const children = _getChildren(atom);
+            if (children) {
+                if (eachAtom(children, fn, atom, [...paths, atom.type]) === false) {
                     return false;
                 }
             }

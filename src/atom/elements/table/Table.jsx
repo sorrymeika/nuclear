@@ -13,7 +13,7 @@ export default class NuclearTable extends Component {
         const { handler, transitiveProps, paths } = context;
 
         columns.forEach((column, i) => {
-            const children = items.filter((columnItem) => columnItem.columnIndex == i);
+            const children = items.filter((columnItem) => columnItem.subId == i);
             const itemConfig = (props.itemsConfig && props.itemsConfig[i]) || {};
 
             const titleElement = Boolean(column.ifShowTooltip) ? (

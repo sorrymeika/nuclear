@@ -1,9 +1,10 @@
+import { observable } from "snowball";
 import component from "../../component";
 
 @component([{
     type: 'form',
     props: {
-        name: 'settingsForm'
+        name: 'form'
     },
     children: [{
         type: 'input',
@@ -12,8 +13,23 @@ import component from "../../component";
         }
     }]
 }])
-class InputSettings {
-    data = {};
+class FieldSetSettings {
+    @observable data = {};
+
+    constructor(props) {
+        this.data = props.defaultData || {};
+    }
+
+    onInit() {
+        this.asModel().observe('data', (data) => {
+            this.props.onChange && this.props.onChange(data);
+        });
+        this.props.formRef.current = this.form;
+    }
+
+    onDestroy() {
+        this.asModel().destroy();
+    }
 }
 
-export default InputSettings;
+export default FieldSetSettings;

@@ -1,22 +1,29 @@
 import { observable } from "snowball";
 import component from "../../component";
+import { inputCommonJson } from "../input";
+
 
 @component([{
     type: 'form',
     props: {
         name: 'form'
     },
-    children: [{
-        type: 'input',
-        props: {
-            field: 'data.name'
+    children: [
+        ...inputCommonJson,
+        {
+            type: 'div',
+            props: {
+                visible: '{isInForm}',
+            }
         }
-    }]
+    ]
 }])
-class DivSettings {
+class InputNumberSettings {
+    @observable isInForm = false;
     @observable data = {};
 
     constructor(props) {
+        this.isInForm = props.isInForm;
         this.data = props.defaultData || {};
     }
 
@@ -32,4 +39,4 @@ class DivSettings {
     }
 }
 
-export default DivSettings;
+export default InputNumberSettings;

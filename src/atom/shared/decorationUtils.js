@@ -2,7 +2,7 @@
 import { createDecoration } from "../factories";
 
 export function jsonToDecoration(json, handler, paths, transitiveProps) {
-    const { type, id, key, children, props } = json;
+    const { type, id, key, children, props, ...extProps } = json;
 
     const childrenComponents = children
         ? jsonArrayToDecorations(children, handler, [...paths, type], transitiveProps)
@@ -16,7 +16,8 @@ export function jsonToDecoration(json, handler, paths, transitiveProps) {
         handler,
         transitiveProps,
         childrenJson: children,
-        children: childrenComponents
+        children: childrenComponents,
+        ...extProps
     });
 }
 

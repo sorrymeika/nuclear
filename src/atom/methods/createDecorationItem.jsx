@@ -13,7 +13,9 @@ class DecorationItem extends Component {
     render() {
         const { factory, context, windowService, dragProps } = this.props;
         const newProps = excludeProps(this.props, ['windowService', 'factory', 'dragProps']);
-        const className = 'nc-window-atom nc-window-atom-' + context.type + (context.subType ? '-' + context.subType : '') + ' ' + (windowService.currentAtom && windowService.currentAtom.id == context.id
+        const { currentAtom } = windowService;
+        const isCurrentAtom = currentAtom && currentAtom.id == context.id && context.subType == currentAtom.subType && context.subId == currentAtom.subId;
+        const className = 'nc-window-atom nc-window-atom-' + context.type + (context.subType ? '-' + context.subType : '') + ' ' + (isCurrentAtom
             ? 'nc-window-atom-current '
             : '') + ((dragProps && dragProps.className) || '');
 

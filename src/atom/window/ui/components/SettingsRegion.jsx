@@ -46,6 +46,7 @@ class SettingsRegion extends Component {
                         currentAtom
                             ? renderSettings(currentAtom.type, {
                                 defaultData: currentAtom.props,
+                                currentAtom,
                                 onChange: this.handleDataChange,
                                 isInForm: currentAtom.isInForm,
                                 formRef: this.formRef

@@ -30,7 +30,7 @@ export function registerAtom(atomRegistry: IAtomRegistry) {
     stores[atomRegistry.type] = atomRegistry;
 }
 
-export function createAtom(type, { key, handler, paths, transitiveProps, children, childrenJson, props }) {
+export function createAtom(type, { key, handler, paths, transitiveProps, children, childrenJson, props, ...extProps }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
@@ -54,14 +54,15 @@ export function createAtom(type, { key, handler, paths, transitiveProps, childre
             isInForm: computeIsInForm(paths),
             propsConfig,
             transitiveProps,
-            childrenJson
+            childrenJson,
+            ...extProps
         },
         ...newProps,
         children
     });
 }
 
-export function createDecoration(type, { id, key, handler, paths, transitiveProps, children, childrenJson, props }) {
+export function createDecoration(type, { id, key, handler, paths, transitiveProps, children, childrenJson, props, ...extProps }) {
     if (!stores[type]) {
         console.error(`请先注册${type}！`);
         return React.createElement(type, {
@@ -86,7 +87,8 @@ export function createDecoration(type, { id, key, handler, paths, transitiveProp
             isInForm: computeIsInForm(paths),
             propsConfig,
             transitiveProps,
-            childrenJson
+            childrenJson,
+            ...extProps
         },
         ...newProps,
         children

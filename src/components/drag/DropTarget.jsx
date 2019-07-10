@@ -103,7 +103,7 @@ export default class DropTarget extends Component<{
             };
 
             const isMouseOver = (dragItem) => {
-                return pageX >= dragItem.x && pageX <= dragItem.x + dragItem.width && pageY >= dragItem.y && pageY <= dragItem.y + dragItem.height;
+                return pageX >= dragItem.x - 1 && pageX <= dragItem.x + dragItem.width + 1 && pageY >= dragItem.y - 1 && pageY <= dragItem.y + dragItem.height + 1;
             };
 
             const getItemFromMousePoint = (branches) => {
@@ -127,47 +127,55 @@ export default class DropTarget extends Component<{
                 return !!dragItem.target.props.appendable;
             };
 
-            if (itemAtMousePoint && !itemAtMousePoint.children.length && canInsertBeforeOrInsertAfter(itemAtMousePoint)) {
-                nearest = itemAtMousePoint;
-            } else {
-                let comparers = itemAtMousePoint && itemAtMousePoint.children.length ? itemAtMousePoint.children : trees;
-
-                eachBranchesItem(comparers, (option) => {
-                    if (option.position !== 'fixed' && option.position !== 'absolute') {
-                        if (!nearest && canInsertBeforeOrInsertAfter(option)) {
-                            nearest = option;
-                        } else if (nearest && option.distance < nearest.distance) {
-                            if (canInsertBeforeOrInsertAfter(option)) {
-                                nearest = option;
-                            }
-                        }
-                    }
-                });
-                if (!nearest) {
-                    nearest = itemAtMousePoint;
-                }
-            }
-
-            if (nearest) {
-                const insertType = canAppendTo(nearest)
-                    && pageX > nearest.x && pageY > nearest.y
-                    && pageX < nearest.x + nearest.width && pageY < nearest.y + nearest.height
-                    ? 'append'
-                    : pageX < nearest.x || pageY < nearest.y || (pageX < nearest.centerX && pageY < nearest.centerY)
-                        ? 'before'
-                        : 'after';
-
-                targetPlace = {
-                    type: insertType,
-                    node: nearest.node,
-                    target: nearest.target
-                };
-            } else {
+            if (itemAtMousePoint && !itemAtMousePoint.children.length && canAppendTo(itemAtMousePoint)) {
                 targetPlace = {
                     type: 'append',
-                    node: container,
-                    target: this
+                    node: itemAtMousePoint.node,
+                    target: itemAtMousePoint.target
                 };
+            } else {
+                if (itemAtMousePoint && !itemAtMousePoint.children.length && canInsertBeforeOrInsertAfter(itemAtMousePoint)) {
+                    nearest = itemAtMousePoint;
+                } else {
+                    let comparers = itemAtMousePoint && itemAtMousePoint.children.length ? itemAtMousePoint.children : trees;
+
+                    eachBranchesItem(comparers, (option) => {
+                        if (option.position !== 'fixed' && option.position !== 'absolute') {
+                            if (!nearest && canInsertBeforeOrInsertAfter(option)) {
+                                nearest = option;
+                            } else if (nearest && option.distance < nearest.distance) {
+                                if (canInsertBeforeOrInsertAfter(option)) {
+                                    nearest = option;
+                                }
+                            }
+                        }
+                    });
+                    if (!nearest) {
+                        nearest = itemAtMousePoint;
+                    }
+                }
+
+                if (nearest) {
+                    const insertType = canAppendTo(nearest)
+                        && pageX > nearest.x && pageY > nearest.y
+                        && pageX < nearest.x + nearest.width && pageY < nearest.y + nearest.height
+                        ? 'append'
+                        : pageX < nearest.x || pageY < nearest.y || (pageX < nearest.centerX && pageY < nearest.centerY)
+                            ? 'before'
+                            : 'after';
+
+                    targetPlace = {
+                        type: insertType,
+                        node: nearest.node,
+                        target: nearest.target
+                    };
+                } else {
+                    targetPlace = {
+                        type: 'append',
+                        node: container,
+                        target: this
+                    };
+                }
             }
         }
 

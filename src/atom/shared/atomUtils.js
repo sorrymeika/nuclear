@@ -17,10 +17,10 @@ export function eachAtom(atoms, fn, parent = null, paths = []) {
     return true;
 }
 
-export function findAtom(atoms, atomId) {
+export function findAtom(atoms, atomId, subId) {
     let atom = null;
     eachAtom(atoms, (item, i, array) => {
-        if (item.id == atomId) {
+        if (item.id == atomId && item.subId == subId) {
             atom = item;
             return false;
         }

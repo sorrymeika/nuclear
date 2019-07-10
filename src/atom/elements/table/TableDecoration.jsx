@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { renderDecoration } from '../../shared/decorationUtils';
-import { DecorationItem } from "../../methods/createDecorationItem";
+import { createDecorationItem, DecorationItem } from "../../methods/createDecorationItem";
 
 class TableDecoration extends Component {
     render() {
-        const { props } = this;
-        const { context = [], items = [] } = this.props;
+        const { context, ...props } = this.props;
         const { id: tableId, paths, handler } = context;
+        const { items = [] } = props;
         const heads = Array(props.columnsNum || 3).fill('');
         const bodys = Array(props.columnsNum || 3).fill('');
         const columns = props.columns || [];
@@ -29,11 +29,12 @@ class TableDecoration extends Component {
                                                 insertable: false
                                             }}
                                             context={{
-                                                id: columnId,
-                                                tableId,
+                                                id: tableId,
                                                 type: 'table',
+                                                subId: i,
                                                 subType: 'column',
-                                                props: column
+                                                props: column,
+                                                tableProps: context.props
                                             }}
                                             factory={() => {
                                                 return column && column.children && column.children.length
@@ -42,7 +43,7 @@ class TableDecoration extends Component {
                                                         ? (column.title || '')
                                                         : '';
                                             }}
-                                        ></DecorationItem>
+                                        />
                                     </th>
                                 );
                             })
@@ -63,11 +64,13 @@ class TableDecoration extends Component {
                                                 insertable: false
                                             }}
                                             context={{
-                                                id: columnId,
+                                                id: tableId,
                                                 type: 'table',
-                                                tableId,
-                                                subType: 'item',
-                                                props: items[i]
+                                                subId: i,
+                                                subType: 'cell',
+                                                props: items[i],
+                                                context,
+                                                tableProps: context.props
                                             }}
                                             factory={() => {
                                                 return items[i] && renderDecoration(items[i].children, handler, [...paths, 'table', 'cell', i]);
@@ -84,4 +87,6 @@ class TableDecoration extends Component {
     }
 }
 
-export default TableDecoration;
+export default createDecorationItem(TableDecoration, {
+    appendable: false
+});

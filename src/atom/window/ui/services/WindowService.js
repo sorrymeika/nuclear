@@ -170,10 +170,11 @@ class WindowService {
         console.log('additionType:', additionType, targetData, 'after addAtom:', this.currentTab.atoms, JSON.stringify(this.currentTab.atoms));
     }
 
-    selectAtom = (options) => {
-        const { id, type, props } = options;
+    selectAtom = (atomProps) => {
+        const { id, type, props, ...options } = atomProps;
 
         this.currentAtom = {
+            ...options,
             id,
             type,
             isInForm: computeIsInForm(getPaths(this.currentTab.atoms, id)),

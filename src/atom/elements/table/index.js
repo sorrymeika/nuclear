@@ -11,16 +11,7 @@ registerAtom({
     decorationComponent: TableDecoration,
     settingsComponent: TableSettings,
     getChildren: (json) => {
-        return (json.items || []).reduce(
-            (tableAllChildren, item) => {
-                return tableAllChildren.concat(item.children || []);
-            },
-            (json.columns || []).reduce(
-                (tableAllChildren, column) => {
-                    return tableAllChildren.concat(column.children || []);
-                }, []
-            )
-        );
+        return (json.columns || []).concat(json.items || []);
     },
     propsConfig: {
         columns: {
@@ -48,7 +39,7 @@ registerAtom({
             type: 'number',
             useExpression: false
         },
-        dataSourceName: {
+        dataSource: {
             type: 'string',
             useExpression: false
         },

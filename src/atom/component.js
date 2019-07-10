@@ -5,7 +5,7 @@ import { createAtom } from "./factories";
 export const JsonComponentContext = React.createContext();
 
 function jsonToElement(json, handler, paths, transitiveProps) {
-    const { type, key, children, props } = json;
+    const { type, key, children, props, ...extProps } = json;
 
     const childrenComponents = children
         ? jsonArrayToElements(children, handler, [...paths, type], transitiveProps)
@@ -18,7 +18,8 @@ function jsonToElement(json, handler, paths, transitiveProps) {
         paths,
         transitiveProps,
         childrenJson: children,
-        children: childrenComponents
+        children: childrenComponents,
+        ...extProps
     });
 }
 

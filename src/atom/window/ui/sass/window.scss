@@ -72,7 +72,7 @@
 .nc-window-atom-table td { border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
 .nc-window-atom-table td:last-child, .nc-window-atom-table th:last-child { border-right: 0; }
 .nc-window-atom-table th, .nc-window-atom-table td { height: 40px; }
-.nc-window-atom-table-column, .nc-window-atom-table-item { height: 100%; padding: 8px 16px; background: #fff; min-height: 60px; padding-bottom: 15px; }
+.nc-window-atom-table-column, .nc-window-atom-table-cell { height: 100%; padding: 8px 16px; background: #fff; min-height: 60px; padding-bottom: 15px; }
 .nc-window-atom-table-column { min-height: 40px; background: #f7f7f7; font-size: 14px; }
 
 .nc-window-atom-radiolist .ant-radio-group:after, .nc-window-atom-radiogroup .ant-radio-group:after,.nc-window-atom-checkboxlist .ant-checkbox-group:after { content: 'RadioList'; font-size: 12px; padding: 3px 5px; background: #fff; border: 1px solid #ddd; border-radius: 4px; }

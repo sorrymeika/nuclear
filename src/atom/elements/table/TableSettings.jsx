@@ -190,10 +190,9 @@ class TableColumnSettings {
     children: [{
         type: 'textarea',
         props: {
-            label: 'field',
-            field: 'data.field',
-            autosize: 'true',
-            rules: [{ required: true }]
+            label: 'text',
+            field: 'data.text',
+            autosize: 'true'
         }
     },]
 }])

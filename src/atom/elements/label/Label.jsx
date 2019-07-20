@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import createFormItem from "../../methods/createFormItem";
+import createFormItem from "../../shared/createFormItem";
 
 export default createFormItem(class Label extends Component {
     render() {

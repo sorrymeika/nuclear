@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { renderDecoration } from '../../shared/decorationUtils';
-import { createDecorationItem, DecorationItem } from "../../methods/createDecorationItem";
+import { createDecorationItem, DecorationItem } from "../../shared/createDecorationItem";
 
 class TableDecoration extends Component {
     render() {

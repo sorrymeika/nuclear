@@ -4,9 +4,9 @@ import { observable, autorun } from "snowball";
 import { isNumber } from "snowball/utils";
 import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../shared/atomUtils";
 
-import ProjectService from "../../domain/services/ProjectService";
-import PageService from "../../domain/services/PageService";
-import AtomService from "../../domain/services/AtomService";
+import ProjectService from "../../shared/services/ProjectService";
+import PageService from "../../shared/services/PageService";
+import AtomService from "../../shared/services/AtomService";
 import StorageService from "./StorageService";
 
 class PageState {

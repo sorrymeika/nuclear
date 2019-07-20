@@ -1,4 +1,4 @@
 import Input from "./Input";
-import { createDecorationItem } from "../../methods/createDecorationItem";
+import { createDecorationItem } from "../../shared/createDecorationItem";
 
 export default createDecorationItem(Input);

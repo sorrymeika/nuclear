@@ -83,8 +83,10 @@ type ToolbarInjectorProps = {
     windowService: WindowService
 }
 
-const ToolbarInjector = inject(({ windowService }: ToolbarInjectorProps) => ({
+const ToolbarInjc = inject(({ windowService, currentPage, currentTab }: ToolbarInjectorProps) => ({
+    currentPage,
+    currentTab,
     onEditPage: windowService.editPage
 }))(Toolbar);
 
-export { ToolbarInjector as Toolbar };
+export { Toolbar, ToolbarInjc };

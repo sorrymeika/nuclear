@@ -1,7 +1,7 @@
 import { controller, injectable } from "snowball/app";
-import ProjectService from "../domain/services/ProjectService";
-import PageService from "../domain/services/PageService";
-import AtomService from "../domain/services/AtomService";
+import ProjectService from "../shared/services/ProjectService";
+import PageService from "../shared/services/PageService";
+import AtomService from "../shared/services/AtomService";
 
 import Window from "./containers/Window";
 

@@ -26,3 +26,20 @@ export default function QuickSearch({ dataSource, onBlur, onSelect }) {
         />
     );
 }
+
+export const QuickSearchWithServ = ({
+    service
+}) => {
+    const { visible } = service;
+    if (!visible) {
+        return null;
+    }
+
+    return (
+        <QuickSearch
+            dataSource={service.dataSource}
+            onBlur={() => service.onBlur()}
+            onSelect={(keywords) => service.onSelect(keywords)}
+        />
+    );
+};

@@ -1,5 +1,5 @@
 import React, { Factory, Component } from "react";
-import getProps from "./methods/getProps";
+import getProps from "./shared/getProps";
 import { computeIsInForm } from "./shared/atomUtils";
 
 type PropConfig = {

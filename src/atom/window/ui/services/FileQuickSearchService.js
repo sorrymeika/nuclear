@@ -1,7 +1,8 @@
 import { observable } from "snowball";
+import { IQuickSearchService } from "../types/IQuickSearchService";
 import WindowService from "./WindowService";
 
-class FileQuickSearchService {
+class FileQuickSearchService implements IQuickSearchService {
     get dataSource() {
         return this.windowService.projectList.concat(this.windowService.pageList)
             .map((item) => (item.name));
@@ -14,10 +15,10 @@ class FileQuickSearchService {
         this.windowService = windowService;
     }
 
-    changeFile(path) {
+    onSelect(path) {
     }
 
-    hideQuickSearch() {
+    onBlur() {
         this.visible = true;
     }
 }

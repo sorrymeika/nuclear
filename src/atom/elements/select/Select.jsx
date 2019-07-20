@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Select } from "antd";
-import createFormItem from "../../methods/createFormItem";
+import createFormItem from "../../shared/createFormItem";
 
 export default createFormItem(class _Select extends Component {
     render() {

@@ -1,19 +1,5 @@
 import React, { Component } from 'react';
-import { PageSettings } from './PageSettings';
 import { inject } from 'snowball/app';
-import { createSettings } from '../../../factories';
-
-const createPageSettings = (props) => {
-    return <PageSettings {...props}></PageSettings>;
-};
-
-const renderSettings = (type, props) => {
-    if (type == 'page') {
-        return createPageSettings(props);
-    } else {
-        return createSettings(type, props);
-    }
-};
 
 class SettingsRegion extends Component {
     constructor(props) {
@@ -36,7 +22,7 @@ class SettingsRegion extends Component {
     }
 
     render() {
-        const { title, currentAtom } = this.props;
+        const { title, currentAtom, children } = this.props;
         // console.log(currentAtom);
         return (
             <div className="h_1x nc-window-settings">
@@ -44,7 +30,8 @@ class SettingsRegion extends Component {
                 <div className="nc-window-settings-con">
                     {
                         currentAtom
-                            ? renderSettings(currentAtom.type, {
+                            ? children({
+                                type: currentAtom.type,
                                 defaultData: currentAtom.props,
                                 currentAtom,
                                 onChange: this.handleDataChange,
@@ -69,10 +56,10 @@ class SettingsRegion extends Component {
     }
 }
 
-const SettingsRegionInjector = inject(({ windowService }) => ({
+const SettingsRegionInjc = inject(({ windowService }) => ({
     currentAtom: windowService.currentAtom,
     onCancel: windowService.hideSettings,
     onOk: windowService.confirmSettings
 }))(SettingsRegion);
 
-export { SettingsRegionInjector as SettingsRegion };
+export { SettingsRegion,SettingsRegionInjc };

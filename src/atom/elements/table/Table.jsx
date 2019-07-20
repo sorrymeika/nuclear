@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Tooltip, Icon } from "antd";
 import { renderJson } from '../../component';
-import getProps from '../../methods/getProps';
+import getProps from '../../shared/getProps';
 import { util } from 'snowball';
 
 export default class NuclearTable extends Component {

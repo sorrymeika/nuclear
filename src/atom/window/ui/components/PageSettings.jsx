@@ -1,5 +1,6 @@
 import { observable } from "snowball";
 import { inject } from "snowball/app";
+
 import component from "../../../component";
 
 const Json = [{
@@ -15,7 +16,7 @@ const Json = [{
             placeholder: '选择目标项目',
             onChange: 'onProjectChange',
             rules: [{ required: true }],
-            dataSource: 'projects'
+            dataSource: '{projects}'
         },
     }, {
         type: 'autocomplete',
@@ -23,7 +24,7 @@ const Json = [{
             label: '页面名',
             field: 'data.pageName',
             rules: [{ required: true }, { pattern: /^[A-Z]/, message: '页面请用帕斯卡命名' }],
-            dataSource: 'pageNames',
+            dataSource: '{pageNames}',
             onChange: 'onPageChange'
         }
     }, {
@@ -97,14 +98,12 @@ class PageSettings {
     @observable pageNames = [];
     @observable currentProjectName;
 
-    constructor({ projectService, pageService, defaultData }) {
-        this.projectService = projectService;
-        this.pageService = pageService;
+    constructor({ defaultData }) {
         this.data = defaultData || {};
     }
 
     async onInit() {
-        const projects = await this.projectService.getProjects();
+        const projects = await this.props.requestProjects();
         this.projects = projects.map((proj) => ({
             text: proj.name,
             value: proj.name
@@ -124,7 +123,7 @@ class PageSettings {
         this.currentProjectName = projectName;
 
         if (projectName) {
-            const res = await this.pageService.getPagesByProject(projectName);
+            const res = await this.props.requestPagesByProject(projectName);
             this.pageNames = res.pages.map((page) => page.name);
         } else {
             this.pageNames = [];
@@ -139,6 +138,9 @@ class PageSettings {
     }
 }
 
-const PageSettingsInjector = inject('projectService', 'pageService')(PageSettings);
+const PageSettingsInjc = inject(({ projectService, pageService }) => ({
+    requestProjects: projectService.getProjects,
+    requestPagesByProject: pageService.getPagesByProject
+}))(PageSettings);
 
-export { PageSettingsInjector as PageSettings };
+export { PageSettings, PageSettingsInjc };

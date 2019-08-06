@@ -183,11 +183,12 @@ export default class DropTarget extends Component<{
         previewElement.classList.remove('nc-dnd-preview-del');
 
         if (!this.targetPlace || (this.targetPlace.node != targetPlace.node || this.targetPlace.type != targetPlace.type || this.targetPlace.previewElement != previewElement)) {
-            if (!this.props.onDragChange || (this.props.onDragChange({
+            const state = this.props.onDragChange && this.props.onDragChange({
                 target: this,
                 source,
                 ...targetPlace
-            }) !== false)) {
+            });
+            if (!state) {
                 if (targetPlace.type === 'before') {
                     insertBefore(targetPlace.node, previewElement);
                 } else if (targetPlace.type === 'after') {
@@ -203,6 +204,8 @@ export default class DropTarget extends Component<{
                     status: targetPlace.type,
                     target: targetPlace.target
                 });
+            } else {
+                this.context.setDndState(state);
             }
         }
 

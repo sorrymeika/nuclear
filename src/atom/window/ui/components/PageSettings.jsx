@@ -14,7 +14,7 @@ const Json = [{
             label: '项目',
             field: 'data.projectName',
             placeholder: '选择目标项目',
-            onChange: 'onProjectChange',
+            onChange: '{onProjectChange}',
             rules: [{ required: true }],
             dataSource: '{projects}'
         },
@@ -25,7 +25,7 @@ const Json = [{
             field: 'data.pageName',
             rules: [{ required: true }, { pattern: /^[A-Z]/, message: '页面请用帕斯卡命名' }],
             dataSource: '{pageNames}',
-            onChange: 'onPageChange'
+            onChange: '{onPageChange}'
         }
     }, {
         type: 'textarea',

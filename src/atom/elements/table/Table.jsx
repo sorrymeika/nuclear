@@ -51,7 +51,7 @@ export default class NuclearTable extends Component {
                         : (
                             <div className={className}>{
                                 children && children.length
-                                    ? renderJson(children, handler, [...this.props.weaponPaths, 'table'], nextProps)
+                                    ? renderJson(children, handler, [...paths, 'table'], nextProps)
                                     : text
                             }</div>
                         );

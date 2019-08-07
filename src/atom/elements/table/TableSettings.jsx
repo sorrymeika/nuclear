@@ -11,7 +11,7 @@ import component from "../../component";
         type: 'input',
         props: {
             label: '数据源',
-            field: '{dataSource}',
+            field: 'dataSource',
             rules: [{ required: true }]
         }
     }, {

@@ -40,10 +40,9 @@ export function getPaths(atoms, atomId) {
 }
 
 export function computeIsInForm(paths) {
-    const tableIndex = Math.max(paths.lastIndexOf('list'), paths.lastIndexOf('table'));
     const formIndex = paths.lastIndexOf('form');
 
-    if (formIndex !== -1 && tableIndex < formIndex) {
+    if (formIndex !== -1) {
         return true;
     }
     return false;

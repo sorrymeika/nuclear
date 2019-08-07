@@ -13,7 +13,6 @@ registerAtom({
     propsConfig: {
         name: {
             type: 'string',
-            isHandlerProp: false,
             useExpression: false
         }
     },

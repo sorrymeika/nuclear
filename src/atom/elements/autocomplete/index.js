@@ -11,8 +11,7 @@ registerAtom({
     settingsComponent: AutoCompleteSettings,
     propsConfig: {
         field: {
-            type: 'string',
-            isHandlerProp: false
+            type: 'string'
         }
     },
     specificConfig: {

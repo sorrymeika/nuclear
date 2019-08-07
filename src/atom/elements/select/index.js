@@ -11,8 +11,7 @@ registerAtom({
     settingsComponent: SelectSettings,
     propsConfig: {
         field: {
-            type: 'string',
-            isHandlerProp: false
+            type: 'string'
         }
     },
     specificConfig: {

@@ -1,78 +1,73 @@
-import React from "react";
+import React, { Component } from "react";
 import { Form } from "antd";
-import { util } from "snowball";
-import { _getSpecificConfig } from "../../factories";
+import Schema from 'async-validator';
 
 export const FormContext = React.createContext();
 
-function findFields(childrenJson) {
-    const fields = [];
 
-    if (childrenJson) {
-        const stack = [...childrenJson];
-        let current = stack.pop();
-        while (current) {
-            const { type, children, props } = current;
-            const specificConfig = _getSpecificConfig(type);
-            if (specificConfig) {
-                if (specificConfig.isFormItem) {
-                    if (props) fields.push(props);
-                } else if (type === 'table' || type === 'list' || specificConfig.isList) {
-                    continue;
+export default class extends Component {
+    constructor() {
+        super();
+
+        this.validator = new Schema({});
+        this.validateStatus = {};
+        this.form = {
+            validateFields: (fields, callback) => {
+                const handleValid = (errors, _fields) => {
+                    if (errors) {
+                        errors = errors.filter(err => (err.field in fields));
+                        errors.forEach(err => {
+                            this.validateStatus[err.field] = {
+                                validateStatus: 'error',
+                                help: err.message
+                            };
+                        });
+                        this.forceUpdate();
+                    } else {
+                        Object.keys(fields).forEach(key => {
+                            this.validateStatus[key] = {
+                                validateStatus: 'success'
+                            };
+                        });
+                    }
+                    callback && callback(errors, fields);
+                };
+                const res = this.validator.validate(fields, handleValid);
+                if (res && res.then) {
+                    res
+                        .then(handleValid)
+                        .catch(({ errors, fields }) => {
+                            return handleValid(errors, fields);
+                        });
                 }
             }
-            if (children && children.length) {
-                stack.push(...children);
-            }
-            current = stack.pop();
-        }
+        };
     }
 
-    return fields;
+    render() {
+        const props = this.props;
+        const { name } = props;
+        if (name) {
+            props.context.handler[name] = this.form;
+        }
+        this.rules = {};
+
+        return (
+            <FormContext.Provider value={{
+                addRules: (fieldName, fieldRules) => {
+                    this.rules[fieldName] = fieldRules;
+                    this.validator.define(this.rules);
+                },
+                validate: this.form.validateFields,
+                validateStatus: this.validateStatus,
+                setValidateStatus: (fieldName, status) => {
+                    this.validateStatus[fieldName] = status;
+                }
+            }}>
+                <Form>
+                    {props.children}
+                </Form>
+            </FormContext.Provider>
+        );
+    }
 }
-
-const setFields = (handler, changedFields, parentNames = []) => {
-    Object.keys(changedFields).forEach((name) => {
-        const subField = changedFields[name];
-        const currentNames = parentNames.concat(name);
-
-        if (subField.name === currentNames.join('.')) {
-            typeof handler.asModel === 'function'
-                ? handler.asModel().set(currentNames, subField.value)
-                : util.set(handler, subField.name, subField.value);
-        } else {
-            setFields(handler, subField, currentNames);
-        }
-    });
-};
-
-export default Form.create({
-    onFieldsChange(props, changedFields) {
-        const { handler } = props.context;
-        setFields(handler, changedFields);
-    },
-    mapPropsToFields(props) {
-        const { childrenJson, handler, transitiveProps } = props.context;
-        const fields = findFields(childrenJson);
-
-        return fields.reduce((result, field) => {
-            result[field.field] = Form.createFormField({
-                value: util.get(handler, field.field, transitiveProps)
-            });
-            return result;
-        }, {});
-    },
-})(props => {
-    const { name } = props;
-    if (name) {
-        props.context.handler[name] = props.form;
-    }
-
-    return (
-        <FormContext.Provider value={props.form}>
-            <Form>
-                {props.children}
-            </Form>
-        </FormContext.Provider>
-    );
-});

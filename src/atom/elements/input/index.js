@@ -12,8 +12,7 @@ registerAtom({
     settingsComponent: InputSettings,
     propsConfig: {
         field: {
-            type: 'string',
-            isHandlerProp: false
+            type: 'string'
         }
     },
     specificConfig: {

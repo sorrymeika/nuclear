@@ -60,6 +60,9 @@ export default function component(componentJson) {
                 super(props);
 
                 this.handler = new Handler(props);
+                this.handler.asModel && this.handler.asModel().on('change', () => {
+                    this.forceUpdate();
+                });
             }
 
             componentDidMount() {

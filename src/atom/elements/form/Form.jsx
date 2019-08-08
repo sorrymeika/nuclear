@@ -4,7 +4,6 @@ import Schema from 'async-validator';
 
 export const FormContext = React.createContext();
 
-
 export default class extends Component {
     constructor() {
         super();

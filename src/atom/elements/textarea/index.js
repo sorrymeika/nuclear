@@ -8,8 +8,5 @@ registerAtom({
     group: 'Form',
     atomComponent: TextArea,
     decorationComponent: TextArea,
-    settingsComponent: TextAreaSettings,
-    specificConfig: {
-        isFormItem: true
-    }
+    settingsComponent: TextAreaSettings
 });

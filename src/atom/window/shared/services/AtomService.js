@@ -1,9 +1,9 @@
-import { _getAtoms } from "../../../factories";
+import { _getAtomsForDecoration } from "../../../factories";
 import { groupBy } from "snowball/utils";
 
 export default class AtomService {
     getAll() {
-        return _getAtoms();
+        return _getAtomsForDecoration();
     }
 
     getGroups() {

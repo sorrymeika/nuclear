@@ -18,16 +18,21 @@ interface IAtomRegistry {
     decorationComponent: Factory | Component;
     settingsComponent: Factory | Component;
     specificConfig: any;
-    childrenKeys: string[];
 }
 
 const stores = {};
 
-export function registerAtom(atomRegistry: IAtomRegistry) {
-    if (stores[atomRegistry.type]) {
-        throw new Error(`${atomRegistry.type}已被注册！`);
+export function registerAtom(type: IAtomRegistry) {
+    if (typeof type === 'string') {
+        type = {
+            type,
+            atomComponent: arguments[1]
+        };
     }
-    stores[atomRegistry.type] = atomRegistry;
+    if (stores[type.type]) {
+        throw new Error(`${type.type}已被注册！`);
+    }
+    stores[type.type] = type;
 }
 
 export function createAtom(type, { key, handler, paths, transitiveProps, children, childrenJson, props, ...extProps }) {
@@ -104,18 +109,17 @@ export function _getChildren(json) {
     return getChildren(json);
 }
 
-export function _getSpecificConfig(type) {
-    return stores[type].specificConfig;
-}
-
-export function _getAtoms() {
+export function _getAtomsForDecoration() {
     return Object.keys(stores)
-        .map((key) => {
+        .reduce((res, key) => {
             const atom = stores[key];
-            return {
-                type: atom.type,
-                name: atom.name,
-                group: atom.group
-            };
-        });
+            if (atom.settingsComponent) {
+                res.push({
+                    type: atom.type,
+                    name: atom.name,
+                    group: atom.group
+                });
+            }
+            return res;
+        }, []);
 }

@@ -8,3 +8,4 @@ import './textarea';
 import './select';
 import './fieldset';
 import './table';
+import './list';

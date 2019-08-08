@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { observer } from "snowball/app";
 import { createAtom } from "./factories";
+import { isFunction } from "snowball/utils";
 
 export const JsonComponentContext = React.createContext();
 
 function jsonToElement(json, handler, paths, transitiveProps) {
     const { type, key, children, props, ...extProps } = json;
-
-    const childrenComponents = children
-        ? jsonArrayToElements(children, handler, [...paths, type], transitiveProps)
-        : null;
 
     return createAtom(type, {
         key,
@@ -18,7 +15,14 @@ function jsonToElement(json, handler, paths, transitiveProps) {
         paths,
         transitiveProps,
         childrenJson: children,
-        children: childrenComponents,
+        children: !children
+            ? null
+            : isFunction(children)
+                ? (props) => {
+                    const nextProps = { ...transitiveProps, ...props };
+                    return jsonArrayToElements(children(nextProps), handler, [...paths, type], nextProps);
+                }
+                : jsonArrayToElements(children, handler, [...paths, type], transitiveProps),
         ...extProps
     });
 }
@@ -55,7 +59,7 @@ export default function component(componentJson) {
             ? jsonArrayToElements
             : jsonToElement;
 
-        return @observer class JsonComponent extends Component {
+        return @observer class extends Component {
             constructor(props) {
                 super(props);
 
@@ -94,3 +98,40 @@ export default function component(componentJson) {
         };
     };
 }
+
+class JsonComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        const didMount = this.componentDidMount;
+        this.componentDidMount = () => {
+            this.asModel && this.asModel().on('change', () => {
+                this.forceUpdate();
+            });
+            didMount && didMount.call(this);
+        };
+
+        const willUnmount = this.componentWillUnmount;
+        this.componentWillUnmount = () => {
+            this.asModel && this.asModel().destroy();
+            willUnmount && willUnmount.call(this);
+        };
+
+        const render = this.render;
+        this.render = () => {
+            const componentJson = render.call(this);
+            return (
+                <JsonComponentContext.Provider
+                    value={{
+                        json: componentJson,
+                        handler: this
+                    }}
+                >
+                    {renderJson(componentJson, this, ['root'], this.props.transitiveProps)}
+                </JsonComponentContext.Provider>
+            );
+        };
+    }
+};
+
+export { JsonComponent };

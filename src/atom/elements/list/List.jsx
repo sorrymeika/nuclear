@@ -25,7 +25,7 @@ export default class List extends Component {
                             : (
                                 <div
                                     className={className}
-                                    key={record[rowKey]}
+                                    key={rowKey ? record[rowKey] : j}
                                 >{
                                         children && children.length
                                             ? renderJson(children, handler, [...context.paths, 'list'], nextProps)

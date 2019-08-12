@@ -1,0 +1,7 @@
+.bd_r:after, .bd_b:after, .bd_t:after, .bd_l:after { content: none; }
+.bd_r { border-right: 1px solid #ddd; }
+.bd_b { border-bottom: 1px solid #ddd; }
+.bd_t { border-top: 1px solid #ddd; }
+.bd_l { border-left: 1px solid #ddd; }
+
+.app-view, .app-skeleton { background: #fff; }

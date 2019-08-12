@@ -1,5 +1,4 @@
-import './sass/common.scss';
-import 'antd/dist/antd.css';
+import './sass/style.scss';
 
 import * as serviceWorker from './serviceWorker';
 import { createApplication } from 'snowball/app';

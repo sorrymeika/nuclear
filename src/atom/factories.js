@@ -29,10 +29,11 @@ export function registerAtom(type: IAtomRegistry) {
             atomComponent: arguments[1]
         };
     }
-    if (stores[type.type]) {
-        throw new Error(`${type.type}已被注册！`);
+    const atomType = type.type.toLowerCase();
+    if (stores[atomType]) {
+        throw new Error(`${atomType}已被注册！`);
     }
-    stores[type.type] = type;
+    stores[atomType] = type;
 }
 
 export function createAtom(type, { key, handler, paths, transitiveProps, children, childrenJson, props, ...extProps }) {

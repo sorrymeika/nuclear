@@ -1,5 +1,31 @@
-import getValue from "./getValue";
+import { util } from "snowball";
 import { isString } from "snowball/utils";
+
+import compileExpression from "./compileExpression";
+
+function getValue(context, valueExp, properties?) {
+    if (valueExp === 'true') return true;
+    if (valueExp === 'false') return false;
+    if (valueExp === 'null') return null;
+    if (valueExp === 'undefined') return undefined;
+    if (/^\d+(\.\d+)?$/.test(valueExp)) return Number(valueExp);
+
+    if (!valueExp) return valueExp;
+
+    const methods = context.__nuclear_expressions || (context.__nuclear_expressions = {});
+    const data = properties ? Object.assign(Object.create(context), properties) : context;
+
+    data.$ = util.$;
+    data.util = util;
+
+    let method = methods[valueExp];
+
+    if (!method) {
+        methods[valueExp] = method = new Function("$data", compileExpression(valueExp).code);
+    }
+
+    return method.call(context, data);
+}
 
 export default function getProps(handler, propsConfig, props, otherProps) {
     return Object.keys(props)

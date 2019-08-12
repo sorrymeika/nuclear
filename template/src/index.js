@@ -1,18 +1,20 @@
 import { createApplication } from "snowball/app";
 import "./sass/style.scss";
-import "./app/home/controllers/HomeController";
+import router from "./app/router";
 
 const projects = {
 };
 
-const routes = {
-    '/test': import("./Test")
-};
-
 createApplication({
     projects,
-    routes,
-    autoStart: true
+    routes: router,
+    autoStart: true,
+    extend() {
+        return {};
+    },
+    options: {
+        disableTransition: true
+    }
 }, document.getElementById('root'), () => {
     console.log('application start!');
 });

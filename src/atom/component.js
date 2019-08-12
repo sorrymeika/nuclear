@@ -78,6 +78,7 @@ export default function component(componentJson) {
             }
 
             componentWillUnmount() {
+                this.handler.asModel && this.handler.asModel().destroy();
                 this.handler.onDestroy && this.handler.onDestroy();
             }
 

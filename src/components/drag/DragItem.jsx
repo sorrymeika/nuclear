@@ -19,6 +19,10 @@ export default class DragItem extends Component<{
 }> {
     static contextType = DropTargetContext;
 
+    get data() {
+        return this.props.data;
+    }
+
     constructor(props, context) {
         super(props, context);
 

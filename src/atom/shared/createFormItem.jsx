@@ -15,6 +15,9 @@ export default function createFormItem(Input) {
                         if (!form) {
                             return <Input {...inputProps} context={context} />;
                         }
+                        if ('max' in inputProps) {
+                            rules.push({ max: inputProps.max, min: 0, message: '最多能够输入' + inputProps.max + '个汉字或字符' });
+                        }
 
                         const required = rules.findIndex((rule) => rule.required) !== -1;
                         const isSingleLine = labelLineBreak !== true;
@@ -38,7 +41,7 @@ export default function createFormItem(Input) {
                         }
 
                         const item = (
-                            <Form.Item {...formItemProps} {...validateStatus[forceField]} className="ps_r mb_m ml_s">
+                            <Form.Item {...formItemProps} {...validateStatus[forceField]} className="ps_r mb_m">
                                 <Input
                                     {...inputProps}
                                     context={context}
@@ -67,6 +70,15 @@ export default function createFormItem(Input) {
                                         inputProps.onChange && inputProps.onChange(value);
                                     }}
                                 />
+                                {
+                                    inputProps.max
+                                        ? (
+                                            <p className="dock_br pr_m cl_999 fs_s" style={{ bottom: 14, height: 14 }}>
+                                                {(inputProps.value || '').length + '/' + inputProps.max}
+                                            </p>
+                                        )
+                                        : null
+                                }
                             </Form.Item>
                         );
 

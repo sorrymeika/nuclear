@@ -9,3 +9,5 @@ import './select';
 import './fieldset';
 import './table';
 import './list';
+import './icon';
+import './button';

@@ -144,9 +144,10 @@ module.exports = function (webpackEnv) {
       // require.resolve('webpack/hot/dev-server'),
       isEnvDevelopment &&
       require.resolve('react-dev-utils/webpackHotDevClient'),
-      require.resolve('./polyfills'),
+      // require.resolve('./polyfills'),
       // Finally, this is your app's code:
-      require.resolve('snowball'),
+      isEnvDevelopment && require.resolve('snowball'),
+      isEnvDevelopment && require.resolve('nuclear'),
       paths.appIndexJs,
       // We include the app code last so that if there is a runtime error during
       // initialization, it doesn't blow up the WebpackDevServer client, and
@@ -327,7 +328,8 @@ module.exports = function (webpackEnv) {
           loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
           options: {
             modules: {
-              nuclear: 'window.Nuclear'
+              nuclear: 'window.Nuclear',
+              antd: 'window.Nuclear.antd',
             },
           },
         },
@@ -382,7 +384,10 @@ module.exports = function (webpackEnv) {
 
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: require('path').resolve(paths.appPath, '../snowball'),
+              include: [
+                path.resolve(paths.appPath, '../snowball'),
+                path.resolve(paths.appPath, '../nuclear')
+              ],
               loader: require.resolve('babel-loader'),
               options: {
                 "presets": [

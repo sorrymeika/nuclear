@@ -4,4 +4,9 @@
 .bd_t { border-top: 1px solid #ddd; }
 .bd_l { border-left: 1px solid #ddd; }
 
+body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
+
 .app-view, .app-skeleton { background: #fff; }
+.app-h2, .app-h3 { font-weight: 500; color: #0d1a26; font-size: 24px; line-height: 32px; margin: 0 0 10px 0; }
+.app-h3 { font-size: 20px; }
+.app-toolbar { padding-bottom: 10px; }

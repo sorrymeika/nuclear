@@ -10,3 +10,6 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .app-h2, .app-h3 { font-weight: 500; color: #0d1a26; font-size: 24px; line-height: 32px; margin: 0 0 10px 0; }
 .app-h3 { font-size: 20px; }
 .app-toolbar { padding-bottom: 10px; }
+
+.nc-main { background-color: #ecf0f5; padding: 15px; min-height: 100%; }
+.nc-card { background-color: #fff; padding: 10px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }

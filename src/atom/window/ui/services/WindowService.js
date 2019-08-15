@@ -156,13 +156,28 @@ class WindowService {
                 atomCollection.add(newAtom);
             });
         } else {
-            const targetAtom = findAtom(atoms, targetData.id);
-            if (targetAtom) {
-                targetAtom.withMutations((targetAtomModel) => {
-                    targetAtomModel.collection('children')
-                        .add(newAtom);
-                });
-            }
+            let targetAtom;
+            eachAtom(atoms, (atom, i, parentChildren) => {
+                if (atom.id == targetData.id) {
+                    targetAtom = atom;
+                    if (additionType === 'before') {
+                        parentChildren.withMutations((children) => {
+                            children.insert(i, newAtom);
+                        });
+                    } else if (additionType === 'after') {
+                        parentChildren.withMutations((children) => {
+                            children.insert(i + 1, newAtom);
+                        });
+                    } else {
+                        targetAtom.withMutations((targetAtomModel) => {
+                            targetAtomModel
+                                .collection('children')
+                                .add(newAtom);
+                        });
+                    }
+                    return false;
+                }
+            });
             console.log('targetAtom', targetAtom, targetAtom && Object.keys(targetAtom));
         }
         this.selectAtom(newAtom);

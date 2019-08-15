@@ -15,7 +15,8 @@ import { inputCommonJson } from "../input";
             props: {
                 label: '数据源',
                 field: 'data.dataSource',
-                autosize: true
+                autosize: true,
+                rules: [{ required: true }]
             }
         },
         {
@@ -26,7 +27,7 @@ import { inputCommonJson } from "../input";
         }
     ]
 }])
-class AutoCompleteSettings {
+class CheckBoxListSettings {
     @observable isInForm = false;
     @observable data = {};
 
@@ -47,4 +48,4 @@ class AutoCompleteSettings {
     }
 }
 
-export default AutoCompleteSettings;
+export default CheckBoxListSettings;

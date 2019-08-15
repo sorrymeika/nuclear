@@ -85,8 +85,11 @@
 .nc-window-atom-label { border-bottom: 1px solid #ddd; margin-left: 5px; margin-bottom: 5px; }
 .nc-window-atom-fieldset { border-radius: 6px; border: 1px solid #ddd; background: #fff; margin-bottom: 10px; }
 .nc-window-atom-fieldset .nc-fieldset { border: 0px; }
-.nc-window-atom-button, .nc-window-atom-checkbox, .nc-window-atom-input { display: inline-block; }
-.ant-form .nc-window-atom-checkbox, .ant-form .nc-window-atom-input { display: block; }
+
+.nc-window-atom-button, .nc-window-atom-checkbox, .nc-window-atom-input, .nc-window-atom-select, .nc-window-atom-checkboxlist { display: inline-block; min-width: 100px; }
+
+.ant-form .nc-window-atom-checkbox, .ant-form .nc-window-atom-input, .ant-form .nc-window-atom-select, .ant-form .nc-window-atom-checkboxlist { display: block; }
+
 .nc-window-atom-render { border-left: 1px solid #ddd; padding: 10px; background: #f1f1f1; text-align: center; }
 
 .nc-window-atom.flex { display: block; }

@@ -1,4 +1,6 @@
 import './autocomplete';
+import './button';
+import './checkbox';
 import './div';
 import './form';
 import './input';
@@ -10,4 +12,3 @@ import './fieldset';
 import './table';
 import './list';
 import './icon';
-import './button';

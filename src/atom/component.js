@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { isFunction } from "snowball/utils";
 import { observer } from "snowball/app";
 import { createAtom } from "./factories";
-import { isFunction } from "snowball/utils";
 
 export const JsonComponentContext = React.createContext();
 

@@ -45,14 +45,17 @@ export class NCForm extends Component {
     }
 
     validateFields = (fields, callback) => {
-        if (typeof fields === 'function') {
+        const validateAll = typeof fields === 'function';
+        if (validateAll) {
             callback = fields;
-            fields = this.data;
+            fields = this._model.attributes;
         }
 
         const handleValid = (errors, _fields) => {
             if (errors) {
-                errors = errors.filter(err => (err.field in fields));
+                if (!validateAll) {
+                    errors = errors.filter(err => (err.field in fields));
+                }
                 errors.forEach(err => {
                     this._validateStatus[err.field] = {
                         validateStatus: 'error',
@@ -80,6 +83,8 @@ export class NCForm extends Component {
     }
 
     handleSubmit = (e) => {
+        e.preventDefault();
+
         this.validateFields((errors, fields) => {
             if (errors) {
                 this.props.onError && this.props.onError(errors);
@@ -177,8 +182,6 @@ export const NCFormItem = ({ ...props }) => {
                             inputProps.onChange && inputProps.onChange(value);
                         }
                     };
-
-                    console.log(validateStatus, forceField);
 
                     const item = (
                         <Form.Item {...formItemProps} {...validateStatus[forceField]} className="ps_r mb_m">

@@ -15,7 +15,7 @@ export interface ImageUploadProps {
     onChange?: (files: any[], names: any[]) => any,
     action: string,
     processSrc?: (url: string) => string,
-    processResponse?: (response: any) => string,
+    processResp?: (response: any) => string,
     multiple?: boolean,
     sortable?: boolean,
     withCredentials?: boolean,
@@ -115,11 +115,11 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         const fileList = info.fileList.slice(0, limit);
 
         if (info.file.status === 'done') {
-            const { processResponse } = this.props;
+            const { processResp } = this.props;
 
             const response = info.file.response;
-            const src = processResponse
-                ? processResponse(response)
+            const src = processResp
+                ? processResp(response)
                 : response && typeof response === 'object'
                     ? response.src
                     : response;

@@ -19,4 +19,6 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .nc-split:before { width: 20px; }
 .nc-split::after { flex: 1; }
 .nc-card { background-color: #fff; padding: 10px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
-.nc-footer { box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1); left: 0; right: 0; bottom: 0px; height: 50px; background-color: #fff; position: fixed; padding: 0 10px; } 
+.nc-footer { box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1); left: 0; right: 0; bottom: 0px; height: 50px; background-color: #fff; position: fixed; padding: 0 10px; }
+
+.bf-container { border: 1px solid #d9d9d9; border-radius: 4px; }

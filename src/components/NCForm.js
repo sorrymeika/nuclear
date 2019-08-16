@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Form, Tooltip, Icon } from "antd";
 import React, { Component } from "react";
 import Schema from 'async-validator';
 import { Model, util } from "snowball";
@@ -30,39 +30,83 @@ export function createControlledForm(options) {
 export const FormContext = React.createContext();
 
 export class NCForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this._validator = new Schema({});
         this._validateStatus = {};
-        this._model = new Model({});
+        if ('data' in props) {
+            // props中包含data则表单是受控组件
+            this._controlled = true;
+            this._changedFields = {};
+            this._model = new Model(props.data || {});
+            this.shouldComponentUpdate = (nextProps) => {
+                if (nextProps.data !== this.props.data) {
+                    this._model.set(true, nextProps.data || {});
+                }
+                return true;
+            };
+            this.componentDidUpdate = () => {
+                if (Object.keys(this._changedFields).length) {
+                    this.validateFields(this._changedFields);
+                    this._changedFields = {};
+                }
+            };
+        } else {
+            // 非受控组件
+            this._controlled = false;
+            this._model = new Model(props.defaultData || {});
+            this.componentDidMount = () => {
+                this._model.on('change', () => {
+                    this.forceUpdate();
+                });
+            };
+            this.setFields = (data) => {
+                this._model.set(data);
+                return this;
+            };
+            this.resetFields = () => {
+                this._validateStatus = {};
+                this._model.set(true, this.props.defaultData || {});
+                return this;
+            };
+        }
     }
 
-    componentDidMount() {
-        this._model.on('change', () => {
-            this.forceUpdate();
-        });
-    }
-
-    validateFields = (fields, callback) => {
-        const validateAll = typeof fields === 'function';
-        if (validateAll) {
+    validateFields = (fields, options, callback) => {
+        if (typeof fields === 'function') {
             callback = fields;
-            fields = this._model.attributes;
+            fields = Object.keys(this._rules).reduce((res, key) => {
+                res[key] = util.get(this._model.attributes, key);
+                return res;
+            }, {});
+            options = {};
+        } else {
+            fields = Object.keys(this._rules).reduce((res, key) => {
+                if (key in fields) {
+                    res[key] = fields[key];
+                } else if (util.hasKey(fields, key)) {
+                    res[key] = util.get(fields, key);
+                }
+                return res;
+            }, {});
+
+            if (typeof options === 'function') {
+                callback = options;
+                options = {
+                    keys: Object.keys(fields)
+                };
+            }
         }
 
         const handleValid = (errors, _fields) => {
             if (errors) {
-                if (!validateAll) {
-                    errors = errors.filter(err => (err.field in fields));
-                }
                 errors.forEach(err => {
                     this._validateStatus[err.field] = {
                         validateStatus: 'error',
                         help: err.message
                     };
                 });
-                this.forceUpdate();
             } else {
                 Object.keys(fields).forEach(key => {
                     this._validateStatus[key] = {
@@ -70,9 +114,10 @@ export class NCForm extends Component {
                     };
                 });
             }
+            this.forceUpdate();
             callback && callback(errors, fields);
         };
-        const res = this._validator.validate(fields, handleValid);
+        const res = this._validator.validate(fields, { ...options }, handleValid);
         if (res && res.then) {
             res
                 .then(handleValid)
@@ -80,11 +125,10 @@ export class NCForm extends Component {
                     return handleValid(errors, fields);
                 });
         }
+        return this;
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-
+    submit = () => {
         this.validateFields((errors, fields) => {
             if (errors) {
                 this.props.onError && this.props.onError(errors);
@@ -92,10 +136,16 @@ export class NCForm extends Component {
                 this.props.onSubmit && this.props.onSubmit(fields);
             }
         });
+        return this;
+    }
+
+    _handleSubmit = (e) => {
+        e.preventDefault();
+        this.submit();
     }
 
     render() {
-        const props = this.props;
+        const { defaultData, onFieldsChange, ...props } = this.props;
         this._rules = {};
 
         return (
@@ -110,13 +160,18 @@ export class NCForm extends Component {
                     this._validateStatus[fieldName] = status;
                 },
                 setField: (field, value) => {
-                    this._model.set(field, value);
+                    if (!this._controlled) {
+                        this._model.set(field, value);
+                    } else {
+                        this._changedFields[field] = value;
+                    }
+                    onFieldsChange && onFieldsChange(util.set({}, field, value));
                 },
                 data: this._model.attributes
             }}>
                 <Form
                     {...props}
-                    onSubmit={this.handleSubmit}
+                    onSubmit={this._handleSubmit}
                 >
                     {props.children}
                 </Form>
@@ -125,14 +180,12 @@ export class NCForm extends Component {
     }
 }
 
-let fieldId = 0;
-
 export const NCFormItem = ({ ...props }) => {
     return (
         <FormContext.Consumer>
             {
                 (form) => {
-                    const { field, labelLineBreak, labelVisibility, label, labelSpan = 7, rules = [], children, ...inputProps } = props;
+                    const { field, labelLineBreak, labelVisibility, help, tooltip, label, labelSpan = 7, rules = [], className, children, ...inputProps } = props;
                     if ('max' in inputProps) {
                         rules.push({ max: inputProps.max, min: 0, message: '最多能够输入' + inputProps.max + '个汉字或字符' });
                     }
@@ -148,13 +201,23 @@ export const NCFormItem = ({ ...props }) => {
                             wrapperCol: { span: 24 - labelSpan },
                         } : { required };
 
+                    tooltip && (formItemProps.label = (
+                        <span>
+                            {label}&nbsp;
+                            <Tooltip title={tooltip}>
+                                <Icon type="question-circle-o" />
+                            </Tooltip>
+                        </span>
+                    ));
+
+                    help && (formItemProps.help = help);
+
                     const { addRules, validate, validateStatus, setValidateStatus } = form;
-                    const forceField = field || 'field' + (++fieldId);
-                    if (rules && rules.length) {
-                        addRules(forceField, rules);
-                    }
 
                     if (field) {
+                        if (rules && rules.length) {
+                            addRules(field, rules);
+                        }
                         inputProps.value = util.get(form.data, field);
                     }
 
@@ -167,16 +230,15 @@ export const NCFormItem = ({ ...props }) => {
                             else
                                 value = e;
 
-                            if (rules && rules.length) {
-                                setValidateStatus(forceField, {
-                                    validateStatus: 'validating'
-                                });
-                                validate({
-                                    [forceField]: value
-                                });
-                            }
-
                             if (field) {
+                                if (rules && rules.length) {
+                                    setValidateStatus(field, {
+                                        validateStatus: 'validating'
+                                    });
+                                    validate({
+                                        [field]: value
+                                    }, { keys: [field] });
+                                }
                                 form.setField(field, value);
                             }
                             inputProps.onChange && inputProps.onChange(value);
@@ -184,7 +246,7 @@ export const NCFormItem = ({ ...props }) => {
                     };
 
                     const item = (
-                        <Form.Item {...formItemProps} {...validateStatus[forceField]} className="ps_r mb_m">
+                        <Form.Item {...formItemProps} {...(field ? validateStatus[field] : null)} className={"ps_r mb_m" + (className ? ' ' + className : '')}>
                             {
                                 typeof children === 'function'
                                     ? children(newInputProps)
@@ -219,5 +281,3 @@ export const NCFormItem = ({ ...props }) => {
         </FormContext.Consumer>
     );
 };
-
-export const NCFormRow = Form.Item;

@@ -14,7 +14,7 @@ export interface ImageUploadProps {
     value: string[] | IImage[],
     onChange?: (files: any[], names: any[]) => any,
     action: string,
-    composeSrc?: (url: string) => string,
+    processSrc?: (url: string) => string,
     processResponse?: (response: any) => string,
     multiple?: boolean,
     sortable?: boolean,
@@ -66,12 +66,12 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!nextProps.value && !this.state.fileList.length) {
+    componentDidUpdate(prevProps) {
+        if (!this.props.value && !this.state.fileList.length) {
             return;
         }
-        if (!util.equals(nextProps.value, this.state.fileList.map((file) => file.src))) {
-            this.updateFileList(this.valueToFileList(nextProps.value));
+        if (!util.equals(this.props.value, this.state.fileList.map((file) => file.src))) {
+            this.updateFileList(this.valueToFileList(this.props.value));
         }
     }
 
@@ -91,21 +91,21 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
             value = [value];
         }
 
-        const { composeSrc } = this.props;
+        const { processSrc } = this.props;
 
         return value.map((image) => (util.isObject(image)
             ? {
                 uid: image.src,
                 name: image.name,
                 src: image.src,
-                url: composeSrc ? composeSrc(image.src) : image.src,
+                url: processSrc ? processSrc(image.src) : image.src,
                 status: 'done'
             }
             : {
                 uid: image,
                 name: image,
                 src: image,
-                url: composeSrc ? composeSrc(image) : image,
+                url: processSrc ? processSrc(image) : image,
                 status: 'done'
             }));
     }
@@ -126,10 +126,10 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
 
             if (src) {
                 const image = fileList.find(file => info.file.uid == file.uid);
-                const { composeSrc } = this.props;
+                const { processSrc } = this.props;
 
                 image.src = src;
-                image.url = composeSrc ? composeSrc(src) : src;
+                image.url = processSrc ? processSrc(src) : src;
 
                 message.success(`上传成功`);
             } else {

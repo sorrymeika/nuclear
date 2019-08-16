@@ -11,5 +11,12 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .app-h3 { font-size: 20px; }
 .app-toolbar { padding-bottom: 10px; }
 
-.nc-main { background-color: #ecf0f5; padding: 15px; min-height: 100%; }
+.nc-main { background-color: #ecf0f5; padding: 15px; height: 100%; overflow-y: auto; }
+.nc-title { border-bottom: 1px solid #eee; margin-bottom: 20px; font-size: 14px; padding: 2px 10px 10px 10px; }
+.nc-title-level2 { border-bottom: none; color: #000; padding-top: 0; padding-left: 0; margin-bottom: 10px; }
+.nc-split { margin-top: 20px; margin-bottom: 20px; font-size: 13px; padding: 2px 10px 10px 10px; color: #555; }
+.nc-split:before, .nc-split::after { height: 0px; border-bottom: 1px solid #eee; display: block; content: ''; }
+.nc-split:before { width: 20px; }
+.nc-split::after { flex: 1; }
 .nc-card { background-color: #fff; padding: 10px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
+.nc-footer { box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1); left: 0; right: 0; bottom: 0px; height: 50px; background-color: #fff; position: fixed; padding: 0 10px; } 

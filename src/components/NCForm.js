@@ -2,6 +2,7 @@ import { Form, Tooltip, Icon } from "antd";
 import React, { Component } from "react";
 import Schema from 'async-validator';
 import { Model, util } from "snowball";
+import { log } from "util";
 
 export function createControlledForm(options) {
     return Form.create({
@@ -145,7 +146,7 @@ export class NCForm extends Component {
     }
 
     render() {
-        const { defaultData, onFieldsChange, ...props } = this.props;
+        const { defaultData, onFieldsChange, children, ...props } = this.props;
         this._rules = {};
 
         return (
@@ -173,7 +174,7 @@ export class NCForm extends Component {
                     {...props}
                     onSubmit={this._handleSubmit}
                 >
-                    {props.children}
+                    {typeof children === 'function' ? children({ data: this._model.attributes, form: this }) : children}
                 </Form>
             </FormContext.Provider>
         );
@@ -246,7 +247,7 @@ export const NCFormItem = ({ ...props }) => {
                     };
 
                     const item = (
-                        <Form.Item {...formItemProps} {...(field ? validateStatus[field] : null)} className={"ps_r mb_m" + (className ? ' ' + className : '')}>
+                        <Form.Item {...formItemProps} {...(field ? validateStatus[field] : null)} className={"ps_r mb_l" + (className ? ' ' + className : '')}>
                             {
                                 typeof children === 'function'
                                     ? children(newInputProps)

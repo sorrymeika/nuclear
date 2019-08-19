@@ -11,14 +11,33 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .app-h3 { font-size: 20px; }
 .app-toolbar { padding-bottom: 10px; }
 
+.nc-wrapper { height: 100%; }
+
+.nc-header { z-index: 101; width: 100%; background: #265e80; color: #fff; height: 50px; transform: translate(0px,-50px); @extend .flex; }
+.nc-header-visible ~ .app-view-actived { top: 50px; }
+.nc-header-visible { transform: translate(0px,0px); }
+
+.nc-header-logo { background: #0a4161; color: #fff; height: 50px; width: 210px; font-weight: bold; font-size: 18px; }
+
+.nc-sider { background: #000c17; @extend .flex; @extend .fd_c; @extend .ai_s; width: 0; }
+.nc-sider-visible { width: 210px; }
+.nc-sider {
+    .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected { background-color: #132731; }
+}
+
+#root { position: relative; flex: 1; }
+#root > .app-view-actived { overflow-y: auto; }
+
 .nc-main { background-color: #ecf0f5; padding: 15px; height: 100%; overflow-y: auto; }
 .nc-title { border-bottom: 1px solid #eee; margin-bottom: 20px; font-size: 14px; padding: 2px 10px 10px 10px; }
 .nc-title-level2 { border-bottom: none; color: #000; padding-top: 0; padding-left: 0; margin-bottom: 10px; }
+.nc-toolbar { margin-top: 10px; margin-bottom: 5px; padding: 5px; }
 .nc-split { margin-top: 20px; margin-bottom: 20px; font-size: 13px; padding: 2px 10px 10px 10px; color: #555; }
 .nc-split:before, .nc-split::after { height: 0px; border-bottom: 1px solid #eee; display: block; content: ''; }
 .nc-split:before { width: 20px; }
 .nc-split::after { flex: 1; }
 .nc-card { background-color: #fff; padding: 10px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
+.nc-search { background-color: #f6f8fa; border: 1px solid #d1d5da; border-radius: 3px; padding: 10px; margin-top: 15px; margin-bottom: 20px; }
 .nc-footer { box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1); left: 0; right: 0; bottom: 0px; height: 50px; background-color: #fff; position: fixed; padding: 0 10px; }
 
 .bf-container { border: 1px solid #d9d9d9; border-radius: 4px; }

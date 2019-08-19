@@ -16,6 +16,18 @@ export function NCSplit(props) {
     );
 }
 
+export function NCToolbar(props) {
+    return (
+        <div className="nc-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
+    );
+}
+
+export function NCSearch(props) {
+    return (
+        <div className="nc-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
+    );
+}
+
 export function NCCard(props) {
     return <div {...props} className={"nc-card" + (props.className ? ' ' + props.className : '')}>{props.children}</div>;
 }

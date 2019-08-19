@@ -1,37 +1,37 @@
 import React from "react";
 
 export function NCMain(props) {
-    return <section {...props} className={"nc-main w_1x" + (props.className ? ' ' + props.className : '')}>{props.children}</section>;
+    return <section {...props} className={"nc-app-main w_1x" + (props.className ? ' ' + props.className : '')}>{props.children}</section>;
 }
 
 export function NCTitle(props) {
     return (
-        <div className={"nc-title nc-title-level" + (props.level || 1) + (props.className ? ' ' + props.className : '')}>{props.children}</div>
+        <div className={"nc-app-title nc-title-level" + (props.level || 1) + (props.className ? ' ' + props.className : '')}>{props.children}</div>
     );
 }
 
 export function NCSplit(props) {
     return (
-        <div className="nc-split flex"><div className="pl_m pr_m">{props.children}</div></div>
+        <div className="nc-app-split flex"><div className="pl_m pr_m">{props.children}</div></div>
     );
 }
 
 export function NCToolbar(props) {
     return (
-        <div className="nc-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
+        <div className="nc-app-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
     );
 }
 
 export function NCSearch(props) {
     return (
-        <div className="nc-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
+        <div className="nc-app-toolbar flex"><div className="fx_1">{props.children}</div><div>{props.right}</div></div>
     );
 }
 
 export function NCCard(props) {
-    return <div {...props} className={"nc-card" + (props.className ? ' ' + props.className : '')}>{props.children}</div>;
+    return <div {...props} className={"nc-app-card" + (props.className ? ' ' + props.className : '')}>{props.children}</div>;
 }
 
 export function NCFooter(props) {
-    return <div {...props} className={"nc-footer flex" + (props.className ? ' ' + props.className : '')}>{props.children}</div>;
+    return <div {...props} className={"nc-app-footer flex" + (props.className ? ' ' + props.className : '')}>{props.children}</div>;
 }

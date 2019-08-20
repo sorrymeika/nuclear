@@ -19,7 +19,7 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 
 .nc-app-header-logo { background: #0a4161; color: #fff; height: 50px; width: 210px; font-weight: bold; font-size: 18px; }
 
-.nc-app-sider { background: #000c17; @extend .flex; @extend .fd_c; @extend .ai_s; width: 0; }
+.nc-app-sider { background: #000c17; @extend .flex; @extend .fd_c; @extend .ai_s; width: 0; overflow: hidden; }
 .nc-app-sider-visible { width: 210px; }
 .nc-app-sider {
     .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected { background-color: #132731; }

@@ -57,7 +57,7 @@ module.exports = function (webpackEnv) {
   // In development, we always serve from the root. This makes config easier.
   const publicPath = isEnvProduction
     ? paths.servedPath
-    : isEnvDevelopment && '/';
+    : isEnvDevelopment && (process.env.REACT_APP_PROJECT_URL || '/');
   // Some apps do not use client-side routing with pushState.
   // For these, "homepage" can be set to "." to enable relative asset paths.
   const shouldUseRelativeAssetPaths = publicPath === './';
@@ -154,6 +154,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean)
     },
     output: {
+      jsonpFunction: 'wpJsonp' + process.env.REACT_APP_PROJECT_NAME,
       // The build folder.
       path: isEnvProduction ? paths.appBuild : undefined,
       // Add /* filename */ comments to generated require()s in the output.

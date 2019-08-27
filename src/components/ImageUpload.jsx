@@ -3,6 +3,7 @@ import { Modal, Upload, Icon, message } from 'antd';
 import DraggableList from './DraggableList';
 
 import { util } from 'snowball';
+import { inject } from 'snowball/app';
 
 export interface IImage {
     src: string;
@@ -54,7 +55,7 @@ export interface ImageUploadState {
  * @class ImageUpload
  * @extends {Component<ImageUploadProps, ImageUploadState>}
  */
-export default class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
+class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
     constructor(props: ImageUploadProps) {
         super(props);
 
@@ -307,3 +308,11 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         );
     }
 }
+
+export default inject(({ ctx }) => (
+    ctx && ctx.env && ctx.env.IMAGE_UPLOAD_URL
+        ? {
+            action: ctx.env.IMAGE_UPLOAD_URL
+        }
+        : {}
+))(ImageUpload);

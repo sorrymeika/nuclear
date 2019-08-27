@@ -256,7 +256,7 @@ export const NCFormItem = ({ ...props }) => {
                             {
                                 inputProps.max
                                     ? (
-                                        <p className="dock_br pr_m cl_999 fs_s" style={{ bottom: 14, height: 14 }}>
+                                        <p className="dock_br pr_m cl_999 fs_s" style={{ bottom: 13, height: 14 }}>
                                             {(inputProps.value || '').length + '/' + inputProps.max}
                                         </p>
                                     )

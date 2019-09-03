@@ -2,7 +2,7 @@ import * as antd from 'antd';
 import * as moment from 'moment';
 import { util, $ } from 'snowball';
 
-export * from "./atom";
+export * from "./atoms";
 export * from "./components";
 
 $(window).on('load resize', () => {

@@ -1,17 +1,15 @@
 import './sass/style.scss';
 
-import * as serviceWorker from './serviceWorker';
 import { createApplication } from 'snowball/app';
-import './atom';
-import WindowController from './atom/window/ui/WindowController';
-import AppTest from './AppTest';
+
+import './atoms';
+
+// import * as serviceWorker from './serviceWorker';
+import router from './app/router';
 
 createApplication({
     projects: {},
-    routes: {
-        '/': WindowController,
-        '/test': AppTest
-    }
+    routes: router
 }, document.getElementById('root'), () => {
     console.log('app start!');
 });
@@ -19,5 +17,5 @@ createApplication({
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();
 

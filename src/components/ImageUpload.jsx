@@ -55,7 +55,7 @@ export interface ImageUploadState {
  * @class ImageUpload
  * @extends {Component<ImageUploadProps, ImageUploadState>}
  */
-class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
+export default class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
     constructor(props: ImageUploadProps) {
         super(props);
 
@@ -308,11 +308,3 @@ class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
         );
     }
 }
-
-export default inject(({ ctx }) => (
-    ctx && ctx.env && ctx.env.IMAGE_UPLOAD_URL
-        ? {
-            action: ctx.env.IMAGE_UPLOAD_URL
-        }
-        : {}
-))(ImageUpload);

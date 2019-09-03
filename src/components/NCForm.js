@@ -2,31 +2,6 @@ import { Form, Tooltip, Icon } from "antd";
 import React, { Component } from "react";
 import Schema from 'async-validator';
 import { Model, util } from "snowball";
-import { log } from "util";
-
-export function createControlledForm(options) {
-    return Form.create({
-        onFieldsChange(props, changedFields) {
-            props.onChange(Object.keys(changedFields)
-                .reduce((data, key) => {
-                    data[key] = changedFields[key].value;
-                    return data;
-                }, props.data));
-        },
-        mapPropsToFields(props) {
-            const { data = {} } = props;
-
-            return Object.keys(data)
-                .reduce((fields, key) => {
-                    fields[key] = Form.createFormField({
-                        value: data[key],
-                    });
-                    return fields;
-                }, {});
-        },
-        ...options
-    });
-}
 
 export const FormContext = React.createContext();
 

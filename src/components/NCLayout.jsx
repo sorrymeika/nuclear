@@ -35,9 +35,14 @@ function NCToolbarRight(props) {
 
 NCToolbar.Right = NCToolbarRight;
 
-export function NCSearch(props) {
+export function NCSearch({ title, children, ...props }) {
     return (
-        <div className={"nc-app-search" + (props.className ? ' ' + props.className : '')}>{props.children}</div>
+        <>
+            {title ? <NCTitle>{title}</NCTitle> : null}
+            <div {...props} className={"nc-app-search" + (props.className ? ' ' + props.className : '')}>
+                {children}
+            </div>
+        </>
     );
 }
 

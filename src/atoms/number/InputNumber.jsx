@@ -1,4 +1,4 @@
 import { InputNumber } from "antd";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(InputNumber);
+export default wrapFormItem(InputNumber);

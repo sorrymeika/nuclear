@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Modal, Upload, Icon, message } from 'antd';
-import DraggableList from './DraggableList';
-
 import { util } from 'snowball';
-import { inject } from 'snowball/app';
+
+import DraggableList from './DraggableList';
 
 export interface IImage {
     src: string;
@@ -17,10 +16,9 @@ export interface ImageUploadProps {
     action: string,
     processSrc?: (url: string) => string,
     processResp?: (response: any) => string,
-    multiple?: boolean,
     sortable?: boolean,
     withCredentials?: boolean,
-    limit: number,
+    max: number,
     maxSize: number,
     restrict: {
         width: number,
@@ -56,6 +54,10 @@ export interface ImageUploadState {
  * @extends {Component<ImageUploadProps, ImageUploadState>}
  */
 export default class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
+    static defaultProps = {
+        max: 1
+    }
+
     constructor(props: ImageUploadProps) {
         super(props);
 
@@ -71,8 +73,15 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         if (!this.props.value && !this.state.fileList.length) {
             return;
         }
-        if (!util.equals(this.props.value, this.state.fileList.map((file) => file.src))) {
-            this.updateFileList(this.valueToFileList(this.props.value));
+        let value = Array.isArray(this.props.value)
+            ? this.props.value
+            : this.props.value
+                ? [this.props.value]
+                : [];
+        if (!util.equals(value, this.state.fileList.map((file) => file.src))) {
+            this.setState({
+                fileList: this.valueToFileList(value)
+            });
         }
     }
 
@@ -112,8 +121,8 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
     }
 
     onChange = (info) => {
-        const { limit } = this.props;
-        const fileList = info.fileList.slice(0, limit);
+        const { max } = this.props;
+        const fileList = info.fileList.slice(0, max);
 
         if (info.file.status === 'done') {
             const { processResp } = this.props;
@@ -149,8 +158,18 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
 
         if (fileList.every((file) => file.status && file.status != 'uploading')) {
             this.updateFileList(fileList, () => {
-                var doneFiles = fileList.filter((file) => file.status === 'done');
-                this.props.onChange && this.props.onChange(doneFiles.map(file => file.src), doneFiles.map(file => file.name));
+                if (this.props.onChange) {
+                    const doneFiles = fileList.filter((file) => file.status === 'done');
+                    if (this.props.max === 1) {
+                        if (!doneFiles.length) {
+                            this.props.onChange(null, null);
+                        } else {
+                            this.props.onChange(doneFiles[0].src, doneFiles[0].name);
+                        }
+                    } else {
+                        this.props.onChange(doneFiles.map(file => file.src), doneFiles.map(file => file.name));
+                    }
+                }
             });
         } else if (info.file.status === undefined) {
             this.updateFileList(this.state.fileList);
@@ -244,67 +263,104 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         });
     }
 
+    previewImage = (file, e) => {
+        this.setState({
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
+        });
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
     render() {
         var props = this.props;
         const { action } = props;
 
         return (
-            <DraggableList
-                draggable={props.sortable !== false ? ".ant-upload-list-item" : false}
-                onDragEnd={
-                    (oldIndex, newIndex) => {
-                        const fileList = this.state.fileList;
-                        const tmp = fileList[newIndex];
+            <>
+                <DraggableList
+                    draggable={props.sortable !== false && props.max > 1 ? ".ant-upload-list-item" : false}
+                    onDragEnd={
+                        (oldIndex, newIndex) => {
+                            const fileList = this.state.fileList;
+                            const tmp = fileList[newIndex];
 
-                        fileList[newIndex] = fileList[oldIndex];
-                        fileList[oldIndex] = tmp;
+                            fileList[newIndex] = fileList[oldIndex];
+                            fileList[oldIndex] = tmp;
 
-                        this.updateFileList(fileList, () => {
-                            this.props.onChange && this.props.onChange(fileList.map(file => file.src), fileList.map(file => file.name));
-                        });
-                    }
-                }
-            >
-                <Upload
-                    {...props}
-                    {...Object.assign(
-                        {
-                            defaultFileList: this.state.fileList
-                        },
-                        this.state.isUpdating ? { fileList: this.state.fileList } : null
-                    )}
-                    withCredentials={props.withCredentials !== false}
-                    headers={{ 'X-Requested-With': null }}
-                    name={props.field || 'image'}
-                    action={action}
-                    listType={props.listType || 'picture-card'}
-                    multiple={props.multiple !== false}
-                    onChange={this.onChange}
-                    beforeUpload={this.beforeUpload}
-                    onPreview={
-                        (file) => {
-                            this.setState({
-                                previewImage: file.url || file.thumbUrl,
-                                previewVisible: true,
+                            this.updateFileList(fileList, () => {
+                                this.props.onChange && this.props.onChange(fileList.map(file => file.src), fileList.map(file => file.name));
                             });
                         }
                     }
                 >
-                    {
-                        this.state.fileList.length >= props.limit ? null : (
-                            <div>
-                                <Icon type="plus" />
-                                <div className="ant-upload-text">Upload</div>
-                            </div>
-                        )
-                    }
-                </Upload>
-                <Modal visible={this.state.previewVisible} footer={null} onCancel={() => {
-                    this.setState({ previewVisible: false });
-                }}>
-                    <img style={{ width: '100%' }} src={this.state.previewImage} alt="" />
-                </Modal>
-            </DraggableList>
+                    <Upload
+                        {...props}
+                        {...Object.assign(
+                            {
+                                defaultFileList: this.state.fileList
+                            },
+                            this.state.isUpdating ? { fileList: this.state.fileList } : null
+                        )}
+                        withCredentials={props.withCredentials !== false}
+                        headers={{ 'X-Requested-With': null }}
+                        name={props.field || 'image'}
+                        action={action}
+                        showUploadList={props.max > 1}
+                        listType={props.max == 1 ? 'picture' : 'picture-card'}
+                        multiple={props.max > 1}
+                        onChange={this.onChange}
+                        beforeUpload={this.beforeUpload}
+                        onPreview={this.previewImage}
+                    >
+                        {
+                            this.state.fileList.length >= props.max
+                                ? props.max === 1
+                                    ? (
+                                        <div className="nc-ant-upload-image">
+                                            <div className="nc-ant-upload-image-operation flex jc_c">
+                                                <Icon
+                                                    type="eye"
+                                                    onClick={this.previewImage.bind(this, this.state.fileList[0])}
+                                                />
+                                                <Icon
+                                                    type="delete"
+                                                    onClick={(e) => {
+                                                        this.setState({
+                                                            fileList: []
+                                                        });
+                                                        this.props.onChange(null, null);
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                    }}
+                                                />
+                                                <Icon type="upload" style={{ cursor: 'pointer' }} />
+                                            </div>
+                                            <img
+                                                src={this.state.fileList.length ? this.state.fileList[0].url : null}
+                                                alt=""
+                                            />
+                                        </div>
+                                    )
+                                    : null
+                                : (
+                                    <div className="nc-ant-upload-content">
+                                        <Icon type="plus" />
+                                        <div className="ant-upload-text">上传图片</div>
+                                    </div>
+                                )
+                        }
+                    </Upload>
+                    <Modal visible={this.state.previewVisible} footer={null} onCancel={() => {
+                        this.setState({ previewVisible: false });
+                    }}>
+                        <img style={{ width: '100%' }} src={this.state.previewImage} alt="" />
+                    </Modal>
+                </DraggableList>
+            </>
         );
     }
 }

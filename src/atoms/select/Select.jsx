@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Select } from "antd";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(class _Select extends Component {
+export default wrapFormItem(class _Select extends Component {
     render() {
         const {
             showSearch,

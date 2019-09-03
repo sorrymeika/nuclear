@@ -156,7 +156,7 @@ export class NCForm extends Component {
     }
 }
 
-export const NCFormItem = ({ ...props }) => {
+export const NCFormItem = (props) => {
     return (
         <FormContext.Consumer>
             {

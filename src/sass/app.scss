@@ -41,4 +41,12 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .nc-app-title + .nc-app-search { padding-top: 5px; }
 .nc-app-footer { box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1); left: 0; right: 0; bottom: 0px; height: 50px; background-color: #fff; position: fixed; padding: 0 10px; }
 
+.ant-upload-select-picture .nc-ant-upload-content { width: 96px; height: 96px; padding-top: 18px; border: 1px dashed #d9d9d9; background-color: #fafafa; border-radius: 4px; text-align: center; color: #666; margin-bottom: 5px; cursor: pointer; }
+.ant-upload-select-picture .nc-ant-upload-content i { font-size: 32px; color: #999; margin-bottom: 5px; }
+.nc-ant-upload-image { position: relative; min-height: 40px; }
+.nc-ant-upload-image img { max-height: 90px; max-width: 200px; }
+.nc-ant-upload-image-operation { z-index: -1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.65); color: #fff; text-align: center; }
+.nc-ant-upload-image-operation i { margin: 5px; }
+.nc-ant-upload-image:hover .nc-ant-upload-image-operation { z-index: 10; }
+
 .bf-container { border: 1px solid #d9d9d9; border-radius: 4px; }

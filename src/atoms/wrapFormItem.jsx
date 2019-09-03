@@ -3,19 +3,24 @@ import { Form } from "antd";
 import { util } from "snowball";
 import { FormContext } from "./form/Form";
 
-export default function createFormItem(Input) {
+export default function wrapFormItem(Input, options = {}) {
     let fieldId = 0;
 
     return ({ context, ...props }) => {
+        props = {
+            ...options.defaultProps,
+            ...props
+        };
+
         return (
             <FormContext.Consumer>
                 {
                     (form) => {
-                        const { field, labelLineBreak, labelVisibility, label, labelSpan = 7, rules = [], ...inputProps } = props;
+                        const { field, help, labelLineBreak, labelVisibility, label, labelSpan = 7, rules = [], ...inputProps } = props;
                         if (!form) {
                             return <Input {...inputProps} context={context} />;
                         }
-                        if ('max' in inputProps) {
+                        if (options.showNumber && 'max' in inputProps) {
                             rules.push({ max: inputProps.max, min: 0, message: '最多能够输入' + inputProps.max + '个汉字或字符' });
                         }
 
@@ -29,6 +34,8 @@ export default function createFormItem(Input) {
                                 labelCol: { span: labelSpan },
                                 wrapperCol: { span: 24 - labelSpan },
                             } : { required };
+
+                        help && (formItemProps.help = help);
 
                         const { addRules, validate, validateStatus, setValidateStatus } = form;
                         const forceField = field || 'field' + (++fieldId);
@@ -71,7 +78,7 @@ export default function createFormItem(Input) {
                                     }}
                                 />
                                 {
-                                    inputProps.max
+                                    options.showNumber && inputProps.max
                                         ? (
                                             <p className="dock_br pr_m cl_999 fs_s" style={{ bottom: 13, height: 14 }}>
                                                 {(inputProps.value || '').length + '/' + inputProps.max}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(class Label extends Component {
+export default wrapFormItem(class Label extends Component {
     render() {
         const { value, className } = this.props;
 

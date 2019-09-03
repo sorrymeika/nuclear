@@ -13,5 +13,12 @@ import './table';
 import './list';
 import './icon';
 
-export { registerAtom } from './factories';
+import wrapFormItem from './wrapFormItem';
+import { registerAtom } from './factories';
+
 export { default as component, JsonComponent } from './component';
+
+export const Atom = {
+    registerAtom,
+    wrapFormItem
+};

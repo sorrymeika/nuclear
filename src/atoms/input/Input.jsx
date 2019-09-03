@@ -1,4 +1,6 @@
 import { Input } from "antd";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(Input);
+export default wrapFormItem(Input, {
+    showNumber: true
+});

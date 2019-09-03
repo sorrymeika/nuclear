@@ -1,4 +1,4 @@
 import { Input } from "antd";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(Input.TextArea);
+export default wrapFormItem(Input.TextArea);

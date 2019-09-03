@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AutoComplete } from "antd";
-import createFormItem from "../createFormItem";
+import wrapFormItem from "../wrapFormItem";
 
-export default createFormItem(class _AutoComplete extends Component {
+export default wrapFormItem(class _AutoComplete extends Component {
     render() {
         const {
             onChange,

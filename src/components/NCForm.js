@@ -32,6 +32,12 @@ export class NCForm extends Component {
             // 非受控组件
             this._controlled = false;
             this._model = new Model(props.defaultData || {});
+            this.shouldComponentUpdate = (nextProps) => {
+                if (nextProps.defaultData !== this.props.defaultData) {
+                    this._model.set(true, nextProps.defaultData || {});
+                }
+                return true;
+            };
             this.componentDidMount = () => {
                 this._model.on('change', () => {
                     this.forceUpdate();
@@ -91,7 +97,7 @@ export class NCForm extends Component {
                 });
             }
             this.forceUpdate();
-            callback && callback(errors, fields);
+            callback && callback(errors, this._model.attributes);
         };
         const res = this._validator.validate(fields, { ...options }, handleValid);
         if (res && res.then) {
@@ -136,6 +142,7 @@ export class NCForm extends Component {
                     this._validateStatus[fieldName] = status;
                 },
                 setField: (field, value) => {
+                    console.log(field, value);
                     if (!this._controlled) {
                         this._model.set(field, value);
                     } else {

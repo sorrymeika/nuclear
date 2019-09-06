@@ -53,6 +53,7 @@ export function createAtom(type, { key, handler, paths, transitiveProps, childre
     return React.createElement(atomComponent, {
         key,
         context: {
+            handlerName: handler.constructor.name,
             type,
             props,
             handler,

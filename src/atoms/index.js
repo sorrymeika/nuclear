@@ -15,10 +15,12 @@ import './icon';
 
 import wrapFormItem from './wrapFormItem';
 import { registerAtom } from './factories';
+import { FormContext } from "./form/Form";
 
 export { default as component, JsonComponent } from './component';
 
 export const Atom = {
     registerAtom,
-    wrapFormItem
+    wrapFormItem,
+    FormContext
 };

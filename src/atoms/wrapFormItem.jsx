@@ -37,8 +37,8 @@ export default function wrapFormItem(Input, options = {}) {
 
                         help && (formItemProps.help = help);
 
-                        const { addRules, validate, validateStatus, setValidateStatus } = form;
-                        const forceField = field || 'field' + (++fieldId);
+                        const { addRules, validateField, validateStatus, setValidateStatus } = form;
+                        const forceField = (field || 'field' + (++fieldId));
                         if (rules && rules.length) {
                             addRules(forceField, rules);
                         }
@@ -63,9 +63,7 @@ export default function wrapFormItem(Input, options = {}) {
                                             setValidateStatus(forceField, {
                                                 validateStatus: 'validating'
                                             });
-                                            validate({
-                                                [forceField]: value
-                                            });
+                                            validateField(forceField, value);
                                         }
 
                                         if (field) {

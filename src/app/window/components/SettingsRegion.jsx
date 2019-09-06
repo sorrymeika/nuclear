@@ -62,4 +62,4 @@ const SettingsRegionInjc = inject(({ windowService }) => ({
     onOk: windowService.confirmSettings
 }))(SettingsRegion);
 
-export { SettingsRegion,SettingsRegionInjc };
+export { SettingsRegion, SettingsRegionInjc };

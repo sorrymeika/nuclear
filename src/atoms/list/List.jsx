@@ -11,7 +11,7 @@ export default class List extends Component {
         return (
             <>
                 {
-                    dataSource.map((record, j) => {
+                    dataSource && dataSource.map((record, j) => {
                         const children = items;
                         const nextProps = {
                             ...transitiveProps,

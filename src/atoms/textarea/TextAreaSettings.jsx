@@ -1,19 +1,18 @@
-import component from "../component";
+import { inputCommonJson } from "../input";
+import { SettingsBase } from "../SettingsBase";
 
-@component([{
-    type: 'form',
-    props: {
-        name: 'settingsForm'
-    },
-    children: [{
-        type: 'input',
-        props: {
-            field: 'data.name'
-        }
-    }]
-}])
-class InputSettings {
-    data = {};
+class TextAreaSettings extends SettingsBase {
+    renderJson() {
+        return [
+            ...inputCommonJson,
+            {
+                type: 'div',
+                props: {
+                    visible: '{isInForm}',
+                }
+            }
+        ];
+    }
 }
 
-export default InputSettings;
+export default TextAreaSettings;

@@ -156,11 +156,12 @@ export default class DropTarget extends Component<{
                 }
 
                 if (nearest) {
+                    const direction = this.context.getDirection();
                     const insertType = canAppendTo(nearest)
                         && pageX > nearest.x && pageY > nearest.y
                         && pageX < nearest.x + nearest.width && pageY < nearest.y + nearest.height
                         ? 'append'
-                        : pageX < nearest.x || pageY < nearest.y || (pageX < nearest.centerX && pageY < nearest.centerY)
+                        : pageX < nearest.x || pageY < nearest.y || (pageX < nearest.centerX && pageY < nearest.centerY) || (direction == 'x' && pageX < nearest.centerX) || (direction == 'y' && pageY < nearest.centerY)
                             ? 'before'
                             : 'after';
 

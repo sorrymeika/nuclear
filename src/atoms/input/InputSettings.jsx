@@ -1,5 +1,4 @@
-import component from "../component";
-import { observable } from "snowball";
+import { SettingsBase } from "../SettingsBase";
 
 export const inputCommonJson = [{
     type: 'textarea',
@@ -57,39 +56,17 @@ export const inputCommonJson = [{
     }
 }];
 
-@component([{
-    type: 'form',
-    props: {
-        name: 'form'
-    },
-    children: [
-        ...inputCommonJson,
-        {
-            type: 'div',
-            props: {
-                visible: '{isInForm}',
+class InputSettings extends SettingsBase {
+    renderJson() {
+        return [
+            ...inputCommonJson,
+            {
+                type: 'div',
+                props: {
+                    visible: '{isInForm}',
+                }
             }
-        }
-    ]
-}])
-class InputSettings {
-    @observable isInForm = false;
-    @observable data = {};
-
-    constructor(props) {
-        this.isInForm = props.isInForm;
-        this.data = props.defaultData || {};
-    }
-
-    onInit() {
-        this.asModel().observe('data', (data) => {
-            this.props.onChange && this.props.onChange(data);
-        });
-        this.props.formRef.current = this.form;
-    }
-
-    onDestroy() {
-        this.asModel().destroy();
+        ];
     }
 }
 

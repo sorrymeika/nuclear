@@ -1,49 +1,24 @@
-import { observable } from "snowball";
-import component from "../component";
 import { inputCommonJson } from "../input";
+import { SettingsBase } from "../SettingsBase";
 
-
-@component([{
-    type: 'form',
-    props: {
-        name: 'form'
-    },
-    children: [
-        ...inputCommonJson,
-        {
-            type: 'textarea',
-            props: {
-                label: '数据源',
-                field: 'data.dataSource',
-                autosize: true
+class AutoCompleteSettings extends SettingsBase {
+    renderJson() {
+        return [
+            ...inputCommonJson,
+            {
+                type: 'textarea',
+                props: {
+                    label: '数据源',
+                    field: 'data.dataSource',
+                    autosize: true
+                }
+            }, {
+                type: 'div',
+                props: {
+                    visible: '{isInForm}',
+                }
             }
-        },
-        {
-            type: 'div',
-            props: {
-                visible: '{isInForm}',
-            }
-        }
-    ]
-}])
-class AutoCompleteSettings {
-    @observable isInForm = false;
-    @observable data = {};
-
-    constructor(props) {
-        this.isInForm = props.isInForm;
-        this.data = props.defaultData || {};
-    }
-
-    onInit() {
-        this.asModel().observe('data', (data) => {
-            this.props.onChange && this.props.onChange(data);
-        });
-        this.props.formRef.current = this.form;
-    }
-
-    onDestroy() {
-        this.asModel().destroy();
+        ];
     }
 }
 

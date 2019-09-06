@@ -5,18 +5,12 @@ class SettingsRegion extends Component {
     constructor(props) {
         super(props);
         this.formRef = React.createRef();
-        this.data = props.data;
-    }
-
-    handleDataChange = (data) => {
-        this.data = data;
-        console.log(data);
     }
 
     handleOk = () => {
-        this.formRef.current.validateFields((err) => {
+        this.formRef.current.validateFields((err, data) => {
             if (!err) {
-                this.props.onOk(this.data);
+                this.props.onOk(data);
             }
         });
     }
@@ -34,7 +28,6 @@ class SettingsRegion extends Component {
                                 type: currentAtom.type,
                                 defaultData: currentAtom.props,
                                 currentAtom,
-                                onChange: this.handleDataChange,
                                 isInForm: currentAtom.isInForm,
                                 formRef: this.formRef
                             })

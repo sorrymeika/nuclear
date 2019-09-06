@@ -45,6 +45,9 @@ export default class Drag extends Component {
         const x = e.pageX + offsetX;
         const y = e.pageY + offsetY;
 
+        this.x = e.pageX;
+        this.y = e.pageY;
+
         this.mover.style.webkitTransform = `translate3d(${x}px,${y}px,0)`;
 
         const preview = previewElement || this.mover.cloneNode(true);
@@ -82,6 +85,9 @@ export default class Drag extends Component {
             if (this.moveLongEnough) {
                 const x = e.pageX + this.offsetX;
                 const y = e.pageY + this.offsetY;
+
+                this.x = e.pageX;
+                this.y = e.pageY;
 
                 this.mover.style.display = 'block';
                 this.mover.style.webkitTransform = `translate3d(${x}px,${y}px,0)`;
@@ -154,6 +160,9 @@ export default class Drag extends Component {
                 doDragStart: this.doDragStart,
                 subscribe: this.subscribe,
                 getCurrent: this.getCurrent,
+                getDirection: () => {
+                    return Math.abs(this.x - this.mouseStartX) > Math.abs(this.y - this.mouseStartY) ? 'x' : 'y';
+                },
                 setDndState: this.setDndState
             }}>
                 <div className={className}>{children}</div>

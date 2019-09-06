@@ -1,34 +1,13 @@
-import { observable } from "snowball";
-import component from "../component";
+import { SettingsBase } from "../SettingsBase";
 
-@component([{
-    type: 'form',
-    props: {
-        name: 'form'
-    },
-    children: [{
-        type: 'input',
-        props: {
-            field: 'data.name'
-        }
-    }]
-}])
-class FieldSetSettings {
-    @observable data = {};
-
-    constructor(props) {
-        this.data = props.defaultData || {};
-    }
-
-    onInit() {
-        this.asModel().observe('data', (data) => {
-            this.props.onChange && this.props.onChange(data);
-        });
-        this.props.formRef.current = this.form;
-    }
-
-    onDestroy() {
-        this.asModel().destroy();
+class FieldSetSettings extends SettingsBase {
+    renderJson() {
+        return [{
+            type: 'input',
+            props: {
+                field: 'data.name'
+            }
+        }];
     }
 }
 

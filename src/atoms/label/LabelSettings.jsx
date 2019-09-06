@@ -1,19 +1,14 @@
-import component from "../component";
+import { SettingsBase } from "../SettingsBase";
 
-@component([{
-    type: 'form',
-    props: {
-        name: 'settingsForm'
-    },
-    children: [{
-        type: 'input',
-        props: {
-            field: 'data.name'
-        }
-    }]
-}])
-class InputSettings {
-    data = {};
+class LabelSettings extends SettingsBase {
+    renderJson() {
+        return [{
+            type: 'input',
+            props: {
+                field: 'data.text'
+            }
+        }];
+    }
 }
 
-export default InputSettings;
+export default LabelSettings;

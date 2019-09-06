@@ -117,7 +117,6 @@ export default class extends Component {
         };
     }
 
-
     componentWillUnmount() {
         this.context && this.context.removeChildForm(this);
     }

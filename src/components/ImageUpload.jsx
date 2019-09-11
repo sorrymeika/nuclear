@@ -332,6 +332,10 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
                                 ? props.max === 1
                                     ? (
                                         <div className="nc-ant-upload-image">
+                                            <img
+                                                src={this.state.fileList.length ? this.state.fileList[0].url : null}
+                                                alt=""
+                                            />
                                             <div className="nc-ant-upload-image-operation flex jc_c">
                                                 <Icon
                                                     type="eye"
@@ -350,10 +354,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
                                                 />
                                                 <Icon type="upload" style={{ cursor: 'pointer' }} />
                                             </div>
-                                            <img
-                                                src={this.state.fileList.length ? this.state.fileList[0].url : null}
-                                                alt=""
-                                            />
+
                                         </div>
                                     )
                                     : null

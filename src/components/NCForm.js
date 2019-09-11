@@ -167,7 +167,7 @@ export const NCFormItem = (props) => {
         <FormContext.Consumer>
             {
                 (form) => {
-                    const { field, labelLineBreak, labelVisibility, help, tooltip, label, labelSpan = 7, rules = [], className, children, ...inputProps } = props;
+                    const { field, labelLineBreak, labelVisibility, help, tooltip, label, labelSpan = 7, rules = [], className, children, addonAfter, ...inputProps } = props;
                     if ('max' in inputProps) {
                         rules.push({ max: inputProps.max, min: 0, message: '最多能够输入' + inputProps.max + '个汉字或字符' });
                     }
@@ -231,9 +231,10 @@ export const NCFormItem = (props) => {
                         <Form.Item {...formItemProps} {...(field ? validateStatus[field] : null)} className={"ps_r mb_l" + (className ? ' ' + className : '')}>
                             {
                                 typeof children === 'function'
-                                    ? children(newInputProps)
+                                    ? children(newInputProps, form.data)
                                     : React.cloneElement(React.Children.only(children), newInputProps)
                             }
+                            {addonAfter}
                             {
                                 inputProps.max
                                     ? (

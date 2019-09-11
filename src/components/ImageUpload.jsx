@@ -70,7 +70,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
     }
 
     componentDidUpdate(prevProps) {
-        if (!this.props.value && !this.state.fileList.length) {
+        if ((!this.props.value && !this.state.fileList.length) || this.state.isUpdating) {
             return;
         }
         let value = Array.isArray(this.props.value)
@@ -78,6 +78,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
             : this.props.value
                 ? [this.props.value]
                 : [];
+
         if (!util.equals(value, this.state.fileList.map((file) => file.src))) {
             this.setState({
                 fileList: this.valueToFileList(value)
@@ -124,6 +125,15 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         const { max } = this.props;
         const fileList = info.fileList.slice(0, max);
 
+        const origFileList = this.state.fileList;
+
+        this.setState(() => {
+            return {
+                isUpdating: true,
+                fileList: info.fileList
+            };
+        });
+
         if (info.file.status === 'done') {
             const { processResp } = this.props;
 
@@ -157,7 +167,10 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         }
 
         if (fileList.every((file) => file.status && file.status != 'uploading')) {
-            this.updateFileList(fileList, () => {
+            this.setState({
+                fileList,
+                isUpdating: true
+            }, () => {
                 if (this.props.onChange) {
                     const doneFiles = fileList.filter((file) => file.status === 'done');
                     if (this.props.max === 1) {
@@ -170,9 +183,12 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
                         this.props.onChange(doneFiles.map(file => file.src), doneFiles.map(file => file.name));
                     }
                 }
+                this.setState({
+                    isUpdating: false
+                });
             });
         } else if (info.file.status === undefined) {
-            this.updateFileList(this.state.fileList);
+            this.updateFileList(origFileList);
         }
     }
 
@@ -299,12 +315,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
                 >
                     <Upload
                         {...props}
-                        {...Object.assign(
-                            {
-                                defaultFileList: this.state.fileList
-                            },
-                            this.state.isUpdating ? { fileList: this.state.fileList } : null
-                        )}
+                        fileList={this.state.fileList}
                         withCredentials={props.withCredentials !== false}
                         headers={{ 'X-Requested-With': null }}
                         name={props.field || 'image'}

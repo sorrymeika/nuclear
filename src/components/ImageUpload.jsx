@@ -91,9 +91,10 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
             fileList,
             isUpdating: true
         }, () => {
+            cb();
             this.setState({
                 isUpdating: false
-            }, cb);
+            });
         });
     }
 

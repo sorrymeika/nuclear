@@ -38,6 +38,7 @@ export default wrapFormItem(class CheckBoxList extends Component {
 
         return (
             <Checkbox.Group
+                disabled={disabled}
                 value={value ? Array.isArray(value) ? value : [value] : undefined}
                 onChange={onChange}
                 options={dataSource ? dataSource.map(function (item) {

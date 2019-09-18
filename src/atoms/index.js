@@ -1,5 +1,6 @@
 import './autocomplete';
 import './button';
+import './radio';
 import './checkbox';
 import './div';
 import './form';

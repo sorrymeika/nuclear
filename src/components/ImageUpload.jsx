@@ -91,7 +91,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
             fileList,
             isUpdating: true
         }, () => {
-            cb();
+            cb && cb();
             this.setState({
                 isUpdating: false
             });
@@ -293,7 +293,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
     }
 
     render() {
-        var props = this.props;
+        const props = this.props;
         const { action } = props;
 
         return (

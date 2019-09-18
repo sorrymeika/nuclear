@@ -1,3 +1,5 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { -webkit-user-select: text; -webkit-touch-callout: none; -moz-user-select: text; user-select: text; }
+
 .bd_r:after, .bd_b:after, .bd_t:after, .bd_l:after { content: none; }
 .bd_r { border-right: 1px solid #ddd; }
 .bd_b { border-bottom: 1px solid #ddd; }
@@ -50,3 +52,5 @@ body { color: rgba(0, 0, 0, 0.65); font-size: 14px; font-family: -apple-system, 
 .nc-ant-upload-image:hover .nc-ant-upload-image-operation { width: 100%; height: 100%; z-index: 100; }
 
 .bf-container { border: 1px solid #d9d9d9; border-radius: 4px; }
+
+.ant-input-group-addon { line-height: 18px; }

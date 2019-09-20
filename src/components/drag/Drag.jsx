@@ -45,8 +45,10 @@ export default class Drag extends Component {
         const x = e.pageX + offsetX;
         const y = e.pageY + offsetY;
 
-        this.x = e.pageX;
-        this.y = e.pageY;
+        this.trace = [{
+            x: e.pageX,
+            y: e.pageY
+        }];
 
         this.mover.style.webkitTransform = `translate3d(${x}px,${y}px,0)`;
 
@@ -86,8 +88,13 @@ export default class Drag extends Component {
                 const x = e.pageX + this.offsetX;
                 const y = e.pageY + this.offsetY;
 
-                this.x = e.pageX;
-                this.y = e.pageY;
+                this.trace.push({
+                    x: e.pageX,
+                    y: e.pageY
+                });
+                if (this.trace.length > 40) {
+                    this.trace = this.trace.slice(-10);
+                }
 
                 this.mover.style.display = 'block';
                 this.mover.style.webkitTransform = `translate3d(${x}px,${y}px,0)`;
@@ -161,7 +168,18 @@ export default class Drag extends Component {
                 subscribe: this.subscribe,
                 getCurrent: this.getCurrent,
                 getDirection: () => {
-                    return Math.abs(this.x - this.mouseStartX) > Math.abs(this.y - this.mouseStartY) ? 'x' : 'y';
+                    let trace = this.trace.length > 10 ? this.trace.slice(-10) : this.trace;
+                    const {
+                        x: startX,
+                        y: startY
+                    } = trace[0];
+
+                    const {
+                        x,
+                        y
+                    } = trace[trace.length - 1];
+
+                    return Math.abs(startX - x) > Math.abs(startY - y) ? 'x' : 'y';
                 },
                 setDndState: this.setDndState
             }}>

@@ -324,20 +324,6 @@ module.exports = function (webpackEnv) {
           include: paths.appSrc,
         },
         {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          include: paths.appSrc,
-          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
-          options: {
-            modules: {
-              nuclear: 'window.Nuclear',
-              antd: 'window.Nuclear.antd',
-              moment: 'window.Nuclear.moment',
-              // 'your-module': 'window.YourModlue',
-            },
-            excludes: ['src/index.dev.js']
-          },
-        },
-        {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
           // back to the "file" loader at the end of the loader list.
@@ -390,6 +376,7 @@ module.exports = function (webpackEnv) {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: [
                 path.resolve(paths.appPath, '../snowball'),
+                path.resolve(paths.appPath, '../sn-cornerstone'),
                 path.resolve(paths.appPath, '../nuclear')
               ],
               loader: require.resolve('babel-loader'),
@@ -522,6 +509,20 @@ module.exports = function (webpackEnv) {
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],
+        },
+        {
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
+          include: paths.appSrc,
+          exclude: [path.resolve(paths.appSrc, 'index.dev.js')],
+          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
+          options: {
+            modules: {
+              nuclear: 'window.Nuclear',
+              antd: 'window.Nuclear.antd',
+              moment: 'window.Nuclear.moment',
+              'sn-cornerstone': 'window.Cornerstone',
+            }
+          },
         },
       ],
     },

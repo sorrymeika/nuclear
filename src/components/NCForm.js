@@ -16,15 +16,12 @@ export class NCForm extends Component {
             this._controlled = true;
             this._changedFields = {};
             this._model = new Model(props.data || {});
-            this.shouldComponentUpdate = (nextProps) => {
-                if (nextProps.data !== this.props.data) {
-                    this._model.set(true, nextProps.data || {});
+            this.componentDidUpdate = (prevProps) => {
+                if (prevProps.data !== this.props.data) {
+                    this._model.set(true, this.props.data || {});
                 }
-                return true;
-            };
-            this.componentDidUpdate = () => {
                 if (Object.keys(this._changedFields).length) {
-                    this.validateFields(this._changedFields);
+                    this.validateFields(this._changedFields, () => { });
                     this._changedFields = {};
                 }
             };

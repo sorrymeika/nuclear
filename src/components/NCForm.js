@@ -16,6 +16,12 @@ export class NCForm extends Component {
             this._controlled = true;
             this._changedFields = {};
             this._model = new Model(props.data || {});
+            this.shouldComponentUpdate = (nextProps) => {
+                if (nextProps.data !== this.props.data) {
+                    this._model.set(true, nextProps.data || {});
+                }
+                return true;
+            };
             this.componentDidUpdate = (prevProps) => {
                 if (prevProps.data !== this.props.data) {
                     this._model.set(true, this.props.data || {});

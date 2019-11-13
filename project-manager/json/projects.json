@@ -1,9 +1,5 @@
 [
     {
-        "name": "kbl",
-        "path": "../kbl"
-    },
-    {
         "name": "sn-admin",
         "path": "../sn-admin"
     }

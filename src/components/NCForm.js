@@ -124,6 +124,11 @@ export class NCForm extends Component {
         return this;
     }
 
+    resetValidator() {
+        this._validateStatus = {};
+        this.forceUpdate();
+    }
+
     _handleSubmit = (e) => {
         e.preventDefault();
         this.submit();

@@ -150,9 +150,8 @@ export class NCForm extends Component {
                     this._validateStatus[fieldName] = status;
                 },
                 setField: (field, value) => {
-                    if (!this._controlled) {
-                        this._model.set(field, value);
-                    } else {
+                    this._model.set(field, value);
+                    if (this._controlled) {
                         this._changedFields[field] = value;
                     }
                     onFieldsChange && onFieldsChange(util.set({}, field, value));

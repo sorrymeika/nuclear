@@ -23,7 +23,9 @@ const createUploadFn = ({ uploadUrl, processResp }) => (param) => {
     const successFn = (response) => {
         if (processResp) {
             try {
-                param.success(processResp(xhr.responseText));
+                param.success({
+                    url: processResp(xhr.responseText)
+                });
             } catch (error) {
                 param.error({
                     msg: error.message
@@ -130,6 +132,22 @@ const createValidateFn = ({ imageRectRange, imageMaxSize = 100 }) => (file) => {
         : true;
 };
 
+type NCRichTextProps = {
+    // 返回图片地址
+    processResp?: (responseText) => string,
+    // 图片最大KB数
+    imageMaxSize?: number,
+    imageRectRange?: {
+        minWidth: number,
+        maxWidth: number,
+        minHeight: number,
+        maxHeight: number,
+        width: number,
+        height: number,
+        isSquare: number
+    }
+}
+
 export default function NCRichText({
     uploadUrl,
     imageMaxSize,
@@ -137,7 +155,7 @@ export default function NCRichText({
     processResp,
     media,
     ...props
-}) {
+}: NCRichTextProps) {
     const defaultMedia = {
         uploadFn: createUploadFn({ uploadUrl, processResp }),
         validateFn: createValidateFn({ imageMaxSize, imageRectRange }),

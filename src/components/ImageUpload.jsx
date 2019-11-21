@@ -249,7 +249,7 @@ export default class ImageUpload extends Component<ImageUploadProps, ImageUpload
         } = props;
 
         if (!fileTypes.includes(file.type)) {
-            message.error('请上传格式为jpg,png的图片');
+            message.error('请上传格式为' + fileTypes.map(type => type.replace(/^image\//, '')).join('、') + '的图片');
             return false;
         }
 

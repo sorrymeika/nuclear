@@ -16,6 +16,10 @@ export default function wrapFormItem(Input, options = {}) {
             <FormContext.Consumer>
                 {
                     (form) => {
+                        if (typeof options.extendProps === 'function') {
+                            Object.assign(props, options.extendProps(props));
+                        }
+
                         const { field, help, labelLineBreak, labelVisibility, label, labelSpan = 7, rules = [], ...inputProps } = props;
                         if (!form) {
                             return <Input {...inputProps} context={context} />;

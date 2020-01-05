@@ -179,8 +179,12 @@ class PageController {
 
     _getProjectPath(projectName) {
         const project = projects.find((proj) => proj.name === projectName);
-        const projectPath = path.join(process.cwd(), project.path);
-        return projectPath;
+        if (project) {
+            const projectPath = path.join(process.cwd(), project.path);
+            return projectPath;
+        } else {
+            return '';
+        }
     }
 
     _checkGenDir(genDir) {

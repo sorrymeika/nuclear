@@ -1,4 +1,4 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import ProjectService from "../../../domain/services/ProjectService";
 import PageService from "../../../domain/services/PageService";
 import AtomService from "../../../domain/services/AtomService";
@@ -16,12 +16,12 @@ class DecorationHandler {
 
 @controller(Window)
 class WindowController {
-    @injectable projectService;
-    @injectable pageService;
-    @injectable fileQuickSearchService;
-    @injectable atomService;
-    @injectable windowService: WindowService;
-    @injectable decorationHandler;
+    projectService;
+    pageService;
+    fileQuickSearchService;
+    atomService;
+    windowService: WindowService;
+    decorationHandler;
 
     constructor() {
         this.projectService = new ProjectService();
@@ -32,28 +32,24 @@ class WindowController {
         this.decorationHandler = new DecorationHandler();
     }
 
-    @injectable get atomGroups() {
+    get atomGroups() {
         return this.windowService.atomGroups;
     }
 
-    @injectable get currentTab() {
+    get currentTab() {
         return this.windowService.currentTab;
     }
 
-    @injectable get currentPage() {
+    get currentPage() {
         return this.windowService.currentPage;
     }
 
-    @injectable get currentAtom() {
+    get currentAtom() {
         return this.windowService.currentAtom;
     }
 
     onInit() {
         this.windowService.init();
-    }
-
-    onDestroy() {
-        this.windowService.dispose();
     }
 }
 

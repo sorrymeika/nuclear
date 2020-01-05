@@ -507,6 +507,16 @@ module.exports = function (webpackEnv) {
             // Make sure to add the new loader(s) before the "file" loader.
           ],
         },
+        {
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
+          include: paths.appSrc,
+          exclude: [path.resolve(paths.appSrc, 'index.dev.js')],
+          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
+          options: {
+            modules: {
+            }
+          },
+        },
       ],
     },
     plugins: [

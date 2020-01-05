@@ -5,7 +5,7 @@ import { inject } from "snowball/app";
 import { $ } from "snowball/utils";
 
 export function QuickSearch({ visible, dataSource, onBlur, onSelect }) {
-    const [value, setValue] = useState();
+    const [value, setValue] = useState(0);
 
     return visible
         ? (
@@ -30,9 +30,9 @@ export function QuickSearch({ visible, dataSource, onBlur, onSelect }) {
         : null;
 }
 
-export const FileQuickSearch = inject(({ fileQuickSearchSearvice }) => ({
-    visible: fileQuickSearchSearvice.visible,
-    dataSource: fileQuickSearchSearvice.dataSource,
-    onBlur: fileQuickSearchSearvice.onBlur,
-    onSelect: fileQuickSearchSearvice.onSelect,
+export const FileQuickSearch = inject(({ fileQuickSearchService }) => ({
+    visible: fileQuickSearchService.visible,
+    dataSource: fileQuickSearchService.dataSource,
+    onBlur: fileQuickSearchService.onBlur,
+    onSelect: fileQuickSearchService.onSelect,
 }))(QuickSearch);

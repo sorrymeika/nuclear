@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { observable, autorun } from "snowball";
+import { observable } from "snowball";
 import { isNumber } from "snowball/utils";
 
 import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../shared/atomUtils";
@@ -9,6 +9,8 @@ import PageService from "../../../domain/services/PageService";
 import AtomService from "../../../domain/services/AtomService";
 
 import StorageService from "./StorageService";
+import { autowired } from "snowball/app";
+import FileQuickSearchService from "./FileQuickSearchService";
 
 class PageState {
     name: string;
@@ -53,17 +55,23 @@ class WindowService {
     @observable isCSSDialogVisible = false;
     @observable isJSDialogVisible = false;
 
-    constructor(storageService: StorageService, projectService: ProjectService, pageService: PageService, atomService: AtomService) {
-        this.storageService = storageService;
-        this.pageService = pageService;
-        this.projectService = projectService;
-        this.atomService = atomService;
-        this.disposers = [];
-    }
+    @autowired
+    storageService: StorageService;
+
+    @autowired
+    projectService: ProjectService;
+
+    @autowired
+    pageService: PageService;
+
+    @autowired
+    atomService: AtomService;
+
+    @autowired
+    fileQuickSearchService: FileQuickSearchService;
 
     async init() {
-        const atomGroups = this.atomService.getGroups();
-        this.atomGroups = atomGroups;
+        this.atomGroups = this.atomService.getGroups();
 
         const windowState = this.storageService.getCurrentWindowState();
         const projects = await this.projectService.getProjects();
@@ -78,9 +86,12 @@ class WindowService {
             await this.pullPage(projectName, pageName);
         }
 
-        this.disposers.push(
-            autorun(() => this._syncIds())
-        );
+        this.ctx.autorun(() => {
+            this.fileQuickSearchService.dataSource = this.projectList.concat(this.pageList)
+                .map((item) => (item.name));
+        });
+
+        this.ctx.autorun(() => this._syncIds());
     }
 
     async pullPages(projectName) {
@@ -236,10 +247,6 @@ class WindowService {
 
         const { projectName, name, atoms, dialogs } = this.currentPage;
         await this.pageService.savePage({ projectName, pageName: name, atoms, dialogs });
-    }
-
-    dispose() {
-        this.disposers.forEach((dispose) => dispose());
     }
 
     _syncIds() {

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { observable } from "snowball";
-import component from "../component";
 import { SettingsBase } from "../SettingsBase";
 
 class TableSettings extends SettingsBase {

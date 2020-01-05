@@ -1,0 +1,1 @@
+export { NewPageController as default } from './NewPageController';

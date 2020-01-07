@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "antd";
 import Schema from 'async-validator';
-import { util } from "snowball";
+import { util, asObservable } from "snowball";
 
 export const FormContext = React.createContext();
 
@@ -44,7 +44,7 @@ export default class extends Component {
                 }
             },
             validateFields: (fields, options, callback) => {
-                const data = this.props.context.handler.asModel().attributes;
+                const data = asObservable(this.props.context.handler).get();
                 if (typeof fields === 'function') {
                     callback = fields;
                     fields = Object.keys(this._rules).reduce((res, key) => {

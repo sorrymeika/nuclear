@@ -1,4 +1,4 @@
-import { observable } from "snowball";
+import { observable, asObservable } from "snowball";
 import { JsonComponent } from "./component";
 
 export class SettingsBase extends JsonComponent {
@@ -16,7 +16,7 @@ export class SettingsBase extends JsonComponent {
 
         const didMount = this.componentDidMount;
         this.componentDidMount = () => {
-            this.asModel().observe('data', (data) => {
+            asObservable(this).observe('data', (data) => {
                 this.props.onChange && this.props.onChange(data);
             });
             didMount && didMount.call(this);

@@ -1,4 +1,4 @@
-import { observable } from "snowball";
+import { observable, asObservable } from "snowball";
 import { inject } from "snowball/app";
 
 import component from "../../../atoms/component";
@@ -113,7 +113,7 @@ class PageSettings {
             this.onProjectChange(this.data.projectName);
         }
 
-        this.asModel().observe('data', (data) => {
+        asObservable(this).observe('data', (data) => {
             this.props.onChange && this.props.onChange(data);
         });
         this.props.formRef.current = this.form;
@@ -134,7 +134,7 @@ class PageSettings {
     }
 
     onDestroy() {
-        this.asModel().destroy();
+        asObservable(this).destroy();
     }
 }
 

@@ -1,15 +1,15 @@
 import { message } from "antd";
 import { observable } from "snowball";
 import { isNumber } from "snowball/utils";
+import { autowired, Service } from "snowball/app";
 
 import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../shared/atomUtils";
 
-import ProjectService from "../../../domain/services/ProjectService";
-import PageService from "../../../domain/services/PageService";
-import AtomService from "../../../domain/services/AtomService";
+import ProjectService from "../../../shared/services/ProjectService";
+import PageService from "../../../shared/services/PageService";
+import AtomService from "../../../shared/services/AtomService";
 
 import StorageService from "./StorageService";
-import { autowired } from "snowball/app";
 import FileQuickSearchService from "./FileQuickSearchService";
 
 class PageState {
@@ -38,7 +38,7 @@ class TabState {
     }
 }
 
-class WindowService {
+class WindowService extends Service {
     @observable projectList;
     @observable pageList;
     @observable atomGroups = [];

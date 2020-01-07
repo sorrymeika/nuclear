@@ -1,7 +1,6 @@
-import { observable } from "snowball";
+import { observable, asObservable } from "snowball";
 import component from "../component";
 import { inputCommonJson } from "../input";
-
 
 @component([{
     type: 'form',
@@ -28,14 +27,14 @@ class ImageUploadSettings {
     }
 
     onInit() {
-        this.asModel().observe('data', (data) => {
+        asObservable(this).observe('data', (data) => {
             this.props.onChange && this.props.onChange(data);
         });
         this.props.formRef.current = this.form;
     }
 
     onDestroy() {
-        this.asModel().destroy();
+        asObservable(this).destroy();
     }
 }
 

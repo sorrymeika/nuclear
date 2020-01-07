@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "antd";
-import { util } from "snowball";
+import { util, isObservableObject, asObservable } from "snowball";
 import { FormContext } from "./form/Form";
 
 export default function wrapFormItem(Input, options = {}) {
@@ -72,8 +72,9 @@ export default function wrapFormItem(Input, options = {}) {
 
                                         if (field) {
                                             const { handler } = context;
-                                            typeof handler.asModel === 'function'
-                                                ? handler.asModel().set(field, value)
+
+                                            isObservableObject(handler)
+                                                ? asObservable(handler).set(field, value)
                                                 : util.set(handler, field, value);
                                         }
                                         inputProps.onChange && inputProps.onChange(value);

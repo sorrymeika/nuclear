@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { isFunction } from "snowball/utils";
 import { observer } from "snowball/app";
 import { createAtom } from "./factories";
+import { isObservableObject, asObservable } from "snowball";
 
 export const JsonComponentContext = React.createContext();
 
@@ -64,9 +65,12 @@ export default function component(componentJson) {
                 super(props);
 
                 this.handler = new Handler(props);
-                this.handler.asModel && this.handler.asModel().on('change', () => {
-                    this.forceUpdate();
-                });
+                if (isObservableObject(this.handler)) {
+                    asObservable(this.handler)
+                        .on('change', () => {
+                            this.forceUpdate();
+                        });
+                }
             }
 
             componentDidMount() {
@@ -78,7 +82,9 @@ export default function component(componentJson) {
             }
 
             componentWillUnmount() {
-                this.handler.asModel && this.handler.asModel().destroy();
+                if (isObservableObject(this.handler)) {
+                    asObservable(this.handler).destroy();
+                }
                 this.handler.onDestroy && this.handler.onDestroy();
             }
 
@@ -106,7 +112,7 @@ class JsonComponent extends Component {
 
         const didMount = this.componentDidMount;
         this.componentDidMount = () => {
-            this.asModel && this.asModel().on('change', () => {
+            isObservableObject(this) && asObservable(this).on('change', () => {
                 this.forceUpdate();
             });
             didMount && didMount.call(this);
@@ -114,7 +120,7 @@ class JsonComponent extends Component {
 
         const willUnmount = this.componentWillUnmount;
         this.componentWillUnmount = () => {
-            this.asModel && this.asModel().destroy();
+            isObservableObject(this) && asObservable(this).destroy();
             willUnmount && willUnmount.call(this);
         };
 

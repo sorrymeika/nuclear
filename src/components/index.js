@@ -8,3 +8,6 @@ export { NCBreadcrumb } from "./NCBreadcrumb";
 export { default as NCTable } from "./NCTable";
 export { default as NCTableViewModel } from "./NCTableViewModel";
 export * from "./Manager";
+export * from "./NCModal";
+export * from "./NCFormModal";
+

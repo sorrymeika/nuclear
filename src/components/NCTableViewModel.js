@@ -1,4 +1,4 @@
-import { observable, EventEmitter } from "snowball";
+import { observable } from "snowball";
 import { Service } from "snowball/app";
 
 type IRequester = {

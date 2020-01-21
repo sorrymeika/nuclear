@@ -7,6 +7,8 @@ import 'moment/locale/zh-cn';
 export * from "./atoms";
 export * from "./components";
 
+export { ViewModelConfiguration } from './configuration';
+
 $(window).on('load resize', () => {
     util.style('antd-hack', `.ant-modal-body { max-height: ${window.innerHeight - 200}px; overflow-y:auto; }`, true);
 });

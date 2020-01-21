@@ -2,11 +2,14 @@ import { Service, ref, emitter } from "snowball/app";
 import { observable } from "snowball";
 
 export default class NCFormViewModel extends Service {
-    @observable data = {};
+    @observable
+    data = {};
+
     @ref ref;
 
     onSubmit = this.ctx.createEmitter();
     onReset = this.ctx.createEmitter();
+    onError = this.ctx.createEmitter();
 
     @emitter
     onFieldsChange(data) {

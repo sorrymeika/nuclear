@@ -1,8 +1,8 @@
 import { Form, Tooltip, Icon } from "antd";
 import React, { Component } from "react";
 import Schema from 'async-validator';
-import { Model, util } from "snowball";
-import { inject, mapViewModelToProps } from "snowball/app";
+import { Model, util, observable } from "snowball";
+import { inject, mapViewModelToProps, Service, ref, emitter } from "snowball/app";
 
 export const FormContext = React.createContext();
 
@@ -285,3 +285,29 @@ export const NCFormItem = (props) => {
         </FormContext.Consumer>
     );
 };
+
+export class NCFormViewModel extends Service {
+    @observable
+    data = {};
+
+    @ref ref;
+
+    onSubmit = this.ctx.createEmitter();
+    onReset = this.ctx.createEmitter();
+    onError = this.ctx.createEmitter();
+
+    @emitter
+    onFieldsChange(data) {
+        this.data.withMutations((formData) => {
+            formData.set(data);
+        });
+    }
+
+    resetValidator() {
+        this.ref.current && this.ref.current.resetValidator();
+    }
+
+    submit() {
+        this.ref.current.submit();
+    }
+}

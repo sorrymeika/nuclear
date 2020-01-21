@@ -95,12 +95,22 @@ export class NCFormModalViewModel extends NCModalViewModel {
         });
     }
 
-    open(data, type = 'open') {
+    open({
+        data,
+        ...options
+    } = {}) {
+        this.setData(data);
+        super.open(options);
+        return this;
+    }
+
+    setData(data) {
         this._formViewModel.data = data;
-        super.open(type);
+        return this;
     }
 
     submit() {
         this._formViewModel.submit();
+        return this;
     }
 }

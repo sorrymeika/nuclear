@@ -15,12 +15,29 @@ export class Manager extends ViewModel {
     @autowired('NCFormModalViewModel', 'manager')
     _modal: NCFormModalViewModel;
 
+    _emitter = this.ctx.createEmitter();
+
+    on = this._emitter.on;
+    emit = this._emitter.emit;
+
     constructor() {
         super();
 
         this._searchForm.onSubmit((params) => {
             this._table.search(params, 1);
         });
+
+        this._table.on(this.handleTableEvent);
+    }
+
+    /**
+     * 处理Table事件，需要子类重写该方法
+     *
+     * @protected
+     * @abstract
+     */
+    handleTableEvent() {
+        throw new Error('must override `handleTableEvent` method!');
     }
 }
 

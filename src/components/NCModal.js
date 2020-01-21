@@ -52,7 +52,11 @@ export class NCModalViewModel extends ViewModel {
     onOk = this.ctx.createAsyncEmitter();
     onCancel = this.ctx.createEmitter();
 
-    open(type = 'open') {
+    open({
+        title,
+        type = 'open'
+    } = {}) {
+        this.title = title;
         this.type = type;
         this._onDidOpen.emit(type);
     }

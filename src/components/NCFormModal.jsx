@@ -17,7 +17,12 @@ export function NCFormModal({
     onCancel,
 
     formRef,
+    formStyle,
     data,
+    onFieldsChange,
+    onReset,
+    onSubmit,
+    onError,
 
     children
 }) {
@@ -30,10 +35,18 @@ export function NCFormModal({
             cancelText={cancelText}
             onCancel={onCancel}
             width={width}
-            style={style}
+            style={{
+                top: 0,
+                ...style
+            }}
         >
             <NCForm
+                onSubmit={onSubmit}
+                onReset={onReset}
+                onError={onError}
+                onFieldsChange={onFieldsChange}
                 data={data}
+                style={formStyle}
                 ref={formRef}
             >{children}</NCForm>
         </Modal>
@@ -48,8 +61,13 @@ NCFormModal.create = ({ name }: { name: string }) => inject((context, props) => 
     return {
         ...formMapper,
         ...modalMapper,
+        okText: modalMapper.okText || props.okText,
+        cancelText: modalMapper.cancelText || props.cancelText,
         onOk() {
             formModalViewModel.submit();
+        },
+        onCancel() {
+            formModalViewModel.close();
         },
         formRef: formMapper.ref,
         ref: props.ref

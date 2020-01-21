@@ -12,7 +12,7 @@ export class Manager extends ViewModel {
     @autowired('NCTableViewModel', 'manager')
     _table: INCTableViewModel;
 
-    @autowired('NCManagerFormModal', 'manager')
+    @autowired('NCFormModalViewModel', 'manager')
     _modal: NCFormModalViewModel;
 
     constructor() {

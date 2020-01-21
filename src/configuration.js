@@ -6,6 +6,6 @@ export const ViewModelConfiguration = configuration({
         NCFormViewModel: NCFormViewModel,
         NCModalViewModel: NCModalViewModel,
         NCTableViewModel: NCTableViewModel,
-        NCFormModalViewModel: NCFormModalViewModel
+        NCFormModalViewModel: NCFormModalViewModel,
     }
 });

@@ -87,7 +87,7 @@ export class NCFormModalViewModel extends NCModalViewModel {
         super();
 
         this._formViewModel.onSubmit((data) => {
-            this.onOk(data);
+            this.onOk(data, this.type);
         });
 
         this.onCancel(() => {

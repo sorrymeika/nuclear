@@ -22,6 +22,9 @@ NCModal.create = ({ name }: { name: string }) =>
         onCancel() {
             newProps.close();
         },
+        onOk() {
+            newProps.onOk(newProps.type);
+        },
         okText: newProps.okText || props.okText,
         cancelText: newProps.cancelText || props.cancelText,
     }))(NCModal);

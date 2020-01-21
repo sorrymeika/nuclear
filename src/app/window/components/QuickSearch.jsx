@@ -30,7 +30,7 @@ export function QuickSearch({ visible, dataSource, onBlur, onSelect }) {
         : null;
 }
 
-export const FileQuickSearch = inject(({ fileQuickSearchService }) => ({
+export const FileQuickSearch = inject(['fileQuickSearchService'], ([fileQuickSearchService]) => ({
     visible: fileQuickSearchService.visible,
     dataSource: fileQuickSearchService.dataSource,
     onBlur: fileQuickSearchService.onBlur,

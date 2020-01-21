@@ -1,9 +1,7 @@
 import { controller, autowired } from "snowball/app";
 import ProjectService from "../../../shared/services/ProjectService";
 import PageService from "../../../shared/services/PageService";
-import AtomService from "../../../shared/services/AtomService";
 import WindowService from "../services/WindowService";
-import FileQuickSearchService from "../services/FileQuickSearchService";
 
 import Window from "../containers/Window";
 import { WindowConfiguration } from "../configuration";
@@ -23,15 +21,7 @@ class WindowController {
     pageService: PageService;
 
     @autowired
-    fileQuickSearchService: FileQuickSearchService;
-
-    @autowired
-    atomService: AtomService;
-
-    @autowired
     windowService: WindowService;
-
-    decorationHandler;
 
     constructor() {
         this.decorationHandler = new DecorationHandler();

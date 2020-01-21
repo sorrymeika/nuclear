@@ -138,7 +138,7 @@ class PageSettings {
     }
 }
 
-const PageSettingsInjc = inject(({ projectService, pageService }) => ({
+const PageSettingsInjc = inject(['projectService', 'pageService'], ([projectService, pageService]) => ({
     requestProjects: projectService.getProjects,
     requestPagesByProject: pageService.getPagesByProject
 }))(PageSettings);

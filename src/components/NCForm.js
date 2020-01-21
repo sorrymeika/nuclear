@@ -2,10 +2,15 @@ import { Form, Tooltip, Icon } from "antd";
 import React, { Component } from "react";
 import Schema from 'async-validator';
 import { Model, util } from "snowball";
+import { inject, mapViewModelToProps } from "snowball/app";
 
 export const FormContext = React.createContext();
 
 export class NCForm extends Component {
+    static create = ({ name }: { name: string }) => {
+        return inject(mapViewModelToProps('NCFormViewModel', { name }))(NCForm);
+    }
+
     constructor(props) {
         super(props);
 
@@ -30,6 +35,11 @@ export class NCForm extends Component {
                     this.validateFields(this._changedFields, () => { });
                     this._changedFields = {};
                 }
+            };
+            this.resetFields = () => {
+                this._validateStatus = {};
+                this.props.onReset && this.props.onReset();
+                return this;
             };
         } else {
             // 非受控组件
@@ -138,6 +148,9 @@ export class NCForm extends Component {
         const { defaultData, onFieldsChange, children, ...props } = this.props;
         this._rules = {};
 
+        delete props.resetValidator;
+        delete props.submit;
+
         return (
             <FormContext.Provider value={{
                 addRules: (fieldName, fieldRules) => {
@@ -160,6 +173,7 @@ export class NCForm extends Component {
             }}>
                 <Form
                     {...props}
+                    onReset={this.resetFields}
                     onSubmit={this._handleSubmit}
                 >
                     {typeof children === 'function' ? children({ data: this._model.attributes, form: this }) : children}

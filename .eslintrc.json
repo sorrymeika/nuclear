@@ -3,6 +3,11 @@
         "react-app",
         "plugin:flowtype/recommended"
     ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "legacyDecorators": true
+        }
+    },
     "rules": {
         "no-unused-vars": "warn",
         "no-restricted-globals": "off",

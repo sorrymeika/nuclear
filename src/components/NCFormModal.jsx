@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import { NCForm } from './NCForm';
 import { inject, mapViewModelToProps, autowired } from 'snowball/app';
 import { NCModalViewModel } from './NCModal';
-import NCFormViewModel from './NCFormViewModel';
+import { NCFormViewModel } from './NCForm';
 
 export function NCFormModal({
     title,

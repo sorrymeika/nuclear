@@ -39,10 +39,17 @@ export class NCTableViewModel extends Service {
 
     _requester: IRequester;
 
-    _emitter = this.ctx.createEmitter();
+    _eventEmitter = this.ctx.createEventEmitter();
 
-    on = this._emitter.on;
-    emit = this._emitter.emit;
+    on = (...args) => {
+        this._eventEmitter.on(...args);
+        return this;
+    }
+
+    emit = (...args) => {
+        this._eventEmitter.emit(...args);
+        return this;
+    }
 
     onEditItem = this.ctx.createEmitter();
     onDeleteItem = this.ctx.createEmitter();

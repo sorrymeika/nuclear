@@ -126,18 +126,22 @@ export default class DropTarget extends Component<{
             const canAppendTo = (dragItem) => {
                 return !!dragItem.target.props.appendable;
             };
+            const maxChildren = (dragItem) => {
+                return dragItem.target.props.maxChildren || 0;
+            };
+            const childrenLength = (itemAtMousePoint && !itemAtMousePoint.children.length) || 0;
 
-            if (itemAtMousePoint && !itemAtMousePoint.children.length && canAppendTo(itemAtMousePoint)) {
+            if (itemAtMousePoint && !childrenLength && canAppendTo(itemAtMousePoint)) {
                 targetPlace = {
                     type: 'append',
                     node: itemAtMousePoint.node,
                     target: itemAtMousePoint.target
                 };
             } else {
-                if (itemAtMousePoint && !itemAtMousePoint.children.length && canInsertBeforeOrInsertAfter(itemAtMousePoint)) {
+                if (itemAtMousePoint && !childrenLength && canInsertBeforeOrInsertAfter(itemAtMousePoint)) {
                     nearest = itemAtMousePoint;
-                } else {
-                    let comparers = itemAtMousePoint && itemAtMousePoint.children.length ? itemAtMousePoint.children : trees;
+                } else if (!itemAtMousePoint || (canAppendTo(itemAtMousePoint) && (maxChildren(itemAtMousePoint) <= 0 || childrenLength < maxChildren(itemAtMousePoint)))) {
+                    let comparers = itemAtMousePoint && childrenLength ? itemAtMousePoint.children : trees;
 
                     eachBranchesItem(comparers, (option) => {
                         if (option.position !== 'fixed' && option.position !== 'absolute') {
@@ -249,7 +253,9 @@ export default class DropTarget extends Component<{
     }
 
     addDragItem = (dest) => {
-        this.items.push(dest);
+        if (!this.items.includes(dest)) {
+            this.items.push(dest);
+        }
     }
 
     removeDragItem = (dest) => {
@@ -303,12 +309,12 @@ function componentsToTrees(components, container) {
 
     components.forEach((item) => {
         const destNode = ReactDOM.findDOMNode(item);
+        if (!destNode.offsetParent) return;
         let draggingNode = destNode;
         while (draggingNode && draggingNode != container && draggingNode != document.body) {
             if (draggingNode.classList.contains('nc-drag-item-dragging')) return;
             draggingNode = draggingNode.parentNode;
         }
-
         items.push({
             node: destNode,
             target: item

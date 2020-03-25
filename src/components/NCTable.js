@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import { observable } from "snowball";
-import { inject, mapViewModelToProps, Service } from 'snowball/app';
+import { inject, mapViewModelToProps, ViewModel } from 'snowball/app';
 
 export function NCTable({ children, ...props }) {
     const columns = children(props);
@@ -21,7 +21,7 @@ type IRequester = {
     load(params: any): Promise<{ total: number, data: any[] }>
 };
 
-export class NCTableViewModel extends Service {
+export class NCTableViewModel extends ViewModel {
     @observable
     dataSource = [];
 

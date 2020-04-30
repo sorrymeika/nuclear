@@ -1,4 +1,4 @@
-import { _getChildren } from "../atoms/factories";
+import { _getChildren } from "./factories";
 
 export function eachAtom(atoms, fn, parent = null, paths = []) {
     for (let i = 0; i < atoms.length; i++) {

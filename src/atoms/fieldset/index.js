@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import FieldSet from "./FieldSet";
 import FieldSetSettings from "./FieldSetSettings";
 

@@ -1,5 +1,5 @@
 import Form from "./Form";
-import { createDecorationItem } from "../createDecorationItem";
+import { createDecorationItem } from "../../atom-core/createDecorationItem";
 
 export default createDecorationItem(Form, {
     appendable: true

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Radio } from "antd";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(class RadioList extends Component {
     render() {

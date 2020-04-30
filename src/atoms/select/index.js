@@ -1,7 +1,7 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Select from "./Select";
 import SelectSettings from "./SelectSettings";
-import { createDecorationItem } from "../createDecorationItem";
+import { createDecorationItem } from "../../atom-core/createDecorationItem";
 
 registerAtom({
     type: 'select',

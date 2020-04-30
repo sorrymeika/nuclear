@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AutoComplete } from "antd";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(class _AutoComplete extends Component {
     render() {

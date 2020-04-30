@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "antd";
 import { util, isObservableObject, asObservable } from "snowball";
-import { FormContext } from "./form/Form";
+import { FormContext } from "./Form";
 
 export default function wrapFormItem(Input, options = {}) {
     let fieldId = 0;

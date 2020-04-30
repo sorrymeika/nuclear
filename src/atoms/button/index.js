@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Button from "./Button";
 import ButtonSettings from "./ButtonSettings";
 

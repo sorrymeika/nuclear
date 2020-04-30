@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(class Label extends Component {
     render() {

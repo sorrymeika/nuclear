@@ -1,6 +1,6 @@
 import { controller, autowired } from "snowball/app";
-import ProjectService from "../../../shared/services/ProjectService";
-import PageService from "../../../shared/services/PageService";
+import ProjectService from "../services/ProjectService";
+import PageService from "../services/PageService";
 import WindowService from "../services/WindowService";
 
 import Window from "../containers/Window";

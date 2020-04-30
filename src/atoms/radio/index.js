@@ -1,7 +1,7 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import RadioList from "./RadioList";
 import RadioListSettings from "./RadioListSettings";
-import { createDecorationItem } from "../createDecorationItem";
+import { createDecorationItem } from "../../atom-core/createDecorationItem";
 
 registerAtom({
     type: 'radiolist',

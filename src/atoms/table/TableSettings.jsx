@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SettingsBase } from "../SettingsBase";
+import { SettingsBase } from "../../atom-core/SettingsBase";
 
 class TableSettings extends SettingsBase {
     boolOptions = ['true', 'false'];

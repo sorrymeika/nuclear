@@ -3,7 +3,7 @@ import "../sass/window.scss";
 import React, { Component } from "react";
 
 import { Drag } from "../../../components/drag";
-import { createSettings } from '../../../atoms/factories';
+import { createSettings } from '../../../atom-core/factories';
 
 import { AtomBox } from "../components/AtomBox";
 import { Main } from "../components/Main";

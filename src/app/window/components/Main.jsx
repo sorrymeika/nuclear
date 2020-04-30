@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject } from 'snowball/app';
 import { DropTarget } from '../../../components/drag';
-import { renderDecoration } from '../../../shared/decorationUtils';
+import { renderDecoration } from '../../../atom-core/decorationUtils';
 
 const Main = ({ toolbar, currentTab, decorationHandler }) => {
     const currentAtoms = (currentTab && currentTab.atoms) || [];

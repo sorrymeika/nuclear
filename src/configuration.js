@@ -1,7 +1,7 @@
 import { configuration } from "snowball/app";
 import { NCFormViewModel, NCModalViewModel, NCTableViewModel, NCFormModalViewModel } from "./components";
 
-export const ViewModelConfiguration = configuration({
+export const NuclearConfiguration = configuration({
     modules: {
         NCFormViewModel: NCFormViewModel,
         NCModalViewModel: NCModalViewModel,

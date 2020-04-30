@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Label from "./Label";
 import LabelSettings from "./LabelSettings";
 

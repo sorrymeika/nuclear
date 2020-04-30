@@ -1,8 +1,8 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import CheckBoxList from "./CheckBoxList";
 import CheckBox from "./CheckBox";
 import SelectSettings from "./CheckBoxListSettings";
-import { createDecorationItem } from "../createDecorationItem";
+import { createDecorationItem } from "../../atom-core/createDecorationItem";
 
 registerAtom({
     type: 'checkboxlist',

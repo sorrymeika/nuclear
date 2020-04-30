@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import List from "./List";
 import ListSettings from "./ListSettings";
 import ListDecoration from "./ListDecoration";

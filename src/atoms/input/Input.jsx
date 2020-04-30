@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(Input, {
     showNumber: true

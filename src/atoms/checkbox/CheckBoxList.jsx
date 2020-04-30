@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Select, Checkbox } from "antd";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(class CheckBoxList extends Component {
     render() {

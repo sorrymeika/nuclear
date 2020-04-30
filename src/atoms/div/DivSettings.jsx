@@ -1,4 +1,4 @@
-import { SettingsBase } from "../SettingsBase";
+import { SettingsBase } from "../../atom-core/SettingsBase";
 
 class DivSettings extends SettingsBase {
     renderJson() {

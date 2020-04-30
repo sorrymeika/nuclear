@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Input from "./Input";
 import InputSettings from "./InputSettings";
 import InputDecoration from "./InputDecoration";

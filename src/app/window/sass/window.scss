@@ -36,7 +36,7 @@
 .nc-window-atom-box { width: 165px; border-right: 1px solid #ddd; }
 .nc-window-atom-box-hd { font-size: 16px; padding: 5px 8px; border-bottom: 1px solid #ddd; background: #fafafa; }
 .nc-window-atom-box-group-item { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
-.nc-window-atom-box-item { border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
+.nc-window-atom-box-item { -webkit-touch-callout: none; user-select: none; border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
 .nc-dnd-preview .nc-window-atom-box-item { margin: 0; }
 
 .nc-window-toolbar { position: absolute; height: 35px; right: 0; left: 0; top: 0; background: #ddd; overflow: hidden; z-index: 1000; }
@@ -57,6 +57,7 @@
 .nc-window-main .nc-root { padding-bottom: 20px; }
 
 .nc-window-atom { min-height: 26px; min-width: 30px; }
+.nc-window-main .nc-window-atom { -webkit-touch-callout: none; user-select: none; }
 .nc-window-atom-current { border: 1px solid #333 !important; }
 
 .nc-window-atom-form { background: #fff; min-height: 60px; margin: 10px 0px; padding-bottom: 15px; border: 1px dashed #ccc; }

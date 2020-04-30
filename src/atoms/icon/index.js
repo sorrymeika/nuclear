@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Icon from "./Icon";
 import IconSettings from "./IconSettings";
 

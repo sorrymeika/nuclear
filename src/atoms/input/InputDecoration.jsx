@@ -1,4 +1,4 @@
 import Input from "./Input";
-import { createDecorationItem } from "../createDecorationItem";
+import { createDecorationItem } from "../../atom-core/createDecorationItem";
 
 export default createDecorationItem(Input);

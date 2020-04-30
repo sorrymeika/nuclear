@@ -1,5 +1,5 @@
 import { inputCommonJson } from "../input";
-import { SettingsBase } from "../SettingsBase";
+import { SettingsBase } from "../../atom-core/SettingsBase";
 
 class CheckBoxListSettings extends SettingsBase {
     renderJson() {

@@ -1,13 +1,13 @@
 import { message } from "antd";
-import { observable } from "snowball";
+import { observable, asObservable, List } from "snowball";
 import { isNumber } from "snowball/utils";
 import { autowired, Service } from "snowball/app";
 
-import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../shared/atomUtils";
+import { eachAtom, getPaths, computeIsInForm, findAtom } from "../../../atom-core/atomUtils";
 
-import ProjectService from "../../../shared/services/ProjectService";
-import PageService from "../../../shared/services/PageService";
-import AtomService from "../../../shared/services/AtomService";
+import ProjectService from "./ProjectService";
+import PageService from "./PageService";
+import AtomService from "./AtomService";
 
 import StorageService from "./StorageService";
 import FileQuickSearchService from "./FileQuickSearchService";
@@ -17,7 +17,9 @@ class PageState {
     projectName: string;
     route: string;
     @observable dialogs: any[];
-    @observable atoms: any[];
+
+    @observable
+    atoms: any[];
 
     constructor({ name, route, projectName, dialogs, atoms }) {
         this.name = name;
@@ -30,7 +32,9 @@ class PageState {
 
 class TabState {
     @observable id: string | number;
-    @observable atoms: any[];
+
+    @observable
+    atoms: any[];
 
     constructor({ id, atoms }) {
         this.id = id || 'main';
@@ -164,28 +168,24 @@ class WindowService extends Service {
         };
 
         if (!targetData) {
-            atoms.withMutations((atomCollection) => {
-                atomCollection.add(newAtom);
-            });
+            asObservable(atoms).add(newAtom);
         } else {
             let targetAtom;
             eachAtom(atoms, (atom, i, parentChildren) => {
                 if (atom.id == targetData.id) {
                     targetAtom = atom;
                     if (additionType === 'before') {
-                        parentChildren.withMutations((children) => {
-                            children.insert(i, newAtom);
-                        });
+                        asObservable(parentChildren).insert(i, newAtom);
                     } else if (additionType === 'after') {
-                        parentChildren.withMutations((children) => {
-                            children.insert(i + 1, newAtom);
-                        });
+                        asObservable(parentChildren).insert(i + 1, newAtom);
                     } else {
-                        targetAtom.withMutations((targetAtomModel) => {
-                            targetAtomModel
-                                .collection('children')
-                                .add(newAtom);
-                        });
+                        const targetAtomDict = asObservable(targetAtom);
+                        let children = targetAtomDict.at('children');
+                        if (!children) {
+                            children = new List();
+                            targetAtomDict.set('children', children);
+                        }
+                        children.add(newAtom);
                     }
                     return false;
                 }

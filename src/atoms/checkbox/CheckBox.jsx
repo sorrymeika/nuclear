@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox } from "antd";
-import wrapFormItem from "../wrapFormItem";
+import wrapFormItem from "../form/wrapFormItem";
 
 export default wrapFormItem(({ value, onChange, ...props }) => (
     <Checkbox

@@ -1,7 +1,7 @@
 import { observable, asObservable } from "snowball";
 import { inject } from "snowball/app";
 
-import component from "../../../atoms/component";
+import component from "../../../atom-core/component";
 
 const Json = [{
     type: 'form',

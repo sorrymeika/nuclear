@@ -1,4 +1,4 @@
-import { SettingsBase } from "../SettingsBase";
+import { SettingsBase } from "../../atom-core/SettingsBase";
 
 class LabelSettings extends SettingsBase {
     renderJson() {

@@ -1,4 +1,4 @@
-import { registerAtom } from "../factories";
+import { registerAtom } from "../../atom-core/factories";
 import Form from "./Form";
 import FormSettings from "./FormSettings";
 import FormDecoration from "./FormDecoration";

@@ -1,5 +1,5 @@
 
-import { createDecoration } from "../atoms/factories";
+import { createDecoration } from "./factories";
 
 export function jsonToDecoration(json, handler, paths, transitiveProps) {
     const { type, id, key, children, props, ...extProps } = json;

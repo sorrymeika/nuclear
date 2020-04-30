@@ -1,4 +1,4 @@
-import { _getAtomsForDecoration } from "../../atoms/factories";
+import { _getAtomsForDecoration } from "../../../atom-core/factories";
 import { groupBy } from "snowball/utils";
 
 export default class AtomService {

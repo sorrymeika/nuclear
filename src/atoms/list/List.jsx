@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { renderJson } from '../component';
-import getProps from '../../shared/getProps';
+import { renderJson } from '../../atom-core/component';
+import getProps from '../../atom-core/getProps';
 
 export default class List extends Component {
     render() {

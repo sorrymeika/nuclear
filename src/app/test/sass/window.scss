@@ -1,0 +1,25 @@
+.nc-root {
+    box-sizing: border-box;
+    div, button { box-sizing: border-box; }
+}
+
+/* 装修窗口 */
+.nc-window {
+    width: 100vw; height: 100vh; display: flex; align-items: stretch; box-sizing: border-box;
+    div, button { box-sizing: border-box; }
+}
+
+/* 装修窗口 - 侧栏 */
+.nc-window-sidebar { width: 165px; border-right: 1px solid #ddd; }
+
+/* 装修窗口 - 侧栏组件列表 */
+.nc-window-component-list { height: 100%; overflow-y: auto; }
+.nc-window-component-list-hd { font-size: 16px; padding: 5px 8px; border-bottom: 1px solid #ddd; background: #fafafa; }
+.nc-window-component-list-group-item { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+.nc-window-component-list-item { -webkit-touch-callout: none; user-select: none; border: 1px solid #ddd; font-size: 14px; padding: 4px 8px; border-radius: 8px; margin: 8px 0 0 8px; background: #fff; cursor: move }
+
+.nc-window-component { min-height: 26px; min-width: 30px; }
+
+/* 装修窗口 - 主窗口 */
+.nc-window-main{ background: #e6e7eb; position: relative; flex: 1; }
+.nc-window-main .nc-root { padding-bottom: 20px; }
